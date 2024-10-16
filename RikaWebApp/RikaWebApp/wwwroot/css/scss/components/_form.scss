@@ -1,0 +1,42 @@
+﻿form {
+    width: 100%;
+    display: grid;
+    gap: 1rem;
+   
+    
+    .input-group {
+        display: grid;
+    }
+     
+    label {
+        margin-bottom: 0.188rem;
+        font-weight: 700;
+    }
+
+    input {
+        padding: 1rem;
+        border-radius: 0.1rem !important;
+        border: 0.063rem solid var(--color-gray-dark);
+
+        &::placeholder {
+            opacity: 0.4;
+        }
+    
+        &:focus {
+            outline: none;
+            border: 0.063rem solid var(--color-gray-dark);
+        }
+    }
+
+    textarea {
+        padding: 1rem;
+        border-radius: 0.1rem !important;
+        border: 0.063rem solid var(--color-gray-dark);
+        resize: none;
+
+        &::placeholder {
+            opacity: 0.4;
+        }
+    }
+
+}

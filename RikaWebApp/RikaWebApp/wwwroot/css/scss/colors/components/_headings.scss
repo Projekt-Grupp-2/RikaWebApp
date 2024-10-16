@@ -1,0 +1,102 @@
+h1 {
+    color: var(--color-dark);
+}
+
+h2 {
+    color: var(--color-primary);
+}
+
+h3 {
+    color: var(--color-secondary);
+}
+
+h4 {
+    color: var(--color-primary);
+}
+
+h5 {
+    color: var(--color-primary);
+}
+
+h6 {
+    color: var(--color-secondary);
+}
+
+@include heading-colors(
+    --color-dark,
+    --color-primary,
+    --color-secondary,
+    --color-primary,
+    --color-dark,
+    --color-secondary
+
+);
+
+@include theme-headings(
+    'dark',
+    --color-primary,
+    --color-primary,
+    --color-secondary,
+    --color-primary,
+    --color-primary,
+    --color-secondary
+
+);
+
+@include theme-headings(
+    'primary',
+    --color-dark,
+    --color-light,
+    --color-secondary,
+    --color-light,
+    --color-light,
+    --color-secondary
+
+);
+
+@include theme-headings(
+    'secondary',
+    --color-dark,
+    --color-primary,
+    --color-accent,
+    --color-primary,
+    --color-dark,
+    --color-accent
+
+);
+
+@include theme-headings(
+    'accent',
+    --color-dark,
+    --color-primary,
+    --color-secondary,
+    --color-primary,
+    --color-dark,
+    --color-secondary
+
+);
+
+@include theme-headings(
+    'gray',
+    --color-dark,
+    --color-primary,
+    --color-secondary,
+    --color-primary,
+    --color-dark,
+    --color-secondary
+
+);
+
+@include theme-headings(
+    'light',
+    --color-dark,
+    --color-primary,
+    --color-secondary,
+    --color-primary,
+    --color-dark,
+    --color-secondary
+
+);
+
+
+

@@ -1,0 +1,7 @@
+@include link-colors(--color-secondary, --color-primary);
+@include theme-links('dark', --color-light, --color-accent);
+@include theme-links('primary', --color-light, --color-secondary);
+@include theme-links('secondary', --color-light, --color-primary);
+@include theme-links('accent', --color-secondary, --color-primary);
+@include theme-links('gray', --color-secondary, --color-primary);
+@include theme-links('light', --color-dark, --color-secondary);

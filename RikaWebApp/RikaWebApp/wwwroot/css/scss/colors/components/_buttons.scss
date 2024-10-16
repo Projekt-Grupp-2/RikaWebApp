@@ -1,0 +1,84 @@
+
+.btn-dark {
+    @include button-colors(--color-dark, --color-light, --color-primary, --color-dark);
+}
+
+.btn-primary {
+    @include button-colors(--color-primary, --color-dark, --color-accent, --color-dark, --color-border-gray);
+}
+
+.btn-transparent {
+    @include button-colors(--color-transparent, --color-primary-dark, --color-accent, --color-dark, --color-gray);
+}
+
+.btn-accent {
+    @include button-colors(--color-accent, --color-dark, --color-light, --color-secondary);
+}
+
+.btn-gray {
+    @include button-colors(--color-gray, --color-dark, --color-primary-dark, --color-primary);
+}
+
+.btn-light {
+    @include button-colors(--color-light, --color-dark, --color-gray, --color-default, --color-gray, --color-gray);
+}
+
+.btn-menu {
+    @include button-colors(--color-dark, --color-light, --color-accent, --color-primary-dark);
+}
+
+@include theme-buttons(
+    'dark',
+    (--color-dark, --color-light, --color-accent, --color-dark, --color-light, --color-light),
+    (--color-primary, --color-dark, --color-accent, --color-dark, --color-border-gray),
+    (--color-transparent, --color-light, --color-accent, --color-primary-dark, --color-light),
+    (--color-accent, --color-dark, --color-dark, --color-secondary, --color-light, --color-border-secondary),
+    (--color-gray, --color-dark, --color-primary, --color-secondary, --color-dark),
+    (--color-light, --color-dark, --color-primary, --color-dark, --color-dark, --color-border-secondary),
+    (--color-dark, --color-light, --color-primary, --color-dark, --color-light) 
+);
+
+@include theme-buttons(
+    'primary',
+    (--color-dark, --color-light, --color-accent, --color-dark, --color-border-dark),
+    (--color-light, --color-dark, --color-accent, --color-primary, --color-border-gray),
+    (--color-transparent, --color-light, --color-accent, --color-primary-dark, --color-light),
+    (--color-accent, --color-dark, --color-light, --color-secondary, --color-border-accent),
+    (--color-gray, --color-dark, --color-accent, --color-primary, --color-border-gray),
+    (--color-light, --color-dark, --color-accent, --color-primary, --color-border-light),
+    (--color-dark, --color-light, --color-accent, --color-primary-dark, --color-accent, --color-dark) 
+);
+
+@include theme-buttons(
+    'accent',
+    (--color-accent, --color-dark, --color-light, --color-secondary, --color-border-accent),
+    (--color-primary, --color-dark, --color-light, --color-secondary, --color-border-primary),
+    (--color-transparent, --color-default, --color-primary-dark, --color-secondary, --color-dark),
+    (--color-primary, --color-dark, --color-primary, --color-primary, --color-border-gray),
+    (--color-light, --color-dark, --color-primary, --color-dark, --color-border-light),
+    (--color-light, --color-dark, --color-light, --color-primary-dark),
+    (--color-dark, --color-light, --color-accent, --color-primary-dark, --color-accent, --color-dark) 
+);
+
+@include theme-buttons(
+    'gray',
+    (--color-dark, --color-light, --color-primary, --color-dark),
+    (--color-light, --color-dark, --color-primary, --color-primary-dark, --color-border-light),
+    (--color-transparent, --color-default, --color-primary-dark, --color-secondary, --color-dark),
+    (--color-accent, --color-dark, --color-light, --color-secondary, --color-border-accent),
+    (--color-primary, --color-dark, --color-accent, --color-primary-dark, --color-border-primary),
+    (--color-primary, --color-dark, --color-accent, --color-dark, --color-light, --color-dark), 
+    (--color-dark, --color-light, --color-accent, --color-primary-dark) 
+);
+
+@include theme-buttons(
+    'light',
+    (--color-dark, --color-light, --color-primary, --color-dark),
+    (--color-primary, --color-dark, --color-accent, --color-dark, --color-border-gray),
+    (--color-transparent, --color-primary-dark, --color-accent, --color-dark, --color-gray),
+    (--color-accent, --color-dark, --color-light, --color-primary, --color-border-accent, --color-border-primary),
+    (--color-primary, --color-dark, --color-light, --color-primary-dark, --color-border-primary, --color-primary-dark),
+    (--color-light, --color-dark, --color-accent, --color-dark, --color-primary, --color-dark), 
+    (--color-dark, --color-light, --color-accent, --color-dark) 
+);
+

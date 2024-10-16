@@ -1,0 +1,46 @@
+.inputgroup {
+    position: relative;
+    display: grid;
+
+    @include desktop {
+        display: flex;
+        flex-grow: 1;
+    }
+
+    select, input {
+        display: grid;
+        padding: 1rem;
+        padding-left: 40px;
+        border-radius: 0.1rem !important;
+        border: 0.063rem solid var(--color-gray-dark);
+
+        &::placeholder {
+            opacity: 0.6;
+        }
+
+        @include desktop {
+            flex-grow: 1;
+        }
+
+        &:focus {
+            outline: none;
+            border: 0.063rem solid var(--color-secondary);
+        }
+    }
+
+    select {
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+
+    i {
+        position: absolute;
+        top: 50%;
+        right: 10px;
+        transform: translateY(-50%);
+        font-size: 18px;
+        color: var(--color-gray);
+    }
+}
