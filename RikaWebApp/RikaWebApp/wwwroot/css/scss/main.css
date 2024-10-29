@@ -329,3 +329,71 @@ form textarea::placeholder {
 #success-page .button-bottom .btn-dark {
   width: 100%;
 }
+
+.login-section .container .login-text img {
+  display: block;
+  margin: 100px auto 70px auto;
+}
+.login-section .container .login-form {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.login-section .container .login-form .form-row {
+  width: 100%;
+  margin-bottom: 15px;
+}
+.login-section .container .login-form .form-row input {
+  width: 100%;
+  border: none;
+  outline: none;
+  padding: 8px 0;
+  border-bottom: 1px solid #ccc;
+}
+.login-section .container .login-form .or-text {
+  text-align: center;
+  font-size: 14px;
+  margin: 15px 0;
+  color: #666;
+}
+.login-section .container .login-form .social-login {
+  width: 100%;
+}
+.login-section .container .login-form .social-login .btn-primary {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+  text-decoration: none;
+  color: #fff;
+}
+.login-section .container .login-form .social-login .btn-primary i {
+  margin-right: 8px;
+}
+.login-section .container .login-form .social-login .btn-primary.facebook-btn {
+  color: #666666;
+  border-color: #ccc;
+  background-color: transparent;
+}
+.login-section .container .login-form .social-login .btn-primary.facebook-btn:hover {
+  background-color: #3b5998;
+  color: #fff;
+}
+.login-section .container .login-form .social-login .btn-primary.google-btn {
+  color: #666666;
+  border-color: #ccc;
+  background-color: transparent;
+}
+.login-section .container .login-form .social-login .btn-primary.google-btn:hover {
+  background-color: #EA4335;
+  color: #fff;
+}
+.login-section .container .login-form .social-login .btn-primary.apple-btn {
+  color: #666666;
+  border-color: #ccc;
+  background-color: transparent;
+}
+.login-section .container .login-form .social-login .btn-primary.apple-btn:hover {
+  background-color: #333;
+  color: #fff;
+}

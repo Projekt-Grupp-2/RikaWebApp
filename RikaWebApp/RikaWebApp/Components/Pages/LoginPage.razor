@@ -1,0 +1,40 @@
+﻿@page "/login"
+
+@code {
+
+}
+
+<section class="login-section">
+    <div class="container">
+        <div class="login-text">
+            <img src="/images/logos/logoblack.svg" alt="">
+            <h5>Welcome!</h5>
+            <p>Please login or sign up to continue using our app.</p>
+        </div>
+        <div class="login-form">
+            <form>
+                <div class="form-row">
+                    <h5>Email</h5>
+                    <input type="text" id="input1" placeholder="Email">
+                </div>
+                <div class="form-row">
+                    <h5>Password</h5>
+                    <input type="password" id="input2" placeholder="Password">
+                </div>
+                <a href="#" class="btn-dark">Login</a>
+            </form>
+            <p class="or-text">or</p>
+            <div class="social-login">
+                <a href="#" class="btn-primary facebook-btn">
+                    <i class="fa-brands fa-facebook"></i> Continue with Facebook
+                </a>
+                <a href="#" class="btn-primary google-btn">
+                    <i class="fa-brands fa-google"></i> Continue with Google
+                </a>
+                <a href="#" class="btn-primary apple-btn">
+                    <i class="fab fa-apple"></i> Continue with Apple
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
