@@ -1,0 +1,55 @@
+
+
+
+
+.starting-page {
+    background-color: #CCCCCC;
+
+    .container {
+        height: 100vh;
+        display: grid;
+        grid-template-rows: 1fr auto;
+
+        @media (min-width: 768px) {
+            grid-template-rows: auto auto;
+        }
+
+
+
+
+        .logo {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+
+
+
+        .buttons {
+            margin-bottom: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+
+
+            .btn-primary {
+                color: white;
+                border: 1px solid white;
+            }
+
+            .btn-light {
+            }
+
+            .btn-filling {
+
+                @media (min-width: 768px) {
+                    align-self: center;
+                    padding-right: 150px;
+                    padding-left: 150px;
+                }
+            }
+        }
+    }
+}

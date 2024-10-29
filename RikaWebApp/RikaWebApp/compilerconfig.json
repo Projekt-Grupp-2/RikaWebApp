@@ -6,5 +6,9 @@
   {
     "outputFile": "wwwroot/css/scss/main.css",
     "inputFile": "wwwroot/css/scss/main.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/scss/sections/_start-page.css",
+    "inputFile": "wwwroot/css/scss/sections/_start-page.scss"
   }
 ]
