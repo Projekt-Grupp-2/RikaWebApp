@@ -285,3 +285,47 @@ form textarea::placeholder {
     padding-left: 150px;
   }
 }
+
+#success-page {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  padding: 20px;
+}
+#success-page .container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  flex: 1;
+  justify-content: space-between;
+}
+#success-page .container .content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 200px 30px 30px 30px;
+}
+#success-page .container .content i {
+  color: #64BA67;
+  font-size: 40px;
+  margin-bottom: 20px;
+}
+#success-page .container .content h3 {
+  color: var(--color-dark);
+}
+#success-page .button-bottom {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  padding-bottom: 60px;
+}
+@media (min-width: 768px) {
+  #success-page .button-bottom {
+    display: grid;
+    width: auto;
+  }
+}
+#success-page .button-bottom .btn-dark {
+  width: 100%;
+}

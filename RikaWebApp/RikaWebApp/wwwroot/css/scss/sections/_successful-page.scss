@@ -1,0 +1,48 @@
+﻿#success-page {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+        flex: 1;
+        justify-content: space-between;
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 200px 30px 30px 30px;
+
+            i {
+                color: #64BA67;
+                font-size: 40px;
+                margin-bottom: 20px;
+            }
+
+            h3 {
+                color: var(--color-dark);
+            }
+        }
+    }
+
+    .button-bottom {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        padding-bottom: 60px;
+
+        @include tablet {
+            display: grid;
+            width: auto;
+        }
+
+        .btn-dark {
+            width: 100%;
+        }
+    }
+}
