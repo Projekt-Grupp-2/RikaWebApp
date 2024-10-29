@@ -1,14 +1,17 @@
 .login-section {
-    
+
     .container {
 
+        @media (min-width: 1281px) {
+            width: 30%;
+        }
+
         .login-text {
-            
+
             img {
                 display: block;
                 margin: 100px auto 70px auto;
             }
-            
         }
 
         .login-form {
@@ -23,9 +26,9 @@
 
                 input {
                     width: 100%;
-                    border: none;               
-                    outline: none;              
-                    padding: 8px 0;            
+                    border: none;
+                    outline: none;
+                    padding: 8px 0;
                     border-bottom: 1px solid #ccc;
                 }
             }
@@ -55,27 +58,29 @@
                         color: #666666;
                         border-color: #ccc;
                         background-color: transparent;
-                        
+
                         &:hover {
                             background-color: #3b5998;
                             color: #fff;
                         }
                     }
+
                     &.google-btn {
                         color: #666666;
                         border-color: #ccc;
                         background-color: transparent;
-                        
+
                         &:hover {
                             background-color: #EA4335;
                             color: #fff;
                         }
                     }
+
                     &.apple-btn {
                         color: #666666;
                         border-color: #ccc;
                         background-color: transparent;
-                        
+
                         &:hover {
                             background-color: #333;
                             color: #fff;
@@ -86,9 +91,3 @@
         }
     }
 }
-
-
-
-
-
-
