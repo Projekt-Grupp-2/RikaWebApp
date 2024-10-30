@@ -17,6 +17,12 @@ builder.Services.AddCascadingAuthenticationState();
 builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
+builder.Services.AddScoped(sp =>
+{
+    
+    var baseAddress = new Uri("https://categoryprovider.azurewebsites.net/");
+    return new HttpClient { BaseAddress = baseAddress };
+});
 
 builder.Services.AddAuthentication(options =>
     {

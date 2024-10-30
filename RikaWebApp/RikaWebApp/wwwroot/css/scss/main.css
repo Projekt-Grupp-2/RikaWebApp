@@ -402,3 +402,203 @@ form textarea::placeholder {
   background-color: #333;
   color: #fff;
 }
+
+/* Title styling */
+/*.category-list-title {
+    font-family: "Mont", sans-serif;
+    font-weight: 700;
+    font-size: 1.25em;
+    color: var(--color-primary);*/ /* Primary color from the palette */
+/*margin-left: 24px;*/ /* Default alignment for mobile */
+/*margin-bottom: 17px;
+text-align: left;*/
+/* Centered on desktop and larger screens */
+/*@media (min-width: 1025px) {
+    text-align: center;
+    font-size: 2em;*/ /* Larger for desktop */
+/*margin: 0 auto;
+    }
+}*/
+/* Button styling */
+/*.category-item {
+    background-color: var(--color-dark);
+    color: var(--color-light);*/ /* White text */
+/*border-radius: 50px;
+padding: 1em 1.25em;
+display: flex;
+justify-content: space-between;
+align-items: center;
+width: 100%;
+max-width: 600px;*/ /* Limits button expansion */
+/*margin-bottom: 15px;*/
+/* Center buttons on desktop */
+/*@media (min-width: 1025px) {
+    margin: 0 auto 15px auto;
+}
+
+.category-left {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+
+    h5 {
+        font-family: "Mont", sans-serif;
+        font-weight: 700;
+        font-size: 1em;*/ /* Default size */
+/*color: var(--color-primary);*/ /* Primary color */
+/*}
+}
+
+.category-right {
+    font-family: "Mont", sans-serif;
+    font-weight: 600;
+    font-size: 0.875em;
+    color: var(--color-light);*/ /* White text */
+/*text-align: right;
+    }
+
+    &:hover {
+        background-color: var(--color-primary-dark);
+        border-color: var(--color-primary-dark);
+    }
+}*/
+/* Responsive Adjustments */
+/* Mobile-specific styles */
+/*@media (max-width: 767px) {
+    .category-list-title {
+        margin-left: 24px;
+    }
+
+    .category-item {
+        padding: 1rem;
+
+        .category-left h5 {
+            font-family: "Mont", sans-serif;
+            font-weight: 700;
+            font-size: 1rem;*/ /* Smaller size for mobile */
+/*}
+
+.category-right {
+    font-size: 0.75rem;*/ /* Adjust font size */
+/*}
+    }
+}*/
+/* Tablet-specific styles */
+/*@media (min-width: 768px) and (max-width: 1024px) {
+    .category-list-title {
+        font-size: 1.5rem;
+        margin-left: 24px;
+    }
+
+    .category-item .category-left h5 {
+        font-size: 1.25rem;
+    }
+
+    .category-item .category-right {
+        font-size: 1rem;
+    }
+}*/
+/* Desktop-specific styles */
+/*@media (min-width: 1025px) {
+    .category-item .category-left h5 {
+        font-size: 1.5rem;*/ /* Larger for desktop */
+/*}
+
+    .category-item .category-right {
+        font-size: 1.25rem;
+    }
+}*/
+/* Ultra-wide screens */
+/*@media (min-width: 1920px) {
+    .category-list-title {
+        font-size: 2.25rem;
+    }
+}*/
+.category-list-title {
+  font-family: "Mont", sans-serif;
+  font-weight: 700;
+  font-size: 1.25em;
+  color: var(--color-primary);
+  margin-left: 24px;
+  margin-bottom: 17px;
+  text-align: left;
+}
+@media (min-width: 1025px) {
+  .category-list-title {
+    text-align: center;
+    font-size: 2em;
+    margin: 0 auto;
+  }
+}
+
+.category-item {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  border-radius: 50px;
+  padding: 0.75em 1em;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 10px;
+  text-align: left;
+}
+@media (min-width: 1025px) {
+  .category-item {
+    max-width: 700px;
+    margin: 0 auto;
+  }
+}
+.category-item .category-left {
+  display: flex;
+  align-items: center;
+  gap: 0.5em;
+}
+.category-item .category-left h5 {
+  font-family: "Mont", sans-serif;
+  font-weight: 700;
+  color: var(--color-primary);
+  font-size: 1rem;
+  margin: 0;
+}
+.category-item .category-right {
+  font-family: "Mont", sans-serif;
+  font-weight: 600;
+  color: var(--color-light);
+  text-align: right;
+  font-size: 0.875rem;
+}
+.category-item:hover {
+  background-color: var(--color-primary-dark);
+  border-color: var(--color-primary-dark);
+}
+
+/* Mobile-specific styles */
+@media (max-width: 599px) {
+  .category-item {
+    padding: 0.5em 0.75em;
+    border-radius: 30px;
+  }
+  .category-left h5 {
+    font-size: 0.9rem;
+  }
+  .category-right {
+    font-size: 0.75rem;
+  }
+}
+@media (min-width: 600px) and (max-width: 1024px) {
+  .category-left h5 {
+    font-size: 1.25rem;
+  }
+  .category-right {
+    font-size: 1rem;
+  }
+}
+@media (min-width: 1025px) {
+  .category-left h5 {
+    font-size: 1.5rem;
+  }
+  .category-right {
+    font-size: 1.25rem;
+  }
+}
