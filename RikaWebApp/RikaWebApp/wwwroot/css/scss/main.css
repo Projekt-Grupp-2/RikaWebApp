@@ -330,6 +330,11 @@ form textarea::placeholder {
   width: 100%;
 }
 
+@media (min-width: 1281px) {
+  .login-section .container {
+    width: 30%;
+  }
+}
 .login-section .container .login-text img {
   display: block;
   margin: 100px auto 70px auto;
