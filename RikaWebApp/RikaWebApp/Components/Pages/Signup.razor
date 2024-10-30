@@ -1,6 +1,6 @@
 ﻿@page "/signup"
 @using RikaWebApp.Models
-
+@rendermode InteractiveServer
 @code{
     [SupplyParameterFromForm]
     public SignUpModel SignupForm { get; set; } = new();
@@ -10,6 +10,7 @@
 
     private async Task OnValidSubmit(EditContext editContext)
     {
+
     }
 }
 
@@ -53,11 +54,12 @@
                     <InputCheckbox @bind-Value="SignupForm.TermsAndCondition" />
                     
                 </div>
+                <button type="submit" class="btn-dark btn">Sign Up</button>
             </EditForm>
            
             
         </div>
        
-        <button type="submit" class="btn-dark btn">Sign Up</button>
+        
     </div>
 </section>

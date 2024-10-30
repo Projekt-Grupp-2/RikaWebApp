@@ -28,7 +28,7 @@ public class SignUpModel
 
 
     [Display(Name = "Confirm password", Prompt = "Confirm your password", Order = 4)]
-    [Required(ErrorMessage = "You whould confirm you password")]
+    [Required(ErrorMessage = "You should confirm you password")]
     [DataType(DataType.Password)]
     [Compare(nameof(Password), ErrorMessage = "Password does not match")]
     public string ConfirmPassword { get; set; } = null!;
