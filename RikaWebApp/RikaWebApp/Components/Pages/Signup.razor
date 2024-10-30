@@ -1,4 +1,17 @@
 ﻿@page "/signup"
+@using RikaWebApp.Models
+
+@code{
+    [SupplyParameterFromForm]
+    public SignUpModel SignupForm { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
+
+    private async Task OnValidSubmit(EditContext editContext)
+    {
+    }
+}
 
 <section class="signup-page">
     <div class="container">
@@ -10,29 +23,41 @@
             <p>Create an new account</p>
         </div>
         <div class="signup-form">
-            <form action="">
-                <div class="input-group">
-                    <label for="username">User Name</label>
-                    <input type="text" placeholder="User name">
+            
+             <EditForm method="post" FormName="signupform" Model="SignupForm" OnValidSubmit="OnValidSubmit" asp-route-returnUrl="@ReturnUrl" novalidate>
+                <DataAnnotationsValidator />
+               
+                 <div class="input-group">
+                    <label>User Name</label>
+                    <InputText @bind-Value="SignupForm.Name" />
+                    <ValidationMessage For="() => SignupForm.Name" />
                 </div>
                 <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" placeholder="Email">
+                    <label>Email</label>
+                    <InputText @bind-Value="SignupForm.Email" />
+                    <ValidationMessage For="() => SignupForm.Email" />
+
                 </div>
                 <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="Password">
+                    <label>Password</label>
+                    <InputText @bind-Value="SignupForm.Password" type="password" />
+                    <ValidationMessage For="() => SignupForm.Password" />
                 </div>
                 <div class="input-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" placeholder="Confirm password">
+                    <label>Confirm Password</label>
+                    <InputText @bind-Value="SignupForm.ConfirmPassword" type="password" />
+                    <ValidationMessage For="() => SignupForm.ConfirmPassword" />
                 </div>
                 <div class="input-group checkbox-group">
-                    <input type="checkbox">
-                    <label for="terms">By creating an account you have to agree with our terms & conditions.</label>
+                    <label>By creating an account you have to agree with our terms & conditions.</label>
+                    <InputCheckbox @bind-Value="SignupForm.TermsAndCondition" />
+                    
                 </div>
-            </form>
+            </EditForm>
+           
+            
         </div>
-        <a href="" class="btn-dark btn">Sign Up</a>
+       
+        <button type="submit" class="btn-dark btn">Sign Up</button>
     </div>
 </section>
