@@ -9,12 +9,15 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.10" />
-    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.10" />
+    <Compile Remove="Pages\Product\**" />
+    <Content Remove="Pages\Product\**" />
+    <EmbeddedResource Remove="Pages\Product\**" />
+    <None Remove="Pages\Product\**" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Pages\Product\" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="8.0.10" />
+    <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Authentication" Version="8.0.10" />
   </ItemGroup>
 
 </Project>
