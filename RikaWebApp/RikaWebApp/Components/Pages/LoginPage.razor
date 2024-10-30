@@ -1,15 +1,47 @@
 ﻿@page "/login"
+@using RikaWebApp.Components.Account
 @using RikaWebApp.Models
+@using RikaWebApp.Components.Account.Shared
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@using RikaWebApp.Data
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+@layout RikaWebApp.Components.Layout.MainLayout
 @rendermode InteractiveServer
+
 @code {
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
     [SupplyParameterFromQuery]
-    public string? ReturnUrl { get; set; }
+    public string? ReturnUrl { get; set; } = "/";
 
     [SupplyParameterFromForm]
     public SignInModel SigninForm { get; set; } = new();
-
-    private async Task OnValidSubmit(EditContext editContext)
+    
+    [SupplyParameterFromQuery]
+    public string? MessageType { get; set; }
+    
+    [SupplyParameterFromQuery]
+    public string? MessageText { get; set; }
+       
+    public async Task LoginUser()
     {
+        var result = await SignInManager.PasswordSignInAsync(SigninForm.Email, SigninForm.Password, SigninForm.RememberMe, lockoutOnFailure: false);
+        if (result.Succeeded)
+        {
+            RedirectManager.RedirectTo(ReturnUrl);
+        }
+        else
+        {
+            MessageText = "Invalid sign in attempt.";
+            MessageType = "danger";
+        }
+
     }
 }
 
@@ -21,8 +53,14 @@
             <p>Please login or sign up to continue using our app.</p>
         </div>
         <div class="login-form">
-            <EditForm method="post" FormName="signipform" Model="SigninForm" OnValidSubmit="OnValidSubmit" asp-route-returnUrl="@ReturnUrl" novalidate>
-                
+           
+            @if (!string.IsNullOrEmpty(MessageText))
+            {
+                <div id="statusMessage" class="alert alert-@MessageType">@MessageText</div>
+            }
+            
+            <EditForm method="post" FormName="signipform" Model="SigninForm" OnValidSubmit="LoginUser" asp-route-returnUrl="@ReturnUrl" novalidate>
+                 <DataAnnotationsValidator />
                 <div class="form-row">
                     <h5>Email</h5>
                     <InputText id="input1" @bind-Value="SigninForm.Email" />
