@@ -1,0 +1,96 @@
+﻿@page "/productlist" 
+
+<PageTitle>Category Name</PageTitle> @* Titel hämtas från vald kategori *@
+
+<section class="top-menu">
+    <div class="container">
+        <div class="top-menu">
+            <btn class="back-button"><i class="fa-solid fa-arrow-left"></i></btn>
+            <form class="search-bar">
+                <i class="fa-regular fa-magnifying-glass"></i>
+            </form>
+        </div>
+    </div>
+</section>
+<section class="product-list-section">
+    <div class="container">
+        <h5 class="category-title">Clothes</h5> @* Titel hämtas från vald kategori *@
+        <h6 class="error-message"></h6> @* Ifall produktlistan är tom eller något blir knas med hämtningen *@
+        <div class="product-list"> @*For every product in category...*@
+            <div class="product-card">
+                <img class="product-image" src="/images/product-test/Leonardo_Lightning_XL_orange_flower_patterned_boho_dress_nonsl_3.jpg" />
+                <btn class="btn-round">
+                    <i class="fa-regular fa-heart"></i> @*Om favoritad <i class="fa-solid fa-heart"></i>*@
+                </btn>
+                <div class="product-card-info">
+                    <h5 class="product-name">Roller Rabbit</h5>
+                    <p class="short-desc">Vado Odelle Dress</p>
+                    <div class="product-prices single-price">
+                        <h5>$198.00</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="/images/product-test/Leonardo_Lightning_XL_white_top_short_ballon_sleeves_linen_fab_2.jpg" />
+                <btn class="btn-round">
+                    <i class="fa-regular fa-heart"></i> @*Om favoritad <i class="fa-solid fa-heart"></i>*@
+                </btn>
+                <div class="product-card-info">
+                    <h5 class="product-name">endless rose</h5>
+                    <p class="short-desc">Bubble Elastic T-shirt</p>
+                    <div class="product-prices single-price">
+                        <h5>$50.00</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="/images/product-test/Leonardo_Lightning_XL_ribbes_sweater_striped_brown_white_and_b_3.jpg" />
+                <btn class="btn-round">
+                    <i class="fa-regular fa-heart"></i> @*Om favoritad <i class="fa-solid fa-heart"></i>*@
+                </btn>
+                <div class="product-card-info">
+                    <h5 class="product-name">Theory</h5>
+                    <p class="short-desc">Irregular Rib Shirt</p>
+                    <div class="product-prices single-price">
+                        <h5>$345.00</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="product-card">
+                <img class="product-image" src="/images/product-test/Leonardo_Lightning_XL_Irregular_Rib_Shirt_clothing_3.jpg" />
+                <btn class="btn-round">
+                    <i class="fa-regular fa-heart"></i> @*Om favoritad <i class="fa-solid fa-heart"></i>*@
+                </btn>
+                <div class="product-card-info">
+                    <h5 class="product-name">Madewell</h5>
+                    <p class="short-desc">Giselle Top in White Linen</p>
+                    <div class="product-prices multiple-prices">
+                        <h5 class="discount">$69.00</h5>
+                        <h5 class="original-price">$89.00</h5>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="mobile-nav-menu">
+    <div class="container">
+        <a class="btn-menu"><i class="fa-solid fa-house"></i></a>
+        <a class="btn-menu"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a class="btn-menu"><i class="fa-solid fa-bell"></i></a>
+        <a class="btn-menu"><i class="fa-solid fa-user"></i></a>
+    </div>
+</section>
+
+<section class="mobile-nav-menu">
+    <div class="container">
+        <a class="btn-menu"><i class="fa-solid fa-house"></i></a>
+        <a class="btn-menu"><i class="fa-solid fa-cart-shopping"></i></a>
+        <a class="btn-menu"><i class="fa-solid fa-bell"></i></a>
+        <a class="btn-menu"><i class="fa-solid fa-user"></i></a>
+    </div>
+</section>
+
+@code {
+
+}
