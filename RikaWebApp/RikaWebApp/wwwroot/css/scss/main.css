@@ -402,3 +402,42 @@ form textarea::placeholder {
   background-color: #333;
   color: #fff;
 }
+
+.signup-page .container .signup-logo {
+  display: flex;
+  justify-content: center;
+}
+.signup-page .container .signup-logo img {
+  padding: 3rem;
+}
+.signup-page .container .signup-page-info {
+  padding-bottom: 2rem;
+}
+.signup-page .container .signup-page-info h4 {
+  color: var(--color-dark);
+}
+.signup-page .container .signup-form .input-group label {
+  color: var(--color-dark);
+  padding-bottom: 0px;
+}
+.signup-page .container .signup-form .input-group input {
+  border: none;
+  border-bottom: 1px solid var(--color-gray);
+  padding: 6px;
+}
+.signup-page .container .signup-form .checkbox-group {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 10px;
+  margin-bottom: 1rem;
+}
+.signup-page .container .signup-form .checkbox-group label {
+  color: var(--color-primary-dark);
+  font-weight: 100;
+}
+.signup-page .container .btn {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
