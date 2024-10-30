@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RikaWebApp", "RikaWebApp\RikaWebApp\RikaWebApp.csproj", "{2001AAE3-CE0A-4BA5-A546-3F8243278C79}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RikaWebApp", "RikaWebApp\RikaWebApp\RikaWebApp.csproj", "{2001AAE3-CE0A-4BA5-A546-3F8243278C79}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RikaWebApp.Client", "RikaWebApp\RikaWebApp.Client\RikaWebApp.Client.csproj", "{99490CD7-C396-48CC-A2E4-1277BD662F37}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RikaWebApp.Client", "RikaWebApp\RikaWebApp.Client\RikaWebApp.Client.csproj", "{99490CD7-C396-48CC-A2E4-1277BD662F37}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
