@@ -1,4 +1,6 @@
 ﻿@page "/signup"
+@using Microsoft.AspNetCore.Identity
+@using RikaWebApp.Data
 @using RikaWebApp.Models
 @rendermode InteractiveServer
 @code{
@@ -6,11 +8,53 @@
     public SignUpModel SignupForm { get; set; } = new();
 
     [SupplyParameterFromQuery]
+    public string StatusMessage { get; set; } = null!;
+
+    [SupplyParameterFromQuery]
     public string? ReturnUrl { get; set; }
+
+    private ApplicationUser userAccount = new ApplicationUser();
 
     private async Task OnValidSubmit(EditContext editContext)
     {
+        try
+        {
+            if (SignupForm.TermsAndCondition)
+            {
 
+                var alreadyExists = await UserManager.FindByEmailAsync(SignupForm.Email);
+
+                if (alreadyExists != null)
+                {
+                    StatusMessage = "Email";
+                    return;
+                }
+
+                var userAccount = new ApplicationUser
+                {
+                    Name = SignupForm.Name,
+                    Gender = "-",
+                    Age = 0,
+                    Email = SignupForm.Email,
+                    UserName = SignupForm.Email
+                };
+
+                var result = await UserManager.CreateAsync(userAccount, SignupForm.Password);
+
+                if (result.Succeeded)
+                {
+                    RedirectManager.RedirectTo("/successful");
+
+                }
+
+                StatusMessage = "Error";
+            }
+
+        }
+        catch
+        {
+            StatusMessage = "Error";
+        }
     }
 }
 
@@ -55,6 +99,19 @@
                     
                 </div>
                 <button type="submit" class="btn-dark btn">Sign Up</button>
+
+                @if (StatusMessage == "Error")
+                {
+                    <div class="alert alert-danger" role="alert">
+                        Something went wrong!
+                    </div>
+                }
+                else if (StatusMessage == "Email")
+                {
+                    <div class="alert alert-danger" role="alert">
+                        A user with the same email address already exists!
+                    </div>
+                }
             </EditForm>
            
             
