@@ -1,7 +1,16 @@
 ﻿@page "/login"
-
+@using RikaWebApp.Models
+@rendermode InteractiveServer
 @code {
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
 
+    [SupplyParameterFromForm]
+    public SignInModel SigninForm { get; set; } = new();
+
+    private async Task OnValidSubmit(EditContext editContext)
+    {
+    }
 }
 
 <section class="login-section">
@@ -12,17 +21,21 @@
             <p>Please login or sign up to continue using our app.</p>
         </div>
         <div class="login-form">
-            <form>
+            <EditForm method="post" FormName="signipform" Model="SigninForm" OnValidSubmit="OnValidSubmit" asp-route-returnUrl="@ReturnUrl" novalidate>
+                
                 <div class="form-row">
                     <h5>Email</h5>
-                    <input type="text" id="input1" placeholder="Email">
+                    <InputText id="input1" @bind-Value="SigninForm.Email" />
+                    <ValidationMessage For="() => SigninForm.Email" />
                 </div>
                 <div class="form-row">
                     <h5>Password</h5>
-                    <input type="password" id="input2" placeholder="Password">
+                    <InputText id="input2" @bind-Value="SigninForm.Password" type="password" />
+                    <ValidationMessage For="() => SigninForm.Password" />
                 </div>
-                <a href="#" class="btn-dark">Login</a>
-            </form>
+                <button type="submit" class="btn-dark">Login</button>
+            </EditForm>
+            
             <p class="or-text">or</p>
             <div class="social-login">
                 <a href="#" class="btn-primary facebook-btn">
