@@ -1,6 +1,7 @@
 .category-list-container {
     padding: 0 1.25rem;
 
+
     @media (min-width: 1025px) {
         padding: 0 2rem;
     }
@@ -35,14 +36,17 @@
     margin-bottom: 10px;
     text-align: left;
 
+
     @media (min-width: 768px) and (max-width: 1024px) {
         margin: 0 auto;
+        margin-bottom: 10px
     }
 
     @media (min-width: 1025px) {
         max-width: 750px;
         padding: 1.25em 1.5em;
         margin: 0 auto;
+        margin-bottom: 10px
     }
 
     .category-left {
@@ -55,7 +59,7 @@
             padding: 5px;
 
             @media (max-width: 210px) {
-                display:none;
+                display: none;
             }
 
             @media (max-width: 599px) {
