@@ -388,6 +388,9 @@ form textarea::placeholder {
     width: 30%;
   }
 }
+.login-section .container .alert-danger {
+  color: red;
+}
 .login-section .container .login-text img {
   display: block;
   margin: 100px auto 70px auto;
