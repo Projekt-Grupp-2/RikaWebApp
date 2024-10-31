@@ -10,5 +10,9 @@
   {
     "outputFile": "wwwroot/css/scss/sections/_start-page.css",
     "inputFile": "wwwroot/css/scss/sections/_start-page.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/scss/sections/_categories.css",
+    "inputFile": "wwwroot/css/scss/sections/_categories.scss"
   }
 ]

@@ -1,17 +1,25 @@
+.category-list-container {
+    padding: 0 1.25rem;
+
+    @media (min-width: 1025px) {
+        padding: 0 2rem;
+    }
+}
 
 .category-list-title {
     font-family: "Mont", sans-serif;
     font-weight: 700;
     font-size: 1.25em;
-    color: var(--color-primary);
+    color: var(--color-dark);
     margin-left: 24px;
     margin-bottom: 17px;
+    margin-top: 20px;
     text-align: left;
 
     @media (min-width: 1025px) {
         text-align: center;
         font-size: 2em;
-        margin: 0 auto;
+        margin: 10px;
     }
 }
 
@@ -19,7 +27,7 @@
     background-color: var(--color-dark);
     color: var(--color-light);
     border-radius: 50px;
-    padding: 0.75em 1em; 
+    padding: 1em;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -27,8 +35,13 @@
     margin-bottom: 10px;
     text-align: left;
 
+    @media (min-width: 768px) and (max-width: 1024px) {
+        margin: 0 auto;
+    }
+
     @media (min-width: 1025px) {
-        max-width: 700px;
+        max-width: 750px;
+        padding: 1.25em 1.5em;
         margin: 0 auto;
     }
 
@@ -37,21 +50,69 @@
         align-items: center;
         gap: 0.5em;
 
-        h5 {
+        i {
+            font-size: 1.8rem;
+            padding: 5px;
+
+            @media (max-width: 210px) {
+                display:none;
+            }
+
+            @media (max-width: 599px) {
+                font-size: 1rem;
+                padding: 5px;
+            }
+
+            @media (min-width: 600px) and (max-width: 1024px) {
+                font-size: 1.5rem;
+                padding: 5px;
+            }
+
+            @media (min-width: 1025px) {
+                font-size: 1.8rem;
+                padding: 5px;
+            }
+        }
+
+        .category-name h5 {
             font-family: "Mont", sans-serif;
             font-weight: 700;
-            color: var(--color-primary);
+            color: var(--color-light);
             font-size: 1rem;
-            margin: 0; 
+            margin: 0;
+
+            @media (max-width: 599px) {
+                font-size: 16px;
+            }
+
+            @media (min-width: 600px) and (max-width: 1024px) {
+                font-size: 1.25rem;
+            }
+
+            @media (min-width: 1025px) {
+                font-size: 1.5rem;
+            }
         }
     }
 
-    .category-right {
+    .category-right .product-count {
         font-family: "Mont", sans-serif;
-        font-weight: 600;
+        font-weight: 500;
         color: var(--color-light);
         text-align: right;
         font-size: 0.875rem;
+
+        @media (max-width: 599px) {
+            font-size: 11px;
+        }
+
+        @media (min-width: 600px) and (max-width: 1024px) {
+            font-size: 1rem;
+        }
+
+        @media (min-width: 1025px) {
+            font-size: 1.25rem;
+        }
     }
 
     &:hover {
@@ -62,37 +123,7 @@
 
 @media (max-width: 599px) {
     .category-item {
-        padding: 0.5em 0.75em; 
-        border-radius: 30px; 
-    }
-
-    .category-left h5 {
-        font-size: 0.9rem; 
-    }
-
-    .category-right {
-        font-size: 0.75rem; 
+        padding: 0.5em 0.75em;
+        border-radius: 30px;
     }
 }
-
-@media (min-width: 600px) and (max-width: 1024px) {
-    .category-left h5 {
-        font-size: 1.25rem;
-    }
-
-    .category-right {
-        font-size: 1rem;
-    }
-}
-
-
-@media (min-width: 1025px) {
-    .category-left h5 {
-        font-size: 1.5rem;
-    }
-
-    .category-right {
-        font-size: 1.25rem;
-    }
-}
-

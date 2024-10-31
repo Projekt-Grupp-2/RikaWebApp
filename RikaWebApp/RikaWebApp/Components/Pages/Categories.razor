@@ -25,6 +25,7 @@
     {
         @foreach (var category in categories)
         {
+            <div class="category-list-container">
             <button class="category-item btn-category-item">
                 <div class="category-left">
                     @((MarkupString)category.Icon)
@@ -34,6 +35,8 @@
                     <span class="product-count">@category.ProductCount Product</span>
                 </div>
             </button>
+            </div>
+
 
 
         }
