@@ -1,0 +1,76 @@
+﻿@page "/settings"
+
+@code {
+
+}<section class="settings-page">
+    <div class="container">
+
+        <div class="image-upload">
+            <img src="./images/image.png">
+            <button><i class="fa-solid fa-pen"></i></button>
+        </div>
+        <span class="upload">Upload Image</span>
+
+        <div class="form">
+            <div class="inputgroup">
+                <Label>Name</Label>
+                <input placeholder="Hasan Mahmud">
+            </div>
+            <div class="inputgroup">
+                <Label>Gender</Label>
+                <button class="btn-dark">Male</button>
+                <button class="btn-gray">Female</button>
+            </div>
+            <div class="inputgroup">
+                <Label>Age</Label>
+                <input placeholder="22 year">
+            </div>
+            <div class="inputgroup">
+                <Label>Email</Label>
+                <input placeholder="rikafashionshop@gmail.com">
+            </div>
+        </div>
+
+        <div class="settings">
+            <span class="heading">Settings</span>
+            <div class="settings-group">
+                <div class="language">
+                    <i class="fa-solid fa-globe"></i>
+                    <p>Language</p>
+                    <span>English</span>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+                <div class="notification">
+                    <i class="fa-solid fa-bell"></i>
+                    <p>Notification</p>
+                    <div class="btn-switch">
+                        <label>Off</label>
+                        <label class="switch" for="notification-switch">
+                            <input type="checkbox" id="notification-switch" />
+                            <div class="slider round"></div>
+                        </label>
+                        <label>On</label>
+                    </div>
+                </div> 
+                <div class="drak-moode">
+                    <i class="fa-solid fa-moon"></i>
+                    <p>Drak Mood</p>
+                    <div class="btn-switch">
+                        <label>Off</label>
+                        <label class="switch" for="drak-mode">
+                            <input type="checkbox" id="drak-mode" />
+                            <div class="slider round"></div>
+                        </label>
+                        <label>On</label>
+                    </div>
+                </div>
+                <div class="help-center">
+                    <i class="fa-solid fa-question"></i>
+                    <p>Help Center</p>
+                    <i class="fa-solid fa-angle-right"></i>
+                </div>
+            </div>                                                                                
+        </div>
+        <button class="btn-dark logout"><i class="fa-solid fa-right-from-bracket"></i>Log Out</button>
+    </div>
+</section>
