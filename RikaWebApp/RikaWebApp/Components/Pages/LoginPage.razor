@@ -1,8 +1,5 @@
 ﻿@page "/login"
-
-@code {
-
-}
+@using RikaWebApp.Components.Account.Shared
 
 <section class="login-section">
     <div class="container">
@@ -24,17 +21,12 @@
                 <a href="#" class="btn-dark">Login</a>
             </form>
             <p class="or-text">or</p>
+
             <div class="social-login">
-                <a href="#" class="btn-primary facebook-btn">
-                    <i class="fa-brands fa-facebook"></i> Continue with Facebook
-                </a>
-                <a href="#" class="btn-primary google-btn">
-                    <i class="fa-brands fa-google"></i> Continue with Google
-                </a>
-                <a href="#" class="btn-primary apple-btn">
-                    <i class="fab fa-apple"></i> Continue with Apple
-                </a>
+                <ExternalLoginPicker />
             </div>
+
         </div>
     </div>
 </section>
+
