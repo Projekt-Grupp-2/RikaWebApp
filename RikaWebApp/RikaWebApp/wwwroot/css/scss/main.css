@@ -723,7 +723,8 @@ form textarea::placeholder {
   font-family: "Mont", sans-serif;
   font-weight: 700;
   font-style: normal;
-  margin-top: 30px;
+  margin: 0;
+  margin-top: 10px;
 }
 .settings-page .container .settings .settings-group .language span, .settings-page .container .settings .settings-group .notification span, .settings-page .container .settings .settings-group .drak-moode span, .settings-page .container .settings .settings-group .help-center span {
   color: var(--color-gray-dark);
