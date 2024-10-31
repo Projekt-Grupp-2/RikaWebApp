@@ -1,38 +1,122 @@
 ﻿@page "/signup"
+@using Microsoft.AspNetCore.Identity
+@using RikaWebApp.Data
+@using RikaWebApp.Models
+@rendermode InteractiveServer
+@code{
+    [SupplyParameterFromForm]
+    public SignUpModel SignupForm { get; set; } = new();
+
+    [SupplyParameterFromQuery]
+    public string StatusMessage { get; set; } = null!;
+
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; }
+
+    private ApplicationUser userAccount = new ApplicationUser();
+
+    private async Task OnValidSubmit(EditContext editContext)
+    {
+        try
+        {
+            if (SignupForm.TermsAndCondition)
+            {
+
+                var alreadyExists = await UserManager.FindByEmailAsync(SignupForm.Email);
+
+                if (alreadyExists != null)
+                {
+                    StatusMessage = "Email";
+                    return;
+                }
+
+                var userAccount = new ApplicationUser
+                {
+                    Name = SignupForm.Name,
+                    Gender = "-",
+                    Age = 0,
+                    Email = SignupForm.Email,
+                    UserName = SignupForm.Email
+                };
+
+                var result = await UserManager.CreateAsync(userAccount, SignupForm.Password);
+
+                if (result.Succeeded)
+                {
+                    RedirectManager.RedirectTo("/successful");
+
+                }
+
+                StatusMessage = "Error";
+            }
+
+        }
+        catch
+        {
+            StatusMessage = "Error";
+        }
+    }
+}
 
 <section class="signup-page">
     <div class="container">
         <div class="signup-logo">
-            <img src="./images/logo-dark.svg" alt="">
+            <img src="/images/logos/logoblack.svg" alt="">
         </div>
         <div class="signup-page-info">
             <h4>Sign Up</h4>
             <p>Create an new account</p>
         </div>
         <div class="signup-form">
-            <form action="">
-                <div class="input-group">
-                    <label for="username">User Name</label>
-                    <input type="text" placeholder="User name">
+            
+             <EditForm method="post" FormName="signupform" Model="SignupForm" OnValidSubmit="OnValidSubmit" asp-route-returnUrl="@ReturnUrl" novalidate>
+                <DataAnnotationsValidator />
+               
+                 <div class="input-group">
+                    <label>User Name</label>
+                    <InputText @bind-Value="SignupForm.Name" />
+                    <ValidationMessage For="() => SignupForm.Name" />
                 </div>
                 <div class="input-group">
-                    <label for="email">Email</label>
-                    <input type="email" placeholder="Email">
+                    <label>Email</label>
+                    <InputText @bind-Value="SignupForm.Email" />
+                    <ValidationMessage For="() => SignupForm.Email" />
+
                 </div>
                 <div class="input-group">
-                    <label for="password">Password</label>
-                    <input type="password" placeholder="Password">
+                    <label>Password</label>
+                    <InputText @bind-Value="SignupForm.Password" type="password" />
+                    <ValidationMessage For="() => SignupForm.Password" />
                 </div>
                 <div class="input-group">
-                    <label for="confirm-password">Confirm Password</label>
-                    <input type="password" placeholder="Confirm password">
+                    <label>Confirm Password</label>
+                    <InputText @bind-Value="SignupForm.ConfirmPassword" type="password" />
+                    <ValidationMessage For="() => SignupForm.ConfirmPassword" />
                 </div>
                 <div class="input-group checkbox-group">
-                    <input type="checkbox">
-                    <label for="terms">By creating an account you have to agree with our terms & conditions.</label>
+                    <label>By creating an account you have to agree with our terms & conditions.</label>
+                    <InputCheckbox @bind-Value="SignupForm.TermsAndCondition" />
+                    
                 </div>
-            </form>
+                <button type="submit" class="btn-dark btn">Sign Up</button>
+
+                @if (StatusMessage == "Error")
+                {
+                    <div class="alert alert-danger" role="alert">
+                        Something went wrong!
+                    </div>
+                }
+                else if (StatusMessage == "Email")
+                {
+                    <div class="alert alert-danger" role="alert">
+                        A user with the same email address already exists!
+                    </div>
+                }
+            </EditForm>
+           
+            
         </div>
-        <a href="" class="btn-dark btn">Sign Up</a>
+       
+        
     </div>
 </section>
