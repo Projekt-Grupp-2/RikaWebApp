@@ -26,6 +26,13 @@ builder.Services.AddAuthentication(options =>
     .AddIdentityCookies();
 
 builder.Services.AddAuthentication()
+	 .AddFacebook(options =>
+	 {
+		 options.AppId = builder.Configuration["FacebookAppId"]!;
+		 options.AppSecret = builder.Configuration["FacebookAppSecret"]!;
+	 });
+
+builder.Services.AddAuthentication()
      .AddGoogle(options =>
      {
          options.ClientId = builder.Configuration["GoogleClientId"]!;
