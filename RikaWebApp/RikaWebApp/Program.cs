@@ -25,6 +25,13 @@ builder.Services.AddAuthentication(options =>
     })
     .AddIdentityCookies();
 
+builder.Services.AddAuthentication()
+     .AddGoogle(options =>
+     {
+         options.ClientId = builder.Configuration["GoogleClientId"]!;
+         options.ClientSecret = builder.Configuration["GoogleClientSecret"]!;
+     });
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
