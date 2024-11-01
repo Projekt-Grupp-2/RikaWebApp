@@ -11,11 +11,9 @@
 @inject NavigationManager NavigationManager
 @inject IdentityRedirectManager RedirectManager
 @layout RikaWebApp.Components.Layout.MainLayout
-@rendermode InteractiveServer
 
 @code {
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
+
 
     [SupplyParameterFromQuery]
     public string? ReturnUrl { get; set; } = "/";
@@ -28,6 +26,9 @@
     
     [SupplyParameterFromQuery]
     public string? MessageText { get; set; }
+
+
+
        
     public async Task LoginUser()
     {
