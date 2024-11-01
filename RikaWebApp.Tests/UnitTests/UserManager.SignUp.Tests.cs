@@ -1,17 +1,13 @@
 ﻿
+
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Moq;
-using RikaWebApp.Components.Account.Pages.Manage;
 using RikaWebApp.Data;
 
 namespace RikaWebApp.Tests.UnitTests;
 
-public  class UserManager
+public class UserManager
 {
-
-
-
     [Fact]
 
     public async Task CreateUser_ShouldReturnError_IfUserNameIsNull()
@@ -35,7 +31,7 @@ public  class UserManager
         );
 
         mockUserManager
-    .   Setup(um => um.CreateAsync(It.Is<ApplicationUser>(u => u.UserName == null), password))
+    .Setup(um => um.CreateAsync(It.Is<ApplicationUser>(u => u.UserName == null), password))
         .ReturnsAsync(IdentityResult.Failed(new IdentityError { }));
 
         // Act
@@ -103,8 +99,8 @@ public  class UserManager
 
         mockUserManager
             .Setup(um => um.CreateAsync(
-                It.IsAny<ApplicationUser>(), 
-                It.Is<string>(p => p == null) 
+                It.IsAny<ApplicationUser>(),
+                It.Is<string>(p => p == null)
             )).ReturnsAsync(IdentityResult.Failed(new IdentityError { }));
 
 
@@ -130,7 +126,7 @@ public  class UserManager
             UserName = "carl@domain.com"
         };
 
-        string password = null;
+        string password = "BytMig123!";
 
         var mockUserManager = new Mock<UserManager<ApplicationUser>>(
         Mock.Of<IUserStore<ApplicationUser>>(),
@@ -138,7 +134,7 @@ public  class UserManager
         );
         mockUserManager
         .Setup(um => um.FindByEmailAsync(It.Is<string>(e => e == user.Email)))
-            .ReturnsAsync(user); 
+            .ReturnsAsync(user);
 
         // Act
         var result = await mockUserManager.Object.FindByEmailAsync(user.Email);
