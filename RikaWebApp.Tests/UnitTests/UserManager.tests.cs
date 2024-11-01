@@ -2,13 +2,13 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Moq;
+using RikaWebApp.Components.Account.Pages.Manage;
 using RikaWebApp.Data;
 
 namespace RikaWebApp.Tests.UnitTests;
 
 public  class UserManager
 {
-
 
 
 
@@ -76,5 +76,74 @@ public  class UserManager
 
         // Assert
         Assert.False(result.Succeeded);
+    }
+
+    [Fact]
+
+    public async Task CreateUser_ShouldReturnError_IfPasswordIsNull()
+    {
+        //Arrange
+
+        var user = new ApplicationUser
+        {
+            Name = "Carl",
+            Gender = "-",
+            Age = 0,
+            Email = "carl@domain.com",
+            UserName = "carl@domain.com"
+        };
+
+        string password = null;
+
+        var mockUserManager = new Mock<UserManager<ApplicationUser>>(
+        Mock.Of<IUserStore<ApplicationUser>>(),
+        null, null, null, null, null, null, null, null
+        );
+
+
+        mockUserManager
+            .Setup(um => um.CreateAsync(
+                It.IsAny<ApplicationUser>(), 
+                It.Is<string>(p => p == null) 
+            )).ReturnsAsync(IdentityResult.Failed(new IdentityError { }));
+
+
+        // Act
+        var result = await mockUserManager.Object.CreateAsync(user, password);
+
+        // Assert
+        Assert.False(result.Succeeded);
+    }
+
+    [Fact]
+
+    public async Task CreateUser_ShouldReturnError_EmailAlreadyExists()
+    {
+        //Arrange
+
+        var user = new ApplicationUser
+        {
+            Name = "Carl",
+            Gender = "-",
+            Age = 0,
+            Email = "carl@domain.com",
+            UserName = "carl@domain.com"
+        };
+
+        string password = null;
+
+        var mockUserManager = new Mock<UserManager<ApplicationUser>>(
+        Mock.Of<IUserStore<ApplicationUser>>(),
+        null, null, null, null, null, null, null, null
+        );
+        mockUserManager
+        .Setup(um => um.FindByEmailAsync(It.Is<string>(e => e == user.Email)))
+            .ReturnsAsync(user); 
+
+        // Act
+        var result = await mockUserManager.Object.FindByEmailAsync(user.Email);
+
+        // Assert
+        Assert.NotNull(result);
     }
 }
