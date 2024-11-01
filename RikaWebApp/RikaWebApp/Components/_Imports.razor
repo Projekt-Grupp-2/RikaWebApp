@@ -6,7 +6,14 @@
 @using Microsoft.AspNetCore.Components.Web
 @using static Microsoft.AspNetCore.Components.Web.RenderMode
 @using Microsoft.AspNetCore.Components.Web.Virtualization
+@using Microsoft.AspNetCore.Identity
 @using Microsoft.JSInterop
 @using RikaWebApp
 @using RikaWebApp.Client
 @using RikaWebApp.Components
+@using RikaWebApp.Components.Account
+@using RikaWebApp.Data
+
+
+@inject IdentityRedirectManager RedirectManager
+@inject UserManager<ApplicationUser> UserManager

@@ -8,6 +8,14 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Content Remove="wwwroot\css\scss\sections\_successful-page.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="wwwroot\css\scss\sections\_successful-page.scss" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\RikaWebApp.Client\RikaWebApp.Client.csproj" />
     <PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="8.0.10" />
     <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="8.0.10" />
@@ -18,6 +26,10 @@
 
   <ItemGroup>
     <Folder Include="wwwroot\images\logos\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="wwwroot\css\scss\sections\_successful-page.scss" />
   </ItemGroup>
 
 </Project>
