@@ -1,5 +1,50 @@
-﻿@page "/login"
+@page "/login"
+@using RikaWebApp.Components.Account
+@using RikaWebApp.Models
 @using RikaWebApp.Components.Account.Shared
+@using Microsoft.AspNetCore.Authentication
+@using Microsoft.AspNetCore.Identity
+@using RikaWebApp.Data
+
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject NavigationManager NavigationManager
+@inject IdentityRedirectManager RedirectManager
+@layout RikaWebApp.Components.Layout.MainLayout
+
+@code {
+
+
+    [SupplyParameterFromQuery]
+    public string? ReturnUrl { get; set; } = "/";
+
+    [SupplyParameterFromForm]
+    public SignInModel SigninForm { get; set; } = new();
+    
+    [SupplyParameterFromQuery]
+    public string? MessageType { get; set; }
+    
+    [SupplyParameterFromQuery]
+    public string? MessageText { get; set; }
+
+
+
+       
+    public async Task LoginUser()
+    {
+        var result = await SignInManager.PasswordSignInAsync(SigninForm.Email, SigninForm.Password, SigninForm.RememberMe, lockoutOnFailure: false);
+        if (result.Succeeded)
+        {
+            RedirectManager.RedirectTo(ReturnUrl);
+        }
+        else
+        {
+            MessageText = "Invalid sign in attempt.";
+            MessageType = "danger";
+        }
+
+    }
+}
 
 <section class="login-section">
     <div class="container">
@@ -9,17 +54,27 @@
             <p>Please login or sign up to continue using our app.</p>
         </div>
         <div class="login-form">
-            <form>
+           
+            @if (!string.IsNullOrEmpty(MessageText))
+            {
+                <div id="statusMessage" class="alert alert-@MessageType">@MessageText</div>
+            }
+            
+            <EditForm method="post" FormName="signipform" Model="SigninForm" OnValidSubmit="LoginUser" asp-route-returnUrl="@ReturnUrl" novalidate>
+                 <DataAnnotationsValidator />
                 <div class="form-row">
                     <h5>Email</h5>
-                    <input type="text" id="input1" placeholder="Email">
+                    <InputText id="input1" @bind-Value="SigninForm.Email" />
+                    <ValidationMessage For="() => SigninForm.Email" />
                 </div>
                 <div class="form-row">
                     <h5>Password</h5>
-                    <input type="password" id="input2" placeholder="Password">
+                    <InputText id="input2" @bind-Value="SigninForm.Password" type="password" />
+                    <ValidationMessage For="() => SigninForm.Password" />
                 </div>
-                <a href="#" class="btn-dark">Login</a>
-            </form>
+                <button type="submit" class="btn-dark">Login</button>
+            </EditForm>
+            
             <p class="or-text">or</p>
 
             <div class="social-login">
