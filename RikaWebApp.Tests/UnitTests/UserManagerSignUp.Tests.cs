@@ -1,12 +1,11 @@
-﻿
-
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
 using Moq;
 using RikaWebApp.Data;
 
+
 namespace RikaWebApp.Tests.UnitTests;
 
-public class UserManager
+public class UserManagerSignUp
 {
     [Fact]
 
