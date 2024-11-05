@@ -1,6 +1,11 @@
 ﻿@page "/settings"
+@using Microsoft.AspNetCore.Mvc
+@using Microsoft.AspNetCore.Identity
+@inject SignInManager<ApplicationUser> SignInManager
 
 @code {
+
+
 
 }<section class="settings-page">
     <div class="container">
@@ -71,6 +76,6 @@
                 </div>
             </div>                                                                                
         </div>
-        <button class="btn-dark logout"><i class="fa-solid fa-right-from-bracket"></i>Log Out</button>
+        <NavLink href="/Account/Pages/LogOut" class="btn-dark logout"><i class="fa-solid fa-right-from-bracket"></i>Log Out</NavLink>
     </div>
 </section>
