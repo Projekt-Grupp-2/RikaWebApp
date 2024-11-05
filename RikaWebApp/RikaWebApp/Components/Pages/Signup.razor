@@ -1,7 +1,12 @@
 ﻿@page "/signup"
+@using Azure.Messaging.ServiceBus
 @using Microsoft.AspNetCore.Identity
+@using Newtonsoft.Json
 @using RikaWebApp.Data
 @using RikaWebApp.Models
+
+@inject IConfiguration _configuration
+
 @rendermode InteractiveServer
 @code{
     [SupplyParameterFromForm]
@@ -14,6 +19,7 @@
     public string? ReturnUrl { get; set; }
 
     private ApplicationUser userAccount = new ApplicationUser();
+
 
     private async Task OnValidSubmit(EditContext editContext)
     {
@@ -43,6 +49,25 @@
 
                 if (result.Succeeded)
                 {
+                    string ServiceBus = _configuration["ServiceBus"]!;
+                    string queue = "email_request";
+
+                    ServiceBusClient client = new ServiceBusClient(ServiceBus);
+                    ServiceBusSender sender = client.CreateSender(queue);
+
+                    var emailProviderModel = new EmailProviderModel
+                    {
+                        Email = userAccount.Email,
+                        Name = userAccount.Name
+                    };
+
+
+                    var messageBody = JsonConvert.SerializeObject(emailProviderModel);
+
+                    ServiceBusMessage message = new ServiceBusMessage(messageBody);
+
+                    await sender.SendMessageAsync(message);
+
                     RedirectManager.RedirectTo("/successful");
 
                 }
