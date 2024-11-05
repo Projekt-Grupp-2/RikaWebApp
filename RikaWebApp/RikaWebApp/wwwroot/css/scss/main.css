@@ -495,6 +495,13 @@ form textarea::placeholder {
   background-color: #ccc;
   border-radius: 15px;
   margin-right: 15px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.profile-section .container .profile-header .avatar i {
+  font-size: 30px;
+  margin: 0;
 }
 .profile-section .container .profile-header .profile-info {
   margin-top: 10px;
