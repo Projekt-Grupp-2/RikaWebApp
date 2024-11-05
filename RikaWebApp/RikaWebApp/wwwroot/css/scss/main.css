@@ -303,6 +303,68 @@ form textarea::placeholder {
   opacity: 0.4;
 }
 
+.footer {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 10px;
+  background-color: white;
+  border-radius: 20px 20px 0 0;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+}
+@media (min-width: 768px) {
+  .footer {
+    width: 60%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+@media (min-width: 1400px) {
+  .footer {
+    width: 28%;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+}
+.footer .footer-icon {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+.footer .footer-icon .icon-container {
+  display: flex;
+  align-items: center;
+  padding: 4px 10px 4px 6px;
+  background-color: transparent;
+  border-radius: 20px;
+  transition: background-color 0.3s, color 0.3s;
+  color: black;
+}
+.footer .footer-icon .icon-container i {
+  margin-right: 4px;
+}
+.footer .footer-icon .icon-container span {
+  font-size: 14px;
+  color: inherit;
+  background-color: inherit;
+  padding-right: 12px;
+  border-radius: 20px;
+}
+.footer .footer-icon .icon-container.active {
+  padding: 0;
+  background-color: #f0f0f0;
+}
+.footer .footer-icon .icon-container.active i {
+  background-color: black;
+  color: white;
+  padding: 12px;
+  border-radius: 20px;
+}
+
 .starting-page {
   background-color: #CCCCCC;
 }
