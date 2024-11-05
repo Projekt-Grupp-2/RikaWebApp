@@ -74,31 +74,31 @@
                
                  <div class="input-group">
                     <label>User Name</label>
-                    <InputText @bind-Value="SignupForm.Name" />
+                    <InputText @bind-Value="SignupForm.Name" placeholder="User Name" />
                     <ValidationMessage For="() => SignupForm.Name" />
                 </div>
                 <div class="input-group">
                     <label>Email</label>
-                    <InputText @bind-Value="SignupForm.Email" />
+                    <InputText @bind-Value="SignupForm.Email" placeholder="Email" />
                     <ValidationMessage For="() => SignupForm.Email" />
 
                 </div>
                 <div class="input-group">
                     <label>Password</label>
-                    <InputText @bind-Value="SignupForm.Password" type="password" />
+                    <InputText @bind-Value="SignupForm.Password" type="password" placeholder="Password" />
                     <ValidationMessage For="() => SignupForm.Password" />
                 </div>
                 <div class="input-group">
                     <label>Confirm Password</label>
-                    <InputText @bind-Value="SignupForm.ConfirmPassword" type="password" />
+                    <InputText @bind-Value="SignupForm.ConfirmPassword" type="password" placeholder="Confirm password" />
                     <ValidationMessage For="() => SignupForm.ConfirmPassword" />
                 </div>
                 <div class="input-group checkbox-group">
-                    <label>By creating an account you have to agree with our terms & conditions.</label>
                     <InputCheckbox @bind-Value="SignupForm.TermsAndCondition" />
+                    <label>By creating an account you have to agree with our terms & conditions.</label>                  
                     
                 </div>
-                <button type="submit" class="btn-dark btn">Sign Up</button>
+                <button type="submit" class="btn-dark">Sign Up</button>
 
                 @if (StatusMessage == "Error")
                 {

@@ -633,6 +633,11 @@ form textarea::placeholder {
   color: #ff0000;
 }
 
+@media (min-width: 1281px) {
+  .signup-page .container {
+    width: 30%;
+  }
+}
 .signup-page .container .signup-logo {
   display: flex;
   justify-content: center;
@@ -664,12 +669,6 @@ form textarea::placeholder {
 .signup-page .container .signup-form .checkbox-group label {
   color: var(--color-primary-dark);
   font-weight: 100;
-}
-.signup-page .container .btn {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  margin-top: 1rem;
-  margin-bottom: 1rem;
 }
 
 .settings-page {
