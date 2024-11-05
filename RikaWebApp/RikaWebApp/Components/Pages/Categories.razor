@@ -1,14 +1,7 @@
-﻿@page "/categories"
+﻿ @page "/categories"
 @inject HttpClient Http
+@inject NavigationManager NavigationManager
 
-@* <div class="menu-bar">
-    <div class="menu-icon" @onclick="GoBack">
-        <i class="fa-sharp fa-solid fa-circle-left"></i>
-    </div>
-    <div class="menu-icon">
-        <i class="fa-solid fa-magnifying-glass"></i>
-    </div>
-</div> *@
 
 <h4 class="category-list-title">Categories</h4>
 
@@ -23,28 +16,36 @@
     }
     else
     {
+        <div class="category-list-container">
+            <NavLink class="category-item btn-category-item" href="/allproducts">
+                <div class="category-left">
+                    <i class="fa fa-list"></i> 
+                    <span class="category-name"><h5>All Products</h5></span>
+                </div>
+                <div class="category-right">
+                    <span class="product-count">@totalProductCount Products</span>
+                </div>
+            </NavLink>
+        </div>
+
         @foreach (var category in categories)
         {
             <div class="category-list-container">
-            <button class="category-item btn-category-item">
-                <div class="category-left">
-                    @((MarkupString)category.Icon)
-                    <span class="category-name"><h5>@category.Name</h5></span>
-                </div>
-                <div class="category-right">
-                    <span class="product-count">@category.ProductCount Product</span>
-                </div>
-            </button>
+                <NavLink class="category-item btn-category-item" href="@($"/productcategory/{category.Id}")">
+                    <div class="category-left">
+                        @((MarkupString)category.Icon)
+                        <span class="category-name"><h5>@category.Name</h5></span>
+                    </div>
+                    <div class="category-right">
+                        <span class="product-count">@category.ProductCount Product</span>
+                    </div>
+                </NavLink>
             </div>
-
-
-
         }
     }
 </div>
 
 @code {
-
     public class CategoryDto
     {
         public string Id { get; set; }
@@ -52,20 +53,18 @@
         public string? Icon { get; set; }
         public int ProductCount { get; set; }
     }
+
     private List<CategoryDto> categories;
+    private int totalProductCount;
 
     protected override async Task OnInitializedAsync()
     {
-        
         var url = "api/categories?code=Z8zajKTyzUaOQJgo14hXIx7FCvZaGsOVoosaojHLToj0AzFuMCSoFg%3D%3D";
         categories = await Http.GetFromJsonAsync<List<CategoryDto>>(url);
+        totalProductCount = categories?.Sum(c => c.ProductCount) ?? 0;
     }
 
 
-    private void GoBack()
-    {
-       
-    }
 
 }
 
