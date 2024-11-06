@@ -14,5 +14,9 @@
   {
     "outputFile": "wwwroot/css/scss/sections/_categories.css",
     "inputFile": "wwwroot/css/scss/sections/_categories.scss"
+  },
+  {
+    "outputFile": "wwwroot/css/scss/sections/_productlist.css",
+    "inputFile": "wwwroot/css/scss/sections/_productlist.scss"
   }
 ]

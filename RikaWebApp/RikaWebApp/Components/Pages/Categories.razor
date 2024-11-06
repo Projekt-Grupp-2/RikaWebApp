@@ -1,7 +1,6 @@
-﻿ @page "/categories"
+﻿@page "/categories"
 @inject HttpClient Http
 @inject NavigationManager NavigationManager
-
 
 <h4 class="category-list-title">Categories</h4>
 
@@ -17,9 +16,9 @@
     else
     {
         <div class="category-list-container">
-            <NavLink class="category-item btn-category-item" href="/allproducts">
+            <NavLink class="category-item btn-category-item" href="/productlist">
                 <div class="category-left">
-                    <i class="fa fa-list"></i> 
+                    <i class="fa fa-list"></i>
                     <span class="category-name"><h5>All Products</h5></span>
                 </div>
                 <div class="category-right">
@@ -28,10 +27,23 @@
             </NavLink>
         </div>
 
+        <!-- New Arrivals Button with Count -->
+        <div class="category-list-container">
+            <NavLink class="category-item btn-category-item" href="/productlist/newarrivals">
+                <div class="category-left">
+                    <i class="fa fa-star"></i>
+                    <span class="category-name"><h5>New Arrivals</h5></span>
+                </div>
+                <div class="category-right">
+                    <span class="product-count">@newArrivalsCount Products</span>
+                </div>
+            </NavLink>
+        </div>
+
         @foreach (var category in categories)
         {
             <div class="category-list-container">
-                <NavLink class="category-item btn-category-item" href="@($"/productcategory/{category.Id}")">
+                <NavLink class="category-item btn-category-item" href="@($"/productlist/{category.Id}")">
                     <div class="category-left">
                         @((MarkupString)category.Icon)
                         <span class="category-name"><h5>@category.Name</h5></span>
@@ -48,23 +60,45 @@
 @code {
     public class CategoryDto
     {
-        public string Id { get; set; }
-        public string? Name { get; set; }
-        public string? Icon { get; set; }
+        public string Id { get; set; } = null!;
+        public string Name { get; set; } = null!;
+        public string Icon { get; set; } = null!;
         public int ProductCount { get; set; }
     }
 
     private List<CategoryDto> categories;
     private int totalProductCount;
+    private int newArrivalsCount;
 
     protected override async Task OnInitializedAsync()
     {
-        var url = "api/categories?code=Z8zajKTyzUaOQJgo14hXIx7FCvZaGsOVoosaojHLToj0AzFuMCSoFg%3D%3D";
-        categories = await Http.GetFromJsonAsync<List<CategoryDto>>(url);
-        totalProductCount = categories?.Sum(c => c.ProductCount) ?? 0;
+        try
+        {
+            var url = "api/categories?code=Z8zajKTyzUaOQJgo14hXIx7FCvZaGsOVoosaojHLToj0AzFuMCSoFg%3D%3D";
+            categories = await Http.GetFromJsonAsync<List<CategoryDto>>(url);
+            totalProductCount = categories?.Sum(c => c.ProductCount) ?? 0;
+
+            var newArrivalsUrl = "api/products/newarrivals?code=CDHfWGxJ9Te9YyozkUyTEEQFZQmwTmu0aXJ-AUZeN9lnAzFuqkrZaA%3D%3D";
+            var newArrivals = await Http.GetFromJsonAsync<List<ProductDto>>(newArrivalsUrl);
+            newArrivalsCount = newArrivals?.Count ?? 0;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Error fetching data: {ex.Message}");
+        }
     }
 
-
-
+    public class ProductDto
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string ShortDescription { get; set; }
+        public decimal Price { get; set; }
+        public decimal? DiscountPrice { get; set; }
+        public string ImageUrl { get; set; }
+    }
 }
+
+
+
 
