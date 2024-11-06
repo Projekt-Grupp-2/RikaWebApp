@@ -674,9 +674,35 @@ form textarea::placeholder {
   font-weight: 100;
 }
 
+.btn-green {
+  border-radius: 28px;
+  text-align: center;
+  padding: 18px 45px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  border: 1px solid;
+  font-size: 16px;
+  background-color: transparent;
+  font-family: "Mont", sans-serif;
+  font-weight: 700;
+  font-style: normal;
+  transition: 0.25s;
+  color: var(--color-light);
+  background-color: #64BA67;
+}
+.btn-green:hover {
+  transition: 0.25s;
+  text-decoration: none;
+}
+
 .settings-page {
   max-width: 390px;
   margin: 0 auto;
+  padding-bottom: 50px;
 }
 .settings-page .container {
   display: flex;
@@ -813,7 +839,7 @@ form textarea::placeholder {
   align-items: center;
   gap: 10px;
 }
-.settings-page .container .logout {
+.settings-page .container .save-changes {
   width: 100%;
   border-radius: 10px;
   padding: 15px 20px;
