@@ -1,15 +1,4 @@
-﻿@font-face {
-  font-family: "Mont";
-  src: url("/fonts/Mont-Heavy.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Mont";
-  src: url("/fonts/Mont-ExtraLight.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
+﻿@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -30,7 +19,8 @@ img, svg {
 }
 
 body {
-  font-family: "Mont", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 16px;
@@ -69,7 +59,8 @@ body {
 
 a {
   display: inline-block;
-  font-family: "Mont", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 1rem;
@@ -193,9 +184,9 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Mont", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700;
-  font-style: normal;
   margin-top: 0;
   margin-bottom: 0.5em;
   line-height: 1.4;
@@ -794,9 +785,9 @@ form textarea::placeholder {
 }
 .settings-page .container .settings .settings-group .language p, .settings-page .container .settings .settings-group .notification p, .settings-page .container .settings .settings-group .drak-moode p, .settings-page .container .settings .settings-group .help-center p {
   flex: 1;
-  font-family: "Mont", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700;
-  font-style: normal;
   margin: 0;
   margin-top: 10px;
 }
