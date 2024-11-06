@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RikaWebApp", "RikaWebApp\Ri
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RikaWebApp.Client", "RikaWebApp\RikaWebApp.Client\RikaWebApp.Client.csproj", "{99490CD7-C396-48CC-A2E4-1277BD662F37}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RikaWebApp.Tests", "RikaWebApp.Tests\RikaWebApp.Tests.csproj", "{9BF02DDC-95F9-4B76-A5DD-F8DC860A2B19}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RikaWebApp.Tests", "RikaWebApp.Tests\RikaWebApp.Tests.csproj", "{9BF02DDC-95F9-4B76-A5DD-F8DC860A2B19}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

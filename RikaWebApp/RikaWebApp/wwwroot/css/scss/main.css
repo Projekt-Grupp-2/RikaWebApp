@@ -928,3 +928,71 @@ form textarea::placeholder {
   text-decoration: line-through;
   color: var(--color-gray-dark);
 }
+
+.mine-section {
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+}
+.mine-section .container {
+  max-width: 560px;
+  width: 100%;
+  margin: 0 auto;
+}
+.mine-section .container .section-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mine-section .container .section-header .avatar {
+  display: flex;
+  align-items: center;
+  padding: 12px 14px;
+  background-color: #f0f0f0;
+  border-radius: 25px;
+  transition: background-color 0.3s, color 0.3s;
+  color: black;
+}
+.mine-section .container .section-header .avatar i {
+  font-size: 26px;
+}
+.mine-section .container .section-header .avatar:hover {
+  background-color: #e0e0e0;
+  color: #333;
+}
+.mine-section .container h1 {
+  padding-top: 40px;
+  font-weight: 600;
+}
+.mine-section .container h5 {
+  padding-bottom: 20px;
+}
+.mine-section .container .search-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.mine-section .container .search-bar .search-field {
+  display: flex;
+  align-items: center;
+  padding: 10px 14px;
+  border-radius: 20px;
+  width: 100%;
+  max-width: 300px;
+  background-color: #F3F4F5;
+}
+.mine-section .container .search-bar .search-field i {
+  font-size: 16px;
+  margin-right: 8px;
+  font-weight: 600;
+}
+.mine-section .container .search-bar .search-field input {
+  border: none;
+  outline: none;
+  background: none;
+  font-size: 16px;
+  width: 100%;
+}
+.mine-section .container .search-bar .search-field input::placeholder {
+  color: #aaa;
+}
