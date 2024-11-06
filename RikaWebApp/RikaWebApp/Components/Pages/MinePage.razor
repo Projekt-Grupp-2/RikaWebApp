@@ -1,0 +1,65 @@
+﻿@page "/mine"
+@using Microsoft.AspNetCore.Authorization
+@using RikaWebApp.Models
+
+@inject IdentityUserAccessor UserAccessor
+
+@attribute [Authorize]
+
+@code {
+    private ApplicationUser user = default!;
+
+    [SupplyParameterFromQuery]
+    private string? ReturnUrl { get; set; }
+
+    [SupplyParameterFromForm]
+    public string UserProfileImg { get; set; } = null!;
+
+    [CascadingParameter]
+    private HttpContext HttpContext { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        user = await UserAccessor.GetRequiredUserAsync(HttpContext);
+
+        if (user != null && user.UserProfileImage != null)
+        {
+            UserProfileImg = user.UserProfileImage!.ProfileImage;
+        }
+
+    }
+}
+
+<PageTitle>Mine</PageTitle>
+<section class="mine-section">
+    <div class="container">
+        <div class="section-header">
+            <button class="btn-menu">
+                <i class="fa-regular fa-bars-staggered"></i>
+            </button>
+            
+            <a class="avatar">
+                @if (string.IsNullOrEmpty(UserProfileImg))
+                {
+                    <i class="fa-solid fa-user"></i>
+                }
+                else
+                {
+                    <img src="@UserProfileImg" alt="@user.Name" />
+                }
+            </a>
+        </div>
+        
+        <h1>Welcome,</h1>
+        <h5>Our Rika Fashion App</h5>
+        <div class="search-bar">
+            <div class="search-field">
+                <i class="fa-light fa-magnifying-glass"></i>
+                <input type="text" placeholder="Search...">
+            </div>
+            <button class="btn-menu">
+                <i class="fa-duotone fa-solid fa-sliders-simple"></i>
+            </button>
+        </div>
+    </div>
+</section>
