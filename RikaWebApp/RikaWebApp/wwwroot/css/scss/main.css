@@ -364,6 +364,9 @@ form textarea::placeholder {
   padding: 12px;
   border-radius: 20px;
 }
+.footer .footer-icon .icon-container .logout-link {
+  color: var(--color-dark);
+}
 
 .starting-page {
   background-color: #CCCCCC;
