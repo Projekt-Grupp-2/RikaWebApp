@@ -1,0 +1,30 @@
+﻿@page "/imageslider"
+@using System.Timers
+
+<div class="image-slider">
+    <img src="./images/@CurrentImage" alt="Image Slider" />
+    <div class="dots">
+        @for (int i = 0; i < Images.Count; i++)
+        {
+            <span class="dot @(i == CurrentIndex ? "active" : "")" @onclick="() => ChangeImage(i)"></span>
+        }
+    </div>
+</div>
+
+@code {
+    private List<string> Images = new List<string>
+    {
+        "shirt1.webp",
+        "shirt2.webp",
+        "shirt3.webp"
+    };
+
+    private int CurrentIndex = 0;
+
+    private string CurrentImage => Images[CurrentIndex];
+
+    private void ChangeImage(int index)
+    {
+        CurrentIndex = index;
+    }
+}
