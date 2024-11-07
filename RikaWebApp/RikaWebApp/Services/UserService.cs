@@ -4,12 +4,20 @@ using RikaWebApp.Data;
 
 namespace RikaWebApp.Services;
 
-public class UserService(UserManager<ApplicationUser> userManager, AuthenticationStateProvider authenticationStateProvider, ApplicationDbContext applicationDbContext)
+public class UserService
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly AuthenticationStateProvider _authenticationStateProvider = authenticationStateProvider;
-    private readonly ApplicationDbContext _context = applicationDbContext;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly AuthenticationStateProvider _authenticationStateProvider;
+    private readonly ApplicationDbContext _context;
 
+
+    public UserService(UserManager<ApplicationUser> userManager, AuthenticationStateProvider authenticationStateProvider, ApplicationDbContext applicationDbContext)
+    {
+        _userManager = userManager;
+        _authenticationStateProvider = authenticationStateProvider;
+        _context = applicationDbContext;
+    }
 
 
     public async Task<ApplicationUser> GetUserAsync()
@@ -43,8 +51,14 @@ public class UserService(UserManager<ApplicationUser> userManager, Authenticatio
         existingUser.Age = udpatedUser.Age;
         existingUser.UserProfileImage = udpatedUser.UserProfileImage;
 
+        if (udpatedUser.Email != existingUser.UserName)
+        {
+            existingUser.UserName = udpatedUser.Email;  // Sätt UserName till samma värde som Email
+        }
+
 
         var result = await _userManager.UpdateAsync(existingUser);
+
         if (result.Succeeded)
         {
             await _context.SaveChangesAsync();
