@@ -1421,6 +1421,12 @@ form textarea::placeholder {
   background-color: #F3F3F3;
   border-radius: 10px !important;
 }
+.promocode-section .content form .input-group .validation-errors li {
+  display: block;
+}
+.promocode-section .content form .input-group .validation-message {
+  display: none;
+}
 .promocode-section .content form .btn-dark {
   position: absolute;
   padding: 5px 10px;
