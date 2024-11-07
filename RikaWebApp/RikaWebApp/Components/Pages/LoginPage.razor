@@ -35,7 +35,7 @@
         var result = await SignInManager.PasswordSignInAsync(SigninForm.Email, SigninForm.Password, SigninForm.RememberMe, lockoutOnFailure: false);
         if (result.Succeeded)
         {
-            RedirectManager.RedirectTo("/profile");
+            RedirectManager.RedirectTo("/onboarding1");
         }
         else
         {
