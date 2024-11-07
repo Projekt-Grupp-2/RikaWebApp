@@ -924,14 +924,13 @@ form textarea::placeholder {
 }
 
 .mine-section {
-  padding: 40px;
+  padding-top: 40px;
   display: flex;
   justify-content: center;
 }
 .mine-section .container {
   max-width: 560px;
   width: 100%;
-  margin: 0 auto;
 }
 .mine-section .container .section-header {
   display: flex;
@@ -959,7 +958,7 @@ form textarea::placeholder {
   font-weight: 600;
 }
 .mine-section .container h5 {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 .mine-section .container .search-bar {
   display: flex;
@@ -989,6 +988,207 @@ form textarea::placeholder {
 }
 .mine-section .container .search-bar .search-field input::placeholder {
   color: #aaa;
+}
+.mine-section .container .discount-section {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.mine-section .container .discount-section .discount {
+  background-color: rgba(128, 128, 128, 0.24);
+  border-radius: 30px;
+  padding: 20px 20px;
+}
+.mine-section .container .discount-section .discount h3 {
+  color: black;
+  margin: 0;
+}
+.mine-section .container .discount-section .discount p {
+  color: black;
+  font-size: 18px;
+}
+.mine-section .container .discount-section .discount .small-text {
+  font-size: 12px;
+}
+.mine-section .container .discount-section .discount .btn-dark {
+  padding: 10px 50px;
+}
+@media (max-width: 576px) {
+  .mine-section .container .discount-section .discount .btn-dark {
+    padding: 5px 30px;
+  }
+}
+.mine-section .container .product-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+}
+.mine-section .container .product-list .product {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: ease-in-out 0.1s box-shadow;
+  text-decoration: none;
+}
+.mine-section .container .product-list .product:hover {
+  background-color: rgb(253, 253, 253);
+  border-radius: 16px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgba(197, 196, 196, 0.1294117647);
+}
+.mine-section .container .product-list .product .img-box {
+  position: relative;
+  overflow: hidden;
+}
+.mine-section .container .product-list .product .img-box img {
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mine-section .container .product-list .product .img-box button {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mine-section .container .product-list .product .img-box button i {
+  color: white;
+  padding: 7px;
+  border-radius: 30px;
+  background-color: black;
+  transition: background-color 0.2s ease-in-out;
+}
+.mine-section .container .product-list .product .img-box button i:hover {
+  background-color: rgb(255, 17, 0);
+}
+.mine-section .container .product-list .product .info {
+  text-align: center;
+  text-decoration: none;
+  width: 90%;
+}
+.mine-section .container .product-list .product .info .product-title {
+  color: black;
+  font-weight: 600;
+}
+.mine-section .container .product-list .product .info .product-category {
+  color: grey;
+}
+.mine-section .container .product-list .product .info .product-price {
+  color: black;
+  font-weight: 600;
+}
+.mine-section .container .section-title {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+.mine-section .container .section-title h3 {
+  color: black;
+  font-weight: 600;
+}
+.mine-section .container .section-title button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  color: rgb(128, 128, 128);
+  font-size: 16px;
+}
+.mine-section .container .section-title button:hover {
+  text-decoration: underline;
+}
+.mine-section .container .new-arrivals {
+  margin-top: 40px;
+}
+.mine-section .container .categories {
+  margin-top: 50px;
+}
+.mine-section .container .categories h3 {
+  color: black;
+  font-weight: 600;
+}
+.mine-section .container .categories .category-list {
+  display: flex;
+  justify-content: space-between;
+}
+.mine-section .container .categories .category-list button {
+  background-color: transparent;
+  border: 2px solid rgba(128, 128, 128, 0.363);
+  border-radius: 20px;
+  font-size: 20px;
+  padding: 5px 30px;
+  transition: ease-in-out 0.2s background-color;
+  cursor: pointer;
+}
+@media (max-width: 576px) {
+  .mine-section .container .categories .category-list button {
+    padding: 5px;
+  }
+}
+.mine-section .container .categories .category-list button:hover {
+  background-color: black;
+  color: white;
+}
+.mine-section .container .categories .category-list .active {
+  background-color: black;
+  color: white;
+}
+.mine-section .container .categories .section-title {
+  margin-top: 30px;
+}
+.mine-section .container .popular-products {
+  margin-bottom: 61px;
+}
+.mine-section .container .popular-products .popular-item-list .product {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(253, 253, 253);
+  border-radius: 8px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  transition: ease-in-out 0.2s background-color;
+  text-decoration: none;
+}
+.mine-section .container .popular-products .popular-item-list .product:hover {
+  background-color: rgb(175, 173, 173);
+}
+.mine-section .container .popular-products .popular-item-list .product:hover .description {
+  color: grey;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text {
+  display: flex;
+  gap: 15px;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text .info-text .title {
+  font-weight: 600;
+  color: black;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text .info-text .description {
+  color: grey;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text .info-text .rating {
+  font-weight: 600;
+  color: black;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text .info-text .rating i {
+  color: rgba(255, 251, 0, 0.438);
+}
+.mine-section .container .popular-products .popular-item-list .product .price {
+  font-weight: 600;
+  color: black;
+  font-size: 20px;
+  margin-right: 20px;
+}
+@media (max-width: 576px) {
+  .mine-section .container .popular-products .popular-item-list .product .price {
+    font-size: 14px;
+  }
 }
 
 .shoppingcart-section {
