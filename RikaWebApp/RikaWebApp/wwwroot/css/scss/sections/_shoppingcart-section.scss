@@ -1,0 +1,125 @@
+@import "../mixins/_mixins-media.scss";
+
+.shoppingcart-section {
+    padding-top: 2rem;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+
+
+    .container {
+        padding: 2rem;
+        margin: 20px;
+        background-color: #fff;
+        border-radius: 10px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+
+        @include desktop {
+            width: 60%;
+        }
+
+       
+
+        h1 {
+            font-size: 50px;
+            font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+            font-weight: 800;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            margin-bottom: 30px;
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            position: relative;
+            box-shadow: 0px 0px 10px 1px rgba(85, 85, 85, 0.1);
+
+            img {
+                width: 50px;
+                height: 50px;
+                background-color: #ddd;
+                border-radius: 8px;
+            }
+
+            .item-details {
+                flex: 1;
+                margin-left: 10px;
+
+
+                h2 {
+                    font-size: 1em;
+                    margin-bottom: 5px;
+                }
+
+                p {
+                    font-size: 0.9em;
+                    color: #888;
+                }
+
+                .item-price {
+                    color: black;
+                    font-size: medium;
+                    font-weight: 100;
+                }
+            }
+
+            .delete-item {
+                border: none;
+                background: none;
+                position: absolute;
+                right: 10px;
+                top: 10px;
+
+                i {
+                }
+            }
+
+            .quantity-controls {
+                position: absolute;
+                bottom: 15px;
+                right: 15px;
+                display: flex;
+                align-items: center;
+                gap: 1px;
+                border-radius: 20px;
+                background-color: #e0e0e0;
+                font-size: 20px;
+
+
+                .quantity-btn {
+                    font-size: 16px;
+                    margin: 5px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border: none;
+                    background-color: transparent;
+                    color: black;
+                }
+            }
+        }
+
+
+        .cart-summary {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: rgb(25, 24, 24);
+            margin: 10px 0;
+            font-size: 250px;
+
+            p {
+                font-size: 20px;
+                font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+                font-weight: 800;
+            }
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+}

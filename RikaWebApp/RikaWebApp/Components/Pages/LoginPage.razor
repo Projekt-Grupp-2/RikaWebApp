@@ -20,27 +20,49 @@
 
     [SupplyParameterFromForm]
     public SignInModel SigninForm { get; set; } = new();
-    
+
     [SupplyParameterFromQuery]
     public string? MessageType { get; set; }
-    
+
     [SupplyParameterFromQuery]
     public string? MessageText { get; set; }
 
+    private ApplicationUser user = new ApplicationUser();
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; } = default!;
 
 
-       
+
+
     public async Task LoginUser()
     {
         var result = await SignInManager.PasswordSignInAsync(SigninForm.Email, SigninForm.Password, SigninForm.RememberMe, lockoutOnFailure: false);
         if (result.Succeeded)
         {
-            RedirectManager.RedirectTo(ReturnUrl);
+            RedirectManager.RedirectTo("/onboarding1");
         }
         else
         {
             MessageText = "Invalid sign in attempt.";
             MessageType = "danger";
+        }
+
+    }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+        var userClaims = (await AuthenticationState).User;
+
+        if(userClaims.Claims != null)
+        {
+            var result = SignInManager.IsSignedIn(userClaims);
+
+            if(result)
+            {
+                RedirectManager.RedirectTo("/mine");
+            }
         }
 
     }

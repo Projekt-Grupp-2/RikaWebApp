@@ -1,0 +1,100 @@
+﻿@inject NavigationManager NavigationManager
+@rendermode InteractiveServer
+@code {
+    private bool isHomeActive = false;
+    private bool isCartActive = false;
+    private bool isNotificationsActive = false;
+    private bool isProfileActive = false;
+
+    private void ToggleHome()
+    {
+        ResetActiveStates();
+        isHomeActive = true;
+        NavigationManager.NavigateTo("/mine");
+    }
+
+    private void ToggleCart()
+    {
+        ResetActiveStates();
+        isCartActive = true;
+        NavigationManager.NavigateTo("/cart");
+    }
+
+    private void ToggleNotifications()
+    {
+        ResetActiveStates();
+        isNotificationsActive = true;
+        NavigationManager.NavigateTo("/settings");
+    }
+
+    private void ToggleProfile()
+    {
+        ResetActiveStates();
+        isProfileActive = true;
+        NavigationManager.NavigateTo("/profile");
+    }
+
+    private void ResetActiveStates()
+    {
+        isHomeActive = false;
+        isCartActive = false;
+        isNotificationsActive = false;
+        isProfileActive = false;
+    }
+}
+
+<div class="footer">
+    <!-- Home Button -->
+    <div class="footer-icon" @onclick="ToggleHome">
+        <div class="icon-container @(isHomeActive ? "active" : "")">
+            <i class="fas fa-home"></i>
+            @if (isHomeActive)
+            {
+                <span>Home</span>
+            }
+        </div> 
+    </div>
+
+    <!-- Cart Button -->
+    <div class="footer-icon" @onclick="ToggleCart">
+        <div class="icon-container @(isCartActive ? "active" : "")">
+            <i class="fas fa-shopping-cart"></i>
+            @if (isCartActive)
+            {
+                <span>Cart</span>
+            }
+        </div>   
+    </div>
+
+    <!-- Settings Button -->
+    <div class="footer-icon" @onclick="ToggleNotifications">
+        <div class="icon-container @(isNotificationsActive ? "active" : "")">
+            <i class="fas fa-bell"></i>
+            @if (isNotificationsActive)
+            {
+                <span>Notifi</span>
+            }
+        </div>  
+    </div>
+
+    <!-- Profile Button -->
+    <div class="footer-icon" @onclick="ToggleProfile">
+        <div class="icon-container @(isProfileActive ? "active" : "")">
+            <i class="fas fa-user"></i>
+            @if (isProfileActive)
+            {
+                <span>Profile</span>
+            }
+        </div>   
+    </div>
+
+    <!-- Logout Button -->
+    <div class="footer-icon">
+        <div class="icon-container">
+            <NavLink class="logout-link" href="/Account/Pages/LogOut"><i class="fa-solid fa-right-from-bracket "></i></NavLink>
+        </div>
+    </div>
+
+    
+</div>
+

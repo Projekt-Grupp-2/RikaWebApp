@@ -17,17 +17,34 @@
 else
 {
     <form class="form-horizontal" action="Account/PerformExternalLogin" method="post">
-        <div>
+        <div class="social-login">
             <AntiforgeryToken />
             <input type="hidden" name="ReturnUrl" value="@ReturnUrl" />
             <p>
                 @foreach (var provider in externalLogins)
                 {
-                    <button type="submit" class="btn btn-primary" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">@provider.DisplayName</button>
+                    var buttonClass = "btn-primary";
+                    if (provider.Name == "Facebook")
+                    {
+                        buttonClass += " facebook-btn";
+                    }
+                    else if (provider.Name == "Google")
+                    {
+                        buttonClass += " google-btn";
+                    }
+                    else if (provider.Name == "Apple")
+                    {
+                        buttonClass += " apple-btn";
+                    }
+
+                    <button type="submit" class="@buttonClass" name="provider" value="@provider.Name" title="Log in using your @provider.DisplayName account">
+                        <i class="icon"></i> @provider.DisplayName
+                    </button>
                 }
             </p>
         </div>
     </form>
+
 }
 
 @code {

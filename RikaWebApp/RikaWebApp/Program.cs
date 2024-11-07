@@ -5,6 +5,7 @@ using RikaWebApp.Client.Pages;
 using RikaWebApp.Components;
 using RikaWebApp.Components.Account;
 using RikaWebApp.Data;
+using RikaWebApp.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -18,6 +19,8 @@ builder.Services.AddScoped<IdentityUserAccessor>();
 builder.Services.AddScoped<IdentityRedirectManager>();
 builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAuthenticationStateProvider>();
 builder.Services.AddHttpClient();
+
+builder.Services.AddScoped<UserService>();
 
 builder.Services.AddAuthentication(options =>
     {
@@ -40,6 +43,8 @@ builder.Services.AddAuthentication()
          options.ClientSecret = builder.Configuration["GoogleClientSecret"]!;
      });
 
+builder.Services.AddHttpClient();
+
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
@@ -48,7 +53,6 @@ builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 builder.Services.AddIdentityCore<ApplicationUser>(options =>
 {
     options.SignIn.RequireConfirmedAccount = false;
-    options.User.RequireUniqueEmail = true;
     options.Password.RequiredLength = 8;
 })
     .AddEntityFrameworkStores<ApplicationDbContext>()
