@@ -42,10 +42,10 @@
         @foreach (var category in categories)
         {
             <div class="category-list-container">
-                <NavLink class="category-item btn-category-item" href="@($"/productlist/{category.Id}")">
+                <NavLink class="category-item btn-category-item" href="@($"/productlist/{category.CategoryName}")">
                     <div class="category-left">
                         @((MarkupString)category.Icon)
-                        <span class="category-name"><h5>@category.Name</h5></span>
+                        <span class="category-name"><h5>@category.CategoryName</h5></span>
                     </div>
                     <div class="category-right">
                         <span class="product-count">@category.ProductCount Product</span>
@@ -53,14 +53,14 @@
                 </NavLink>
             </div>
         }
+        }
     }
 </div>
 
 @code {
     public class CategoryDto
     {
-        public string Id { get; set; } = null!;
-        public string Name { get; set; } = null!;
+        public string CategoryName { get; set; } = null!;
         public string Icon { get; set; } = null!;
         public int ProductCount { get; set; }
     }
@@ -73,11 +73,11 @@
     {
         try
         {
-            var url = "getallcategoriesapi";
+            var url = "http://localhost:7111/api/categories/productcount";
             categories = await Http.GetFromJsonAsync<List<CategoryDto>>(url);
             totalProductCount = categories?.Sum(c => c.ProductCount) ?? 0;
 
-            var newArrivalsUrl = "getnewarrrivalsapi";
+            var newArrivalsUrl = "http://localhost:7111/api/products/newarrivals";
             var newArrivals = await Http.GetFromJsonAsync<List<ProductDto>>(newArrivalsUrl);
             newArrivalsCount = newArrivals?.Count ?? 0;
         }
