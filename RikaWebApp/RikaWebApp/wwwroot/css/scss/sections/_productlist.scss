@@ -28,6 +28,7 @@
             transform: translate(-50%, -50%);
             text-align: center;
             font-size: 1.5rem;
+            color: var(--color-dark);
         }
 
         .product-list {
@@ -50,6 +51,8 @@
                 overflow: hidden;
                 transition: box-shadow 0.5s;
                 cursor: pointer;
+                text-decoration: none;
+                color: var(--color-dark);
 
                 &:hover,
                 &:active {
@@ -125,4 +128,3 @@
         }
     }
 }
-

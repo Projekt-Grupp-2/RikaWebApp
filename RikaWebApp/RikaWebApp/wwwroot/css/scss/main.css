@@ -867,6 +867,7 @@ form textarea::placeholder {
   transform: translate(-50%, -50%);
   text-align: center;
   font-size: 1.5rem;
+  color: var(--color-dark);
 }
 .product-list-section .container .product-list {
   display: grid;
@@ -890,6 +891,8 @@ form textarea::placeholder {
   overflow: hidden;
   transition: box-shadow 0.5s;
   cursor: pointer;
+  text-decoration: none;
+  color: var(--color-dark);
 }
 .product-list-section .container .product-list .product-card:hover, .product-list-section .container .product-list .product-card:active {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
@@ -955,8 +958,17 @@ form textarea::placeholder {
   justify-content: center;
 }
 .mine-section .container {
-  max-width: 560px;
   width: 100%;
+}
+@media (min-width: 768px) {
+  .mine-section .container {
+    width: 70%;
+  }
+}
+@media (min-width: 992px) {
+  .mine-section .container {
+    width: 70%;
+  }
 }
 .mine-section .container .section-header {
   display: flex;
@@ -979,26 +991,58 @@ form textarea::placeholder {
   background-color: #e0e0e0;
   color: #333;
 }
+.mine-section .container .section-header .search-bar {
+  display: none;
+}
+@media (min-width: 992px) {
+  .mine-section .container .section-header .search-bar {
+    display: flex;
+    justify-content: center;
+    width: 50%;
+  }
+}
+.mine-section .container .section-header .search-bar .search-field {
+  width: 100%;
+}
 .mine-section .container h1 {
   padding-top: 40px;
   font-weight: 600;
 }
+@media (min-width: 992px) {
+  .mine-section .container h1 {
+    text-align: center;
+  }
+}
 .mine-section .container h5 {
   padding-bottom: 10px;
+}
+@media (min-width: 992px) {
+  .mine-section .container h5 {
+    text-align: center;
+  }
 }
 .mine-section .container .search-bar {
   display: flex;
   align-items: center;
   justify-content: space-between;
 }
+@media (min-width: 992px) {
+  .mine-section .container .search-bar {
+    display: none;
+  }
+}
 .mine-section .container .search-bar .search-field {
   display: flex;
   align-items: center;
   padding: 10px 14px;
   border-radius: 20px;
-  width: 100%;
-  max-width: 300px;
+  width: 70%;
   background-color: #F3F4F5;
+}
+@media (min-width: 992px) {
+  .mine-section .container .search-bar .search-field {
+    width: 50%;
+  }
 }
 .mine-section .container .search-bar .search-field i {
   font-size: 16px;
@@ -1021,6 +1065,11 @@ form textarea::placeholder {
   gap: 20px;
   flex-direction: row;
   justify-content: space-around;
+}
+@media (min-width: 992px) {
+  .mine-section .container .discount-section {
+    display: none;
+  }
 }
 .mine-section .container .discount-section .discount {
   background-color: rgba(128, 128, 128, 0.24);
@@ -1049,8 +1098,17 @@ form textarea::placeholder {
 .mine-section .container .product-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  align-items: center;
   gap: 20px;
+}
+@media (max-width: 768px) {
+  .mine-section .container .product-list a.product:nth-of-type(n+3) {
+    display: none;
+  }
+}
+@media (min-width: 992px) {
+  .mine-section .container .product-list {
+    grid-template-columns: repeat(4, 1fr);
+  }
 }
 .mine-section .container .product-list .product {
   display: flex;
@@ -1140,7 +1198,10 @@ form textarea::placeholder {
 }
 .mine-section .container .categories .category-list {
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  flex-wrap: wrap;
 }
 .mine-section .container .categories .category-list button {
   background-color: transparent;
@@ -1150,11 +1211,6 @@ form textarea::placeholder {
   padding: 5px 30px;
   transition: ease-in-out 0.2s background-color;
   cursor: pointer;
-}
-@media (max-width: 576px) {
-  .mine-section .container .categories .category-list button {
-    padding: 5px;
-  }
 }
 .mine-section .container .categories .category-list button:hover {
   background-color: black;

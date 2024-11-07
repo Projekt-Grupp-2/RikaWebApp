@@ -5,8 +5,15 @@
 
 
     .container {
-        max-width: 560px;
         width: 100%;
+
+        @media (min-width: 768px) {
+            width: 70%;
+        }
+
+        @media (min-width: 992px) {
+            width: 70%;
+        }
 
 
         .section-header {
@@ -32,15 +39,39 @@
                     color: #333;
                 }
             }
+
+            .search-bar {
+                display: none; // Hide by default
+
+                @media (min-width: 992px) {
+                    display: flex; // Show in the header at larger screens
+                    justify-content: center;
+                    width: 50%; // Adjust width as desired
+                }
+
+                .search-field {
+                    width: 100%; // Full width inside the header
+                }
+            }
         }
+
+
 
         h1 {
             padding-top: 40px;
             font-weight: 600;
+
+            @media (min-width: 992px) {
+                text-align: center;
+            }
         }
 
         h5 {
             padding-bottom: 10px;
+
+            @media (min-width: 992px) {
+                text-align: center;
+            }
         }
 
 
@@ -49,14 +80,24 @@
             align-items: center;
             justify-content: space-between;
 
+            @media (min-width: 992px) {
+                display: none; // Hide main search bar on desktop
+            }
+
+
+
             .search-field {
                 display: flex;
                 align-items: center;
                 padding: 10px 14px;
                 border-radius: 20px;
-                width: 100%;
-                max-width: 300px;
+                width: 70%;
                 background-color: #F3F4F5;
+
+                @media (min-width: 992px) {
+                    width: 50%;
+                }
+
 
                 i {
                     font-size: 16px;
@@ -84,6 +125,10 @@
             gap: 20px;
             flex-direction: row;
             justify-content: space-around;
+
+            @media (min-width: 992px) {
+                display: none;
+            }
 
             .discount {
                 background-color: rgba(128, 128, 128, 0.24);
@@ -117,8 +162,17 @@
         .product-list {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            align-items: center;
             gap: 20px;
+
+            @media (max-width: 768px) { // Adjust breakpoint as needed for mobile
+                a.product:nth-of-type(n+3) { // Selects the 3rd product onward
+                    display: none; // Hides all products after the first two
+                }
+            }
+
+            @media (min-width: 992px) {
+                grid-template-columns: repeat(4, 1fr); // 4 products per row on larger desktops
+            }
 
 
 
@@ -233,8 +287,10 @@
 
             .category-list {
                 display: flex;
-                justify-content: space-between;
-
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                flex-wrap: wrap;
 
                 button {
                     background-color: transparent;
@@ -243,11 +299,6 @@
                     font-size: 20px;
                     padding: 5px 30px;
                     transition: ease-in-out 0.2s background-color;
-
-                    @media (max-width: 576px) {
-                        padding: 5px;
-                    }
-
                     cursor: pointer;
 
                     &:hover {
