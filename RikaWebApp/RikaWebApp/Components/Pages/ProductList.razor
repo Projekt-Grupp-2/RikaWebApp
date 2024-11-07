@@ -1,69 +1,103 @@
 ﻿@page "/productlist" 
+@using RikaWebApp.Models
+@using static System.Net.WebRequestMethods
+@using System.Net.Http.Json
+
+@rendermode InteractiveServer
+@attribute [StreamRendering]
 
 <PageTitle>Category Name</PageTitle> @* Titel hämtas från vald kategori *@
 
 <section class="product-list-section">
     <div class="container">
         <h5 class="category-title">Clothes</h5> @* Titel hämtas från vald kategori *@
-        <h6 class="error-message"></h6> @* Ifall produktlistan är tom eller något blir knas med hämtningen *@
-        <div class="product-list"> @*For every product in category...*@
-            <div class="product-card">
-                <img class="product-image" src="/images/product-test/Leonardo_Lightning_XL_orange_flower_patterned_boho_dress_nonsl_3.jpg" />
-                <btn class="btn-round">
-                    <i class="fa-regular fa-heart"></i> @*Om favoritad <i class="fa-solid fa-heart"></i>*@
-                </btn>
-                <div class="product-card-info">
-                    <h5 class="product-name">Roller Rabbit</h5>
-                    <p class="short-desc">Vado Odelle Dress</p>
-                    <div class="product-prices single-price">
-                        <h5>$198.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <img class="product-image" src="/images/product-test/Leonardo_Lightning_XL_white_top_short_ballon_sleeves_linen_fab_2.jpg" />
-                <btn class="btn-round">
-                    <i class="fa-regular fa-heart"></i> @*Om favoritad <i class="fa-solid fa-heart"></i>*@
-                </btn>
-                <div class="product-card-info">
-                    <h5 class="product-name">endless rose</h5>
-                    <p class="short-desc">Bubble Elastic T-shirt</p>
-                    <div class="product-prices single-price">
-                        <h5>$50.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <img class="product-image" src="/images/product-test/Leonardo_Lightning_XL_ribbes_sweater_striped_brown_white_and_b_3.jpg" />
-                <btn class="btn-round">
-                    <i class="fa-regular fa-heart"></i> @*Om favoritad <i class="fa-solid fa-heart"></i>*@
-                </btn>
-                <div class="product-card-info">
-                    <h5 class="product-name">Theory</h5>
-                    <p class="short-desc">Irregular Rib Shirt</p>
-                    <div class="product-prices single-price">
-                        <h5>$345.00</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="product-card">
-                <img class="product-image" src="/images/product-test/Leonardo_Lightning_XL_Irregular_Rib_Shirt_clothing_3.jpg" />
-                <btn class="btn-round">
-                    <i class="fa-regular fa-heart"></i> @*Om favoritad <i class="fa-solid fa-heart"></i>*@
-                </btn>
-                <div class="product-card-info">
-                    <h5 class="product-name">Madewell</h5>
-                    <p class="short-desc">Giselle Top in White Linen</p>
-                    <div class="product-prices multiple-prices">
-                        <h5 class="discount">$69.00</h5>
-                        <h5 class="original-price">$89.00</h5>
-                    </div>
-                </div>
-            </div>
+        <h6 class="error-message">@errorMessage</h6>
+        <div class="product-list">
+            @if (!string.IsNullOrEmpty(errorMessage))
+            {
+                <h6>@errorMessage</h6>
+            }
+            else if (products == null)
+            {
+            <div><i class="fa-sharp fa-solid fa-spinner-third fa-spin"></i></div>
+            }
+            else
+            {
+                    @foreach (var product in products)
+                    {
+                    var link = $"/product-details/{product.Id}";
+                        <a class="product-card" href="@link">
+                            <img class="product-image" src="/images/@product.FirstImageUrl" />
+                            <btn class="btn-round">
+                                <i class="fa-regular fa-heart"></i>
+                            </btn>
+                            <div class="product-card-info">
+                                <h5 class="product-name">@product.Name</h5>
+                                <p class="short-desc">@product.ShortDescription</p>
+                                
+                                    @if (product.Prices.Discount.HasValue)
+                                    {
+                                        <div class="product-prices multiple-prices">
+                                            <h5 class="discount">$@product.Prices.DiscountPrice.ToString("F2")</h5>
+                                            <h5 class="original-price">$@product.Prices.Price1.ToString("F2")</h5>
+                                        </div>
+                                    }
+                                    else
+                                    {
+                                        <div class="product-prices single-price">
+                                            <h5 class ="original-price">@product.Prices.Price1.ToString("F2")</h5>
+                                        </div>
+                                    }
+                                
+                            </div>
+                        </a>
+                    }
+            }
         </div>
     </div>
 </section>
 
 @code {
+    private ProductCardModel[]? products;
+    private string? errorMessage;
 
+    protected override async Task OnInitializedAsync()
+    {
+        try
+        {
+            var result = await Http.GetFromJsonAsync<ProductModel[]>("http://localhost:7111/api/GetProducts");
+
+            if (result != null && result.Any())
+            {
+                products = result.Select(product => new ProductCardModel
+                    {
+                        Id = product.Id,
+                        Name = product.Name,
+                        ShortDescription = product.ShortDescription,
+                        Images = product.Images.Select(image => new Image
+                        {
+                            ImageUrl = image.ImageUrl
+                        }).ToList(),
+                        
+                        Prices = new Price
+                        {
+                            Price1 = product.Prices.FirstOrDefault()?.Price1 ?? 0,
+                            Discount = product.Prices.FirstOrDefault()?.Discount,
+                            StartDate = product.Prices.FirstOrDefault()?.StartDate,
+                            EndDate = product.Prices.FirstOrDefault()?.EndDate
+                        }
+                    }).ToArray();
+            }
+            else
+            {
+                errorMessage = "No products available in this category";
+            }
+
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Failed to load products, try again later";
+            Console.WriteLine(ex);
+        }
+    }
 }
