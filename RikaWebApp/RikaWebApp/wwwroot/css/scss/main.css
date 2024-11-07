@@ -689,7 +689,28 @@ form textarea::placeholder {
   transition: 0.25s;
   text-decoration: none;
 }
+.btn-green:hover {
+  color: var(--color-light);
+  background-color: var(--color-dark);
+}
 
+@keyframes tilt-shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0eg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
 .settings-page {
   max-width: 390px;
   margin: 0 auto;
@@ -711,6 +732,12 @@ form textarea::placeholder {
 .settings-page .container input::placeholder {
   color: var(--color-dark);
   font-weight: 700;
+  font-size: 14px;
+  padding-left: 15px;
+}
+.settings-page .container #Name, .settings-page .container #Age, .settings-page .container #Email {
+  color: var(--color-dark);
+  font-weight: 600;
   font-size: 14px;
   padding-left: 15px;
 }
@@ -754,7 +781,7 @@ form textarea::placeholder {
 .settings-page .container .form .inputgroup {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   justify-content: space-between;
 }
 .settings-page .container .form .inputgroup Label {
@@ -774,7 +801,7 @@ form textarea::placeholder {
 }
 .settings-page .container .settings {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 .settings-page .container .settings .heading {
@@ -797,6 +824,11 @@ form textarea::placeholder {
   justify-content: space-between;
   margin-bottom: 15px;
   gap: 10px;
+  text-decoration: none;
+  color: var(--color-dark);
+}
+.settings-page .container .settings .settings-group .language:hover .fa-angle-right, .settings-page .container .settings .settings-group .notification:hover .fa-angle-right, .settings-page .container .settings .settings-group .drak-moode:hover .fa-angle-right, .settings-page .container .settings .settings-group .help-center:hover .fa-angle-right {
+  animation: tilt-shaking 0.38s infinite;
 }
 .settings-page .container .settings .settings-group .language .fa-globe, .settings-page .container .settings .settings-group .language .fa-bell, .settings-page .container .settings .settings-group .language .fa-moon, .settings-page .container .settings .settings-group .language .fa-question, .settings-page .container .settings .settings-group .notification .fa-globe, .settings-page .container .settings .settings-group .notification .fa-bell, .settings-page .container .settings .settings-group .notification .fa-moon, .settings-page .container .settings .settings-group .notification .fa-question, .settings-page .container .settings .settings-group .drak-moode .fa-globe, .settings-page .container .settings .settings-group .drak-moode .fa-bell, .settings-page .container .settings .settings-group .drak-moode .fa-moon, .settings-page .container .settings .settings-group .drak-moode .fa-question, .settings-page .container .settings .settings-group .help-center .fa-globe, .settings-page .container .settings .settings-group .help-center .fa-bell, .settings-page .container .settings .settings-group .help-center .fa-moon, .settings-page .container .settings .settings-group .help-center .fa-question {
   font-size: 20px;
@@ -818,9 +850,10 @@ form textarea::placeholder {
   margin-top: 10px;
 }
 .settings-page .container .settings .settings-group .language span, .settings-page .container .settings .settings-group .notification span, .settings-page .container .settings .settings-group .drak-moode span, .settings-page .container .settings .settings-group .help-center span {
-  color: var(--color-gray-dark);
+  color: var(--color-primary);
   font-size: 14px;
   margin-right: 1rem;
+  font-weight: 600;
 }
 .settings-page .container .settings .settings-group .language label, .settings-page .container .settings .settings-group .notification label, .settings-page .container .settings .settings-group .drak-moode label, .settings-page .container .settings .settings-group .help-center label {
   font-size: 12px;

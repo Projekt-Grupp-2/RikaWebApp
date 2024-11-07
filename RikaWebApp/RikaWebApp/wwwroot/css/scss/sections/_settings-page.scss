@@ -2,6 +2,33 @@
     @include btn;
     color: var(--color-light);
     background-color: #64BA67;
+
+    &:hover {
+        color: var(--color-light);
+        background-color: var(--color-dark);
+    }
+}
+
+@keyframes tilt-shaking {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(15deg);
+    }
+
+    50% {
+        transform: rotate(0eg);
+    }
+
+    75% {
+        transform: rotate(-15deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 
@@ -29,6 +56,13 @@
                 font-size: 14px;
                 padding-left: 15px;
             }
+        }
+
+        #Name, #Age, #Email {
+            color: var(--color-dark);
+            font-weight: 600;
+            font-size: 14px;
+            padding-left: 15px;
         }
 
 
@@ -78,7 +112,7 @@
             .inputgroup {
                 display: flex;
                 align-items: center;
-                margin-bottom: 20px;
+                margin-bottom: 5px;
                 justify-content: space-between;
 
                 Label {
@@ -103,7 +137,7 @@
 
         .settings {
             width: 100%;
-            margin-top: 10px;
+            margin-top: 30px;
             margin-bottom: 20px;
 
             .heading {
@@ -127,6 +161,16 @@
                     justify-content: space-between;
                     margin-bottom: 15px;
                     gap: 10px;
+                    text-decoration: none;
+                    color: var(--color-dark);
+
+                    &:hover {
+
+                        .fa-angle-right {
+                            animation: tilt-shaking 0.38s infinite;
+                        }
+                    }
+
 
                     .fa-globe, .fa-bell, .fa-moon, .fa-question {
                         font-size: 20px;
@@ -148,9 +192,10 @@
                     }
 
                     span {
-                        color: var(--color-gray-dark);
+                        color: var(--color-primary);
                         font-size: 14px;
                         margin-right: 1rem;
+                        font-weight: 600;
                     }
 
                     label {

@@ -9,7 +9,7 @@ public class ApplicationUser : IdentityUser
 
     public string Gender { get; set; } = null!;
 
-    public int Age { get; set; }
+    public int? Age { get; set; }
 
     public string? AddressId { get; set; }
 
