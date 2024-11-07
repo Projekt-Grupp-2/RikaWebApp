@@ -999,3 +999,30 @@ form textarea::placeholder {
 .mine-section .container .search-bar .search-field input::placeholder {
   color: #aaa;
 }
+
+.image-slider {
+  position: relative;
+  width: 100%;
+  max-width: 600px;
+  margin: auto;
+}
+.image-slider img {
+  width: 100%;
+  height: auto;
+}
+.image-slider .dots {
+  text-align: center;
+  margin-top: 10px;
+}
+.image-slider .dots .dot {
+  height: 15px;
+  width: 15px;
+  margin: 0 2px;
+  background-color: #bbb;
+  border-radius: 50%;
+  display: inline-block;
+  cursor: pointer;
+}
+.image-slider .dots .dot.active {
+  background-color: #717171;
+}
