@@ -1,0 +1,21 @@
+﻿@using RikaWebApp.Components.ProductDetails
+@page "/product-details{productId:guid}"
+
+@* 
+Här ska komponenter laddas in?  *@
+
+<ImageSlider />
+
+@code {
+
+    [Parameter]
+    public Guid productId { get; set;  }
+
+
+    protected override async Task OnInitializedAsync()
+    {
+      
+
+    }
+
+}

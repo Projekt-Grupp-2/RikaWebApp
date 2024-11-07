@@ -1,0 +1,40 @@
+﻿.topbar-cart {
+    padding-bottom: 2rem;
+
+    .topbar-container {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center !important;
+
+        .nav-btn {
+            border: none;
+            background: none;
+        }
+
+        .cart-btn {
+            border: none;
+            background: none;
+            border-radius: 50px;
+            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+            position: relative;
+
+            .itemsin-cart {
+                position: absolute;
+                padding: 3px 7px;
+                border-radius: 50px;
+                background-color: black;
+                top: -6px;
+                right: -5px;
+
+
+                p {
+                    font-size: 7px;
+                    color: white;
+                    padding: 0;
+                    margin: 0;
+                }
+            }
+        }
+    }
+}
