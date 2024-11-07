@@ -73,11 +73,11 @@
     {
         try
         {
-            var url = "api/categories?code=Z8zajKTyzUaOQJgo14hXIx7FCvZaGsOVoosaojHLToj0AzFuMCSoFg%3D%3D";
+            var url = "getallcategoriesapi";
             categories = await Http.GetFromJsonAsync<List<CategoryDto>>(url);
             totalProductCount = categories?.Sum(c => c.ProductCount) ?? 0;
 
-            var newArrivalsUrl = "api/products/newarrivals?code=CDHfWGxJ9Te9YyozkUyTEEQFZQmwTmu0aXJ-AUZeN9lnAzFuqkrZaA%3D%3D";
+            var newArrivalsUrl = "getnewarrrivalsapi";
             var newArrivals = await Http.GetFromJsonAsync<List<ProductDto>>(newArrivalsUrl);
             newArrivalsCount = newArrivals?.Count ?? 0;
         }
