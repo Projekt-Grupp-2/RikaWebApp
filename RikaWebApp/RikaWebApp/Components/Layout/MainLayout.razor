@@ -1,18 +1,11 @@
 ﻿@inherits LayoutComponentBase
-@using RikaWebApp.Components.Pages
+
 <div class="wrapper">
     <header></header>
     <main>
         @Body
     </main>
-   <!-- Conditionally render footer for authorized users -->
-    <AuthorizeView>
-        
-        <Authorized>
-            <FooterSection />
-        </Authorized>
-       
-    </AuthorizeView>
+    <footer></footer>
 </div>
 
 

@@ -1,109 +1,69 @@
 ﻿@page "/profile"
-@using Microsoft.AspNetCore.Authorization
-@using RikaWebApp.Models
-
-@inject IdentityUserAccessor UserAccessor
-
-@attribute [Authorize]
 
 @code {
-    private ApplicationUser user = default!;
 
-    [SupplyParameterFromQuery]
-    private string? ReturnUrl { get; set; }
-
-    [SupplyParameterFromForm]
-    public string UserProfileImg { get; set; } = null!;
-
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
-
-    protected override async Task OnInitializedAsync()
-    {
-        user = await UserAccessor.GetRequiredUserAsync(HttpContext);
-
-        if (user != null && user.UserProfileImage != null)
-        {
-            UserProfileImg = user.UserProfileImage!.ProfileImage;
-        }
-        
-    }
 }
 
-<PageTitle>Profile</PageTitle>
 <section class="profile-section">
     <div class="container">
 
         <div class="profile-header">
-            <div class="avatar">
-                @if (string.IsNullOrEmpty(UserProfileImg))
-                {
-                    <i class="fa-solid fa-user"></i>
-                }
-                else
-                {
-                    <img src="@UserProfileImg" alt="@user.Name" />
-                }
-            </div>
+            <div class="avatar"></div>
             <div class="profile-info">
-                @if(user != null)
-                {
-                    <h3 class="name">@user.Name</h3>
-                    <p class="email">@user.Email</p>
-                }
-                
+                <h3 class="name">Hasan Mahmud</h3>
+                <p class="email">rikafashionshop@gmail.com</p>
             </div>
         </div>
 
         <div class="profile-menu first">
-            <NavLink href="/settings" class="menu-item">
+            <a href="#" class="menu-item">
                 <i class="fas fa-user icon"></i>
                 <span class="text">Personal Details</span>
                 <i class="fa-solid fa-chevron-right"></i>
-            </NavLink>
-            <NavLink href="/myOrder" class="menu-item">
+            </a>
+            <a href="#" class="menu-item">
                 <i class="fas fa-shopping-bag icon"></i>
                 <span class="text">My Order</span>
                 <i class="fa-solid fa-chevron-right"></i>
-            </NavLink>
-            <NavLink href="/myFavourites" class="menu-item">
+            </a>
+            <a href="#" class="menu-item">
                 <i class="fas fa-heart icon"></i>
                 <span class="text">My Favourites</span>
                 <i class="fa-solid fa-chevron-right"></i>
-            </NavLink>
-            <NavLink href="/shippingAddress" class="menu-item">
+            </a>
+            <a href="#" class="menu-item">
                 <i class="fas fa-truck icon"></i>
                 <span class="text">Shipping Address</span>
                 <i class="fa-solid fa-chevron-right"></i>
-            </NavLink>
-            <NavLink href="/myCard" class="menu-item">
+            </a>
+            <a href="#" class="menu-item">
                 <i class="fas fa-credit-card icon"></i>
                 <span class="text">My Card</span>
                 <i class="fa-solid fa-chevron-right"></i>
-            </NavLink>
-            <NavLink href="/settings" class="menu-item">
+            </a>
+            <a href="#" class="menu-item">
                 <i class="fas fa-cog icon"></i>
                 <span class="text">Settings</span>
                 <i class="fa-solid fa-chevron-right"></i>
-            </NavLink>
+            </a>
         </div>
 
         <div class="profile-menu second">
-            <NavLink href="/faqs" class="menu-item">
+            <a href="#" class="menu-item">
                 <i class="fas fa-question-circle icon"></i>
                 <span class="text">FAQs</span>
                 <i class="fa-solid fa-chevron-right"></i>
-            </NavLink>
-            <NavLink href="/privacy" class="menu-item">
+            </a>
+            <a href="#" class="menu-item">
                 <i class="fas fa-shield-alt icon"></i>
                 <span class="text">Privacy Policy</span>
                 <i class="fa-solid fa-chevron-right"></i>
-            </NavLink>
-            <NavLink href="/community" class="menu-item">
+            </a>
+            <a href="#" class="menu-item">
                 <i class="fas fa-users icon"></i>
                 <span class="text">Community</span>
                 <i class="fa-solid fa-chevron-right"></i>
-            </NavLink>
+            </a>
         </div>
 
     </div>

@@ -1,13 +1,7 @@
 ﻿@page "/signup"
-@using Azure.Messaging.ServiceBus
 @using Microsoft.AspNetCore.Identity
-@using Newtonsoft.Json
 @using RikaWebApp.Data
 @using RikaWebApp.Models
-
-@inject SignInManager<ApplicationUser> SignInManager
-@inject IConfiguration _configuration
-
 @rendermode InteractiveServer
 @code{
     [SupplyParameterFromForm]
@@ -19,27 +13,7 @@
     [SupplyParameterFromQuery]
     public string? ReturnUrl { get; set; }
 
-
-
-    [CascadingParameter]
-    private Task<AuthenticationState> AuthenticationState { get; set; } = default!;
-
-    protected override async Task OnInitializedAsync()
-    {
-        var userClaims = (await AuthenticationState).User;
-
-        if (userClaims.Claims != null)
-        {
-            var result = SignInManager.IsSignedIn(userClaims);
-
-            if (result)
-            {
-                RedirectManager.RedirectTo("/mine");
-            }
-        }
-
-    }
-
+    private ApplicationUser userAccount = new ApplicationUser();
 
     private async Task OnValidSubmit(EditContext editContext)
     {
@@ -69,25 +43,6 @@
 
                 if (result.Succeeded)
                 {
-                    string ServiceBus = _configuration["ServiceBus"]!;
-                    string queue = "email_request";
-
-                    ServiceBusClient client = new ServiceBusClient(ServiceBus);
-                    ServiceBusSender sender = client.CreateSender(queue);
-
-                    var emailProviderModel = new EmailProviderModel
-                    {
-                        Email = userAccount.Email,
-                        Name = userAccount.Name
-                    };
-
-
-                    var messageBody = JsonConvert.SerializeObject(emailProviderModel);
-
-                    ServiceBusMessage message = new ServiceBusMessage(messageBody);
-
-                    await sender.SendMessageAsync(message);
-
                     RedirectManager.RedirectTo("/successful");
 
                 }
@@ -119,31 +74,31 @@
                
                  <div class="input-group">
                     <label>User Name</label>
-                    <InputText @bind-Value="SignupForm.Name" placeholder="User Name" />
+                    <InputText @bind-Value="SignupForm.Name" />
                     <ValidationMessage For="() => SignupForm.Name" />
                 </div>
                 <div class="input-group">
                     <label>Email</label>
-                    <InputText @bind-Value="SignupForm.Email" placeholder="Email" />
+                    <InputText @bind-Value="SignupForm.Email" />
                     <ValidationMessage For="() => SignupForm.Email" />
 
                 </div>
                 <div class="input-group">
                     <label>Password</label>
-                    <InputText @bind-Value="SignupForm.Password" type="password" placeholder="Password" />
+                    <InputText @bind-Value="SignupForm.Password" type="password" />
                     <ValidationMessage For="() => SignupForm.Password" />
                 </div>
                 <div class="input-group">
                     <label>Confirm Password</label>
-                    <InputText @bind-Value="SignupForm.ConfirmPassword" type="password" placeholder="Confirm password" />
+                    <InputText @bind-Value="SignupForm.ConfirmPassword" type="password" />
                     <ValidationMessage For="() => SignupForm.ConfirmPassword" />
                 </div>
                 <div class="input-group checkbox-group">
+                    <label>By creating an account you have to agree with our terms & conditions.</label>
                     <InputCheckbox @bind-Value="SignupForm.TermsAndCondition" />
-                    <label>By creating an account you have to agree with our terms & conditions.</label>                  
                     
                 </div>
-                <button type="submit" class="btn-dark">Sign Up</button>
+                <button type="submit" class="btn-dark btn">Sign Up</button>
 
                 @if (StatusMessage == "Error")
                 {

@@ -1,68 +1,35 @@
 ﻿@page "/settings"
-@using System.Net.Http.Headers
-@using Microsoft.AspNetCore.Mvc
-@using Microsoft.EntityFrameworkCore
-@using RikaWebApp.Services
-@using Microsoft.AspNetCore.Components.Authorization
-@using Microsoft.AspNetCore.Identity
-@using Microsoft.AspNetCore.Authorization;
-@using System.ComponentModel.DataAnnotations
 
-@rendermode InteractiveServer
+@code {
 
-@inject HttpClient httpClient
-@inject UserService UserService
-
-@attribute [Authorize]
-
-
-<section class="settings-page">
+}<section class="settings-page">
     <div class="container">
 
         <div class="image-upload">
-            @if (string.IsNullOrEmpty(UserProfileImage))
-            {
-                <img src="./images/profile-image-standard.png" alt="Standard profile image" />
-            }
-            else
-            {
-                <img src="@UserProfileImage" alt="@user.Name" />
-            }
+            <img src="./images/profile-image-standard.png">
             <button><i class="fa-solid fa-pen"></i></button>
         </div>
         <span class="upload">Upload Image</span>
 
-        <EditForm FormName="basicinfo" method="post" Model="BasicInfoForm" OnValidSubmit="HandleBasicFormSubmit" novalidate class="form">
-            <DataAnnotationsValidator />
-            <ValidationSummary />
-
+        <div class="form">
             <div class="inputgroup">
-                <label>Name</label>
-                <InputText id="Name" @bind-Value=BasicInfoForm.Name placeholder="@user?.Name" />
+                <Label>Name</Label>
+                <input placeholder="Hasan Mahmud">
             </div>
             <div class="inputgroup">
-                <label>Gender</label>
+                <Label>Gender</Label>
                 <button class="btn-dark">Male</button>
                 <button class="btn-gray">Female</button>
             </div>
             <div class="inputgroup">
                 <Label>Age</Label>
-                @if (user?.Age == 0)
-                {
-                    <input placeholder="Age not specified" />
-                }
-                else
-                {
-                    <input placeholder="@user?.Age" />
-                }
-
+                <input placeholder="22 year">
             </div>
             <div class="inputgroup">
-                <label>Email</label>
-                <input placeholder="@user?.Email" />
+                <Label>Email</Label>
+                <input placeholder="rikafashionshop@gmail.com">
             </div>
-            <button type="submit" class="btn-green save-changes">Save Changes</button>
-        </EditForm>
+        </div>
 
         <div class="settings">
             <span class="heading">Settings</span>
@@ -104,80 +71,6 @@
                 </div>
             </div>                                                                                
         </div>
-        @* <NavLink href="/Account/Pages/LogOut" class="btn-dark logout"><i class="fa-solid fa-right-from-bracket"></i>Log Out</NavLink> *@
+        <button class="btn-dark logout"><i class="fa-solid fa-right-from-bracket"></i>Log Out</button>
     </div>
 </section>
-
-
-@code {
-
-    private ApplicationUser user = default!;
-    private string? notificationMessage;
-    private string? notificationClass;
-
-
-    [SupplyParameterFromForm(FormName = "basicinfo")]
-    private AccountBasicInfo BasicInfoForm { get; set; } = new();
-
-
-    private MultipartFormDataContent FileModel = new MultipartFormDataContent();
-    private string UserProfileImage { get; set; }
-    public int? Age { get; set; }
-
-
-    [CascadingParameter]
-    private HttpContext HttpContext { get; set; } = default!;
-
-    protected override async Task OnInitializedAsync()
-    {
-        user = await UserService.GetUserAsync();
-
-        BasicInfoForm.Name = user.Name;
-        BasicInfoForm.Email = user.Email!;
-    }
-
-
-    private async Task HandleBasicFormSubmit()
-    {
-        if (user != null)
-        {
-            user.Name = BasicInfoForm.Name;
-
-            var result = await UserService.UpdateUserAsync(user);
-
-            if (result.Succeeded)
-            {
-                notificationMessage = "User details updated successfully!";
-                notificationClass = "alert-success";
-
-                
-            }
-
-        }
-        else
-        {
-            //error message?
-        }
-        //reload page
-        StateHasChanged();
-    }
-
-
-    
-
-    private sealed class AccountBasicInfo
-    {
-        [Display(Name = "", Prompt = "Enter your first name", Order = 0)]
-        [Required(ErrorMessage = "First name is required")]
-        [DataType(DataType.Text)]
-        public string Name { get; set; } = null!;
-
-
-        public string Email { get; set; } = null!;
-
-    }
-
-
-}
-
-

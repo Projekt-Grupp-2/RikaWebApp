@@ -1,16 +1,27 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@font-face {
+    font-family: 'Mont';
+    src: url('/fonts/Mont-Heavy.otf') format('opentype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Mont';
+    src: url('/fonts/Mont-ExtraLight.otf') format('opentype');
+    font-weight: 400;
+    font-style: normal;
+}
+
 
 @mixin text {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
+    font-family: "Mont",sans-serif;
     font-weight: 400;
     font-style: normal;
 }
 
 @mixin heading {
-    font-family: "Montserrat", sans-serif;
-    font-optical-sizing: auto;
+    font-family: "Mont",sans-serif;
     font-weight: 700;
-    
+    font-style: normal;
 }
 
