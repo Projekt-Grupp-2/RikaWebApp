@@ -174,25 +174,25 @@
         //reload page
         StateHasChanged();
 
-        await Task.Delay(3000);
+        // await Task.Delay(3000);
 
-        isPageUpdated = true;
+        // isPageUpdated = true;
 
 
     }
 
-    protected override async Task OnAfterRenderAsync(bool firstRender)
-    {
-        if (isPageUpdated)
-        {
-            Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
-            isPageUpdated = false;
+    // protected override async Task OnAfterRenderAsync(bool firstRender)
+    // {
+    //     if (isPageUpdated)
+    //     {
+    //         Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+    //         isPageUpdated = false;
 
-            Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
-        }
+    //         Navigation.NavigateTo(Navigation.Uri, forceLoad: true);
+    //     }
 
-        await base.OnAfterRenderAsync(firstRender);
-    }
+    //     await base.OnAfterRenderAsync(firstRender);
+    // }
 
 
 
