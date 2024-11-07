@@ -51,6 +51,8 @@
                 overflow: hidden;
                 transition: box-shadow 0.5s;
                 cursor: pointer;
+                text-decoration: none;
+                color: var(--color-dark);
 
                 &:hover,
                 &:active {

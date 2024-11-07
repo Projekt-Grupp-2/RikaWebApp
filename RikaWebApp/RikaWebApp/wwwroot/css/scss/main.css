@@ -803,6 +803,8 @@ form textarea::placeholder {
   overflow: hidden;
   transition: box-shadow 0.5s;
   cursor: pointer;
+  text-decoration: none;
+  color: var(--color-dark);
 }
 .product-list-section .container .product-list .product-card:hover, .product-list-section .container .product-list .product-card:active {
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
