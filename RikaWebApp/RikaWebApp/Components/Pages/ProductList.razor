@@ -27,7 +27,7 @@
                     {
                     var link = $"/product-details/{product.Id}";
                         <a class="product-card" href="@link">
-                            <img class="product-image" src="/images/@product.FirstImageUrl" />
+                            <img class="product-image" src="/images/products/@product.FirstImageUrl" />
                             <btn class="btn-round">
                                 <i class="fa-regular fa-heart"></i>
                             </btn>
@@ -35,17 +35,17 @@
                                 <h5 class="product-name">@product.Name</h5>
                                 <p class="short-desc">@product.ShortDescription</p>
                                 
-                                    @if (product.Prices.Discount.HasValue)
+                                    @if (product.Prices.Discount != 0)
                                     {
                                         <div class="product-prices multiple-prices">
-                                            <h5 class="discount">$@product.Prices.DiscountPrice.ToString("F2")</h5>
+                                            <h5 class="discount">$@product.Prices.Discount.ToString("F2")</h5>
                                             <h5 class="original-price">$@product.Prices.Price1.ToString("F2")</h5>
                                         </div>
                                     }
                                     else
                                     {
                                         <div class="product-prices single-price">
-                                            <h5 class ="original-price">@product.Prices.Price1.ToString("F2")</h5>
+                                            <h5 class ="price">$@product.Prices.Price1.ToString("F2")</h5>
                                         </div>
                                     }
                                 
@@ -82,7 +82,7 @@
                         Prices = new Price
                         {
                             Price1 = product.Prices.FirstOrDefault()?.Price1 ?? 0,
-                            Discount = product.Prices.FirstOrDefault()?.Discount,
+                            Discount = product.Prices.FirstOrDefault()?.Discount ?? 0,
                             StartDate = product.Prices.FirstOrDefault()?.StartDate,
                             EndDate = product.Prices.FirstOrDefault()?.EndDate
                         }
