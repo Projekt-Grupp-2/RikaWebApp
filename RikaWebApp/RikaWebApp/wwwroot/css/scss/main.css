@@ -1,15 +1,4 @@
-﻿@font-face {
-  font-family: "Mont";
-  src: url("/fonts/Mont-Heavy.otf") format("opentype");
-  font-weight: 700;
-  font-style: normal;
-}
-@font-face {
-  font-family: "Mont";
-  src: url("/fonts/Mont-ExtraLight.otf") format("opentype");
-  font-weight: 400;
-  font-style: normal;
-}
+﻿@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -30,7 +19,8 @@ img, svg {
 }
 
 body {
-  font-family: "Mont", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 16px;
@@ -69,7 +59,8 @@ body {
 
 a {
   display: inline-block;
-  font-family: "Mont", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
   font-size: 1rem;
@@ -193,9 +184,9 @@ p {
 }
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: "Mont", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700;
-  font-style: normal;
   margin-top: 0;
   margin-bottom: 0.5em;
   line-height: 1.4;
@@ -820,9 +811,9 @@ form textarea::placeholder {
 }
 .settings-page .container .settings .settings-group .language p, .settings-page .container .settings .settings-group .notification p, .settings-page .container .settings .settings-group .drak-moode p, .settings-page .container .settings .settings-group .help-center p {
   flex: 1;
-  font-family: "Mont", sans-serif;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
   font-weight: 700;
-  font-style: normal;
   margin: 0;
   margin-top: 10px;
 }
@@ -959,14 +950,13 @@ form textarea::placeholder {
 }
 
 .mine-section {
-  padding: 40px;
+  padding-top: 40px;
   display: flex;
   justify-content: center;
 }
 .mine-section .container {
   max-width: 560px;
   width: 100%;
-  margin: 0 auto;
 }
 .mine-section .container .section-header {
   display: flex;
@@ -994,7 +984,7 @@ form textarea::placeholder {
   font-weight: 600;
 }
 .mine-section .container h5 {
-  padding-bottom: 20px;
+  padding-bottom: 10px;
 }
 .mine-section .container .search-bar {
   display: flex;
@@ -1024,4 +1014,418 @@ form textarea::placeholder {
 }
 .mine-section .container .search-bar .search-field input::placeholder {
   color: #aaa;
+}
+.mine-section .container .discount-section {
+  margin-top: 40px;
+  display: flex;
+  gap: 20px;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.mine-section .container .discount-section .discount {
+  background-color: rgba(128, 128, 128, 0.24);
+  border-radius: 30px;
+  padding: 20px 20px;
+}
+.mine-section .container .discount-section .discount h3 {
+  color: black;
+  margin: 0;
+}
+.mine-section .container .discount-section .discount p {
+  color: black;
+  font-size: 18px;
+}
+.mine-section .container .discount-section .discount .small-text {
+  font-size: 12px;
+}
+.mine-section .container .discount-section .discount .btn-dark {
+  padding: 10px 50px;
+}
+@media (max-width: 576px) {
+  .mine-section .container .discount-section .discount .btn-dark {
+    padding: 5px 30px;
+  }
+}
+.mine-section .container .product-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 20px;
+}
+.mine-section .container .product-list .product {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  transition: ease-in-out 0.1s box-shadow;
+  text-decoration: none;
+}
+.mine-section .container .product-list .product:hover {
+  background-color: rgb(253, 253, 253);
+  border-radius: 16px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  background-color: rgba(197, 196, 196, 0.1294117647);
+}
+.mine-section .container .product-list .product .img-box {
+  position: relative;
+  overflow: hidden;
+}
+.mine-section .container .product-list .product .img-box img {
+  border-radius: 20px;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.mine-section .container .product-list .product .img-box button {
+  position: absolute;
+  right: 25px;
+  top: 25px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+.mine-section .container .product-list .product .img-box button i {
+  color: white;
+  padding: 7px;
+  border-radius: 30px;
+  background-color: black;
+  transition: background-color 0.2s ease-in-out;
+}
+.mine-section .container .product-list .product .img-box button i:hover {
+  background-color: rgb(255, 17, 0);
+}
+.mine-section .container .product-list .product .info {
+  text-align: center;
+  text-decoration: none;
+  width: 90%;
+}
+.mine-section .container .product-list .product .info .product-title {
+  color: black;
+  font-weight: 600;
+}
+.mine-section .container .product-list .product .info .product-category {
+  color: grey;
+}
+.mine-section .container .product-list .product .info .product-price {
+  color: black;
+  font-weight: 600;
+}
+.mine-section .container .section-title {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 40px;
+}
+.mine-section .container .section-title h3 {
+  color: black;
+  font-weight: 600;
+}
+.mine-section .container .section-title button {
+  background-color: transparent;
+  border: 0;
+  cursor: pointer;
+  color: rgb(128, 128, 128);
+  font-size: 16px;
+}
+.mine-section .container .section-title button:hover {
+  text-decoration: underline;
+}
+.mine-section .container .new-arrivals {
+  margin-top: 40px;
+}
+.mine-section .container .categories {
+  margin-top: 50px;
+}
+.mine-section .container .categories h3 {
+  color: black;
+  font-weight: 600;
+}
+.mine-section .container .categories .category-list {
+  display: flex;
+  justify-content: space-between;
+}
+.mine-section .container .categories .category-list button {
+  background-color: transparent;
+  border: 2px solid rgba(128, 128, 128, 0.363);
+  border-radius: 20px;
+  font-size: 20px;
+  padding: 5px 30px;
+  transition: ease-in-out 0.2s background-color;
+  cursor: pointer;
+}
+@media (max-width: 576px) {
+  .mine-section .container .categories .category-list button {
+    padding: 5px;
+  }
+}
+.mine-section .container .categories .category-list button:hover {
+  background-color: black;
+  color: white;
+}
+.mine-section .container .categories .category-list .active {
+  background-color: black;
+  color: white;
+}
+.mine-section .container .categories .section-title {
+  margin-top: 30px;
+}
+.mine-section .container .popular-products {
+  margin-bottom: 61px;
+}
+.mine-section .container .popular-products .popular-item-list .product {
+  display: flex;
+  padding: 10px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(253, 253, 253);
+  border-radius: 8px;
+  box-shadow: 0 8px 8px rgba(0, 0, 0, 0.2);
+  transition: ease-in-out 0.2s background-color;
+  text-decoration: none;
+}
+.mine-section .container .popular-products .popular-item-list .product:hover {
+  background-color: rgb(175, 173, 173);
+}
+.mine-section .container .popular-products .popular-item-list .product:hover .description {
+  color: grey;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text {
+  display: flex;
+  gap: 15px;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text .info-text .title {
+  font-weight: 600;
+  color: black;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text .info-text .description {
+  color: grey;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text .info-text .rating {
+  font-weight: 600;
+  color: black;
+}
+.mine-section .container .popular-products .popular-item-list .product .img-info-text .info-text .rating i {
+  color: rgba(255, 251, 0, 0.438);
+}
+.mine-section .container .popular-products .popular-item-list .product .price {
+  font-weight: 600;
+  color: black;
+  font-size: 20px;
+  margin-right: 20px;
+}
+@media (max-width: 576px) {
+  .mine-section .container .popular-products .popular-item-list .product .price {
+    font-size: 14px;
+  }
+}
+
+.shoppingcart-section {
+  padding-top: 2rem;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+}
+.shoppingcart-section .container {
+  padding: 2rem;
+  margin: 20px;
+  background-color: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+@media (min-width: 1400px) {
+  .shoppingcart-section .container {
+    width: 60%;
+  }
+}
+.shoppingcart-section .container h1 {
+  font-size: 50px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 800;
+}
+.shoppingcart-section .container .cart-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  margin-bottom: 30px;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  position: relative;
+  box-shadow: 0px 0px 10px 1px rgba(85, 85, 85, 0.1);
+}
+.shoppingcart-section .container .cart-item img {
+  width: 50px;
+  height: 50px;
+  background-color: #ddd;
+  border-radius: 8px;
+}
+.shoppingcart-section .container .cart-item .item-details {
+  flex: 1;
+  margin-left: 10px;
+}
+.shoppingcart-section .container .cart-item .item-details h2 {
+  font-size: 1em;
+  margin-bottom: 5px;
+}
+.shoppingcart-section .container .cart-item .item-details p {
+  font-size: 0.9em;
+  color: #888;
+}
+.shoppingcart-section .container .cart-item .item-details .item-price {
+  color: black;
+  font-size: medium;
+  font-weight: 100;
+}
+.shoppingcart-section .container .cart-item .delete-item {
+  border: none;
+  background: none;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
+.shoppingcart-section .container .cart-item .quantity-controls {
+  position: absolute;
+  bottom: 15px;
+  right: 15px;
+  display: flex;
+  align-items: center;
+  gap: 1px;
+  border-radius: 20px;
+  background-color: #e0e0e0;
+  font-size: 20px;
+}
+.shoppingcart-section .container .cart-item .quantity-controls .quantity-btn {
+  font-size: 16px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  background-color: transparent;
+  color: black;
+}
+.shoppingcart-section .container .cart-summary {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: rgb(25, 24, 24);
+  margin: 10px 0;
+  font-size: 250px;
+}
+.shoppingcart-section .container .cart-summary p {
+  font-size: 20px;
+  font-family: "Franklin Gothic Medium", "Arial Narrow", Arial, sans-serif;
+  font-weight: 800;
+}
+.shoppingcart-section .container a {
+  text-decoration: none;
+}
+
+.topbar-cart {
+  padding-bottom: 2rem;
+}
+.topbar-cart .topbar-container {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center !important;
+}
+.topbar-cart .topbar-container .nav-btn {
+  border: none;
+  background: none;
+}
+.topbar-cart .topbar-container .cart-btn {
+  border: none;
+  background: none;
+  border-radius: 50px;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+  position: relative;
+}
+.topbar-cart .topbar-container .cart-btn .itemsin-cart {
+  position: absolute;
+  padding: 3px 7px;
+  border-radius: 50px;
+  background-color: black;
+  top: -6px;
+  right: -5px;
+}
+.topbar-cart .topbar-container .cart-btn .itemsin-cart p {
+  font-size: 7px;
+  color: white;
+  padding: 0;
+  margin: 0;
+}
+
+.promocode-section {
+  padding: 2rem;
+}
+.promocode-section .content form {
+  position: relative;
+}
+.promocode-section .content form .input-group input {
+  font-style: normal;
+  background-color: #F3F3F3;
+  border-radius: 10px !important;
+}
+.promocode-section .content form .btn-dark {
+  position: absolute;
+  padding: 5px 10px;
+  right: 10px;
+  bottom: 16px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 400;
+}
+
+@media (min-width: 768px) {
+  .onboarding-section .container {
+    width: 70%;
+  }
+}
+@media (min-width: 1280px) {
+  .onboarding-section .container {
+    width: 70%;
+    align-items: center;
+    text-align: center;
+  }
+}
+.onboarding-section .container .onboarding-preview {
+  width: 100%;
+  height: 540px;
+  background-color: #ddd;
+  border-radius: 15px;
+  margin-bottom: 30px;
+  margin-top: 15px;
+  clip-path: polygon(0 0, 100% 0, 100% 90%, 0% 100%);
+}
+@media (min-width: 1280px) {
+  .onboarding-section .container .onboarding-preview {
+    height: 650px;
+  }
+}
+.onboarding-section .container .onboarding-description {
+  margin-bottom: 30px;
+}
+.onboarding-section .container .onboarding-description h3 {
+  color: black;
+}
+.onboarding-section .container .onboarding-navigation {
+  display: flex;
+  align-items: center;
+}
+.onboarding-section .container .onboarding-navigation .dots {
+  display: flex;
+  gap: 8px;
+  margin-right: auto;
+}
+.onboarding-section .container .onboarding-navigation .dots .dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: #ccc;
+  transition: background-color 0.3s;
+}
+.onboarding-section .container .onboarding-navigation .dots .dot.active {
+  background-color: #000;
+}
+.onboarding-section .container .onboarding-navigation .btn-menu {
+  margin-left: auto;
 }
