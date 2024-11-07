@@ -1204,29 +1204,57 @@ form textarea::placeholder {
   margin-left: auto;
 }
 
-.image-slider {
+.slideshow-container {
   position: relative;
-  width: 100%;
-  max-width: 600px;
+  max-width: 50%;
   margin: auto;
 }
-.image-slider img {
+.slideshow-container .slide-image {
   width: 100%;
   height: auto;
+  display: block;
 }
-.image-slider .dots {
+.slideshow-container .dot-container {
   text-align: center;
-  margin-top: 10px;
+  position: relative;
+  top: 10px;
 }
-.image-slider .dots .dot {
+.slideshow-container .dot-container .dot {
+  cursor: pointer;
   height: 15px;
   width: 15px;
   margin: 0 2px;
   background-color: #bbb;
   border-radius: 50%;
   display: inline-block;
-  cursor: pointer;
+  transition: background-color 0.6s ease;
 }
-.image-slider .dots .dot.active {
+.slideshow-container .dot-container .dot.active {
   background-color: #717171;
+}
+.slideshow-container button {
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  width: auto;
+  padding: 16px;
+  margin-top: -22px;
+  color: white;
+  font-weight: bold;
+  font-size: 18px;
+  transition: 0.6s ease;
+  border: none;
+  border-radius: 0 3px 3px 0;
+  user-select: none;
+}
+.slideshow-container button.prev {
+  left: 0;
+  border-radius: 3px 0 0 3px;
+}
+.slideshow-container button.next {
+  right: 0;
+  border-radius: 0 3px 3px 0;
+}
+.slideshow-container button:hover {
+  background-color: rgba(0, 0, 0, 0.8);
 }
