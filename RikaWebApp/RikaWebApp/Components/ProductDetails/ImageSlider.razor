@@ -9,23 +9,24 @@
 @page "/imageslider"
 
 @code {
+    [Parameter] public Guid productId { get; set; }
     private ProductCardModel[]? productImages;
     private string? errorMessage;
 
-    protected override async Task OnInitializedAsync()
+    private int currentIndex = 0;
+
+    protected override async Task OnParametersSetAsync()
     {
         try
         {
-            var result = await Http.GetFromJsonAsync<ProductModel[]>("http://localhost:7111/api/GetProductById");
+            var apiUrl = $"https://grupp2-productprovider.azurewebsites.net/api/getproduct/{productId}?code=3_nITDKVPyNFqN0Dq7DQ5r78iguc5uGPMKHrvX5Db6O1AzFuQmKYaA%3D%3D";
+            var product = await Http.GetFromJsonAsync<ProductModel>(apiUrl);
 
-            if (result != null && result.Any())
+            if (product != null && product.Images != null)
             {
-                productImages = result.Select(product => new ProductCardModel
+                productImages = product.Images.Select(image => new ProductCardModel
                     {
-                        Images = product.Images.Select(image => new Image
-                        {
-                            ImageUrl = image.ImageUrl
-                        }).ToList(),
+                        Images = new List<Image> { new Image { ImageUrl = image.ImageUrl } }
                     }).ToArray();
             }
         }
@@ -35,49 +36,61 @@
             Console.WriteLine(ex);
         }
     }
-    private List<string> images = new List<string>
-    {
-        "images/shirt2.webp",
-        "images/shirt1.webp",
-        "images/shirt3.webp"
-    };
-
-    private int currentIndex = 0;
 
     private void ChangeImage(int index)
     {
-        currentIndex = index;
-        StateHasChanged();
+            currentIndex = index;
+            StateHasChanged();
     }
 
     private void NextImage()
     {
-        currentIndex = (currentIndex + 1) % images.Count;
-        StateHasChanged();
+        if (productImages != null && productImages.Length > 0)
+        {
+            currentIndex = (currentIndex + 1) % productImages.Length;
+            StateHasChanged();
+        }
     }
 
     private void PrevImage()
     {
-        currentIndex = (currentIndex - 1 + images.Count) % images.Count;
-        StateHasChanged();
+        if (productImages != null && productImages.Length > 0)
+        {
+            currentIndex = (currentIndex - 1 + productImages.Length) % productImages.Length;
+            StateHasChanged();
+        }
     }
 }
 
 <div class="slideshow-container">
-    @if (productImages != null) {
-        @foreach (var image in productImages)
-        {
-            <img src="/images/products/@image.Images[currentIndex]" class="slide-image" alt="Slide Image" />
-        }
+    @if (productImages == null)
+    {
+        <p>Loading images...</p>
     }
- 
+    else if (productImages.Length == 0)
+    {
+        <p>No images available</p>
+    }
+    else
+    {
+        <div class="image-slider">
+            @for (int i = 0; i < productImages?.Length; i++)
+            {
+                <div class="slide @(i == currentIndex ? "active-slide" : "")">
+                    <img src="/images/Products/@productImages[i].Images[0].ImageUrl" class="slide-image" alt="Slide Image" />
+                </div>
+            }
+        </div>
+    }
+
+    <div class="prev-arrow" @onclick="PrevImage">&#10094;</div>
+    <div class="next-arrow" @onclick="NextImage">&#10095;</div>
+
     <div class="dot-container">
-        @for (int i = 0; i < images.Count; i++)
+        @for (int i = 0; i < productImages?.Length; i++)
         {
             <span class="dot @(i == currentIndex ? "active" : "")" @onclick="() => ChangeImage(i)"></span>
         }
     </div>
-
-    <button class="prev" @onclick="PrevImage">&#10094;</button>
-    <button class="next" @onclick="NextImage">&#10095;</button>
 </div>
+
