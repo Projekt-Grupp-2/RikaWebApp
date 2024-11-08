@@ -555,6 +555,10 @@ form textarea::placeholder {
   align-items: center;
   justify-content: center;
 }
+.profile-section .container .profile-header .avatar img {
+  width: 70px;
+  height: 70px;
+}
 .profile-section .container .profile-header .avatar i {
   font-size: 30px;
   margin: 0;
@@ -722,8 +726,10 @@ form textarea::placeholder {
   width: 80px;
   height: 80px;
 }
-.settings-page .container .image-upload button {
+.settings-page .container .image-upload label {
   position: absolute;
+  display: flex;
+  justify-content: center;
   top: 60px;
   left: 60px;
   width: 25px;
@@ -732,10 +738,12 @@ form textarea::placeholder {
   border: none;
   border-radius: 5px;
   box-shadow: 2px 4px 10px rgba(0, 0, 0, 0.3);
+}
+.settings-page .container .image-upload label:hover {
   cursor: pointer;
 }
-.settings-page .container .image-upload button i {
-  font-size: 10px;
+.settings-page .container .image-upload label i {
+  font-size: 12px;
   color: var(--color-dark);
   line-height: 25px;
   text-align: center;
@@ -990,6 +998,11 @@ form textarea::placeholder {
 .mine-section .container .section-header .avatar:hover {
   background-color: var(--color-gray);
   color: #333;
+}
+.mine-section .container .section-header img {
+  width: 70px;
+  height: 70px;
+  border-radius: 30px;
 }
 .mine-section .container .section-header .search-bar {
   display: none;

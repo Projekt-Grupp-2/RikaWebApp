@@ -21,6 +21,7 @@ builder.Services.AddScoped<AuthenticationStateProvider, PersistingRevalidatingAu
 builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<UserService>();
+builder.Services.AddScoped<FileService>();
 
 builder.Services.AddAuthentication(options =>
     {
