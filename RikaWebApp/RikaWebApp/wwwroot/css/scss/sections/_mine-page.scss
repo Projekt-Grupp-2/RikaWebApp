@@ -25,17 +25,17 @@
                 display: flex;
                 align-items: center;
                 padding: 12px 14px;
-                background-color: #f0f0f0;
+                background-color: var(--color-dark);
                 border-radius: 25px;
                 transition: background-color 0.3s, color 0.3s;
-                color: black;
+                color: var(--color-light);
 
                 i {
                     font-size: 26px;
                 }
 
                 &:hover {
-                    background-color: #e0e0e0;
+                    background-color: var(--color-gray);
                     color: #333;
                 }
             }
@@ -57,10 +57,9 @@
 
 
 
-        h1 {
-            padding-top: 40px;
-            font-weight: 600;
-
+        h2 {
+            padding-top: 20px;
+            color: var(--color-dark);
             @media (min-width: 992px) {
                 text-align: center;
             }
@@ -136,12 +135,12 @@
                 padding: 20px 20px;
 
                 h3 {
-                    color: black;
+                    color: var(--color-dark);
                     margin: 0;
                 }
 
                 p {
-                    color: black;
+                    color: var(--color-dark);
                     font-size: 18px;
                 }
 
@@ -234,7 +233,7 @@
 
 
                     .product-title {
-                        color: black;
+                        color: var(--color-dark);
                         font-weight: 600;
                     }
 
@@ -243,7 +242,7 @@
                     }
 
                     .product-price {
-                        color: black;
+                        color: var(--color-dark);
                         font-weight: 600;
                     }
                 }
@@ -256,7 +255,7 @@
             margin-top: 40px;
 
             h3 {
-                color: black;
+                color: var(--color-dark);
                 font-weight: 600;
             }
 
@@ -281,7 +280,7 @@
             margin-top: 50px;
 
             h3 {
-                color: black;
+                color: var(--color-dark);
                 font-weight: 600;
             }
 
@@ -300,15 +299,15 @@
                     padding: 5px 30px;
                     transition: ease-in-out 0.2s background-color;
                     cursor: pointer;
-
+                    color: var(--color-dark);
                     &:hover {
-                        background-color: black;
+                        background-color: var(--color-dark);
                         color: white;
                     }
                 }
 
                 .active {
-                    background-color: black;
+                    background-color: var(--color-dark);
                     color: white;
                 }
             }
@@ -363,7 +362,7 @@
 
                             .rating {
                                 font-weight: 600;
-                                color: black;
+                                color: var(--color-dark);
 
                                 i {
                                     color: rgba(255, 251, 0, 0.438);
@@ -374,7 +373,7 @@
 
                     .price {
                         font-weight: 600;
-                        color: black;
+                        color: var(--color-dark);
                         font-size: 20px;
                         margin-right: 20px;
 
