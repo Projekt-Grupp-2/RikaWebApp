@@ -1,8 +1,10 @@
 ﻿@page "/mine"
 @using Microsoft.AspNetCore.Authorization
 @using RikaWebApp.Models
+@using RikaWebApp.Services
 
-@inject IdentityUserAccessor UserAccessor
+@inject UserService UserService
+@inject FileService FileService
 
 @attribute [Authorize]
 
@@ -12,20 +14,17 @@
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
 
-    [SupplyParameterFromForm]
-    public string UserProfileImg { get; set; } = null!;
+    private UserProfileImage UserProfileImage { get; set; }
 
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
-        user = await UserAccessor.GetRequiredUserAsync(HttpContext);
+        user = await UserService.GetUserAsync();
 
-        if (user != null && user.UserProfileImage != null)
-        {
-            UserProfileImg = user.UserProfileImage!.ProfileImage;
-        }
+
+        UserProfileImage = await FileService.FindProfileImageAsync(user.ProfileImageId);
 
     }
 }
@@ -48,16 +47,21 @@
                 </button>
             </div>
 
-            <a class="avatar">
-                @if (string.IsNullOrEmpty(UserProfileImg))
-                {
+            @if (UserProfileImage == null)
+            {
+                <a href="/profile" class="avatar">
                     <i class="fa-solid fa-user"></i>
-                }
-                else
-                {
-                    <img src="@UserProfileImg" alt="@user.Name" />
-                }
-            </a>
+                </a>
+                
+            }
+            else
+            {
+                <a href="/profile">
+                    <img src="@UserProfileImage.ProfileImage" alt="@user.Name" />
+                </a>
+            }
+
+
         </div>
 
         <h2>Welcome</h2>

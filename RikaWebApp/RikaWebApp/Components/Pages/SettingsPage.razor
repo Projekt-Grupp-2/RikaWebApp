@@ -8,11 +8,14 @@
 @using Microsoft.AspNetCore.Authorization;
 @using System.ComponentModel.DataAnnotations
 @using RikaWebApp.Client.Pages
+@using System.Diagnostics
 
 @rendermode InteractiveServer
 
 @inject HttpClient httpClient
 @inject UserService UserService
+@inject FileService FileService
+@inject IServiceProvider ServiceProvider
 
 @attribute [Authorize]
 
@@ -21,18 +24,22 @@
     <div class="container">
 
         <div class="image-upload">
-            @if (string.IsNullOrEmpty(UserProfileImage))
+            @if (UserProfileImage == null)
             {
                 <img src="./images/profile-image-standard.png" alt="Standard profile image" />
             }
             else
             {
-                <img src="@UserProfileImage" alt="@user.Name" />
+                <img src="@UserProfileImage.ProfileImage" alt="@user.Name" />
             }
-            <button><i class="fa-solid fa-pen"></i></button>
+            <label for="fileUploader">
+                <i class="fa-solid fa-pen"></i>
+                <InputFile OnChange="LoadFiles" class="upload" id="fileUploader" type="file" name="file" hidden />
+            </label>
         </div>
-        <span class="upload">Upload Image</span>
 
+            <label class="upload">Upload Image</label>
+        
         <EditForm FormName="basicinfo" method="post" Model="BasicInfoForm" OnValidSubmit="HandleBasicFormSubmit" novalidate class="form">
             <DataAnnotationsValidator />
             <ValidationSummary />
@@ -123,12 +130,17 @@
 
 
     private MultipartFormDataContent FileModel = new MultipartFormDataContent();
-    private string UserProfileImage { get; set; }
+
+    private UserProfileImage UserProfileImage { get; set; }
     public int? Age { get; set; }
 
+    private List<IBrowserFile> loadedFiles = new();
 
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
@@ -136,6 +148,10 @@
 
         BasicInfoForm.Name = user.Name;
         BasicInfoForm.Email = user.Email!;
+
+        UserProfileImage = await FileService.FindProfileImageAsync(user.ProfileImageId);
+
+
     }
 
 
@@ -152,7 +168,7 @@
                 notificationMessage = "User details updated successfully!";
                 notificationClass = "alert-success";
 
-                
+
             }
 
         }
@@ -164,8 +180,66 @@
         StateHasChanged();
     }
 
+    private async Task LoadFiles(InputFileChangeEventArgs eventArgs )
+    {
 
-    
+        try
+        {
+
+            foreach (var file in eventArgs.GetMultipleFiles())
+            {
+                // Specificera sökvägen där du vill spara filen
+                var filePath = Path.Combine(@"wwwroot\images\ProfileImages",file.Name);
+
+                // Öppna en stream från filen
+                using (var fileStream = file.OpenReadStream())
+                using (var outputStream = File.Create(filePath))
+                {
+                    // Kopiera innehållet från filens stream till den specifika sökvägen
+                    await fileStream.CopyToAsync(outputStream);
+                }
+
+                var result = await FileService.CreateFileAsync($"/images/ProfileImages/{file.Name}");
+
+                if(result != null)
+                {
+                    var user = (await AuthenticationState).User;
+
+                    if (user.Identity!.IsAuthenticated)
+                    {
+                        var findUser = await UserManager.FindByNameAsync(user.Identity.Name!);
+
+
+                        if (findUser != null)
+                        {
+
+                            findUser.ProfileImageId = result.Id;
+
+                            var imageUpdateResult = await UserManager.UpdateAsync(findUser);
+
+                            if (imageUpdateResult.Succeeded)
+                            {
+                                StateHasChanged();
+                            }
+                            else
+                            {
+                                // Do Something else
+                            }
+                            
+                        }
+
+
+                    }
+                }
+
+
+
+            }
+
+        }
+        catch (Exception ex) { Debug.WriteLine(ex.Message); }
+    }
+
 
     private sealed class AccountBasicInfo
     {
