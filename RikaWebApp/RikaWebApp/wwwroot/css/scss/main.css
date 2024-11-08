@@ -1502,19 +1502,20 @@ form textarea::placeholder {
 .slideshow-container .image-slider {
   position: relative;
   width: 100%;
-  height: auto;
+  height: 550px;
 }
 .slideshow-container .image-slider .slide {
   display: none;
   width: 100%;
-  height: auto;
+  height: 100%;
 }
 .slideshow-container .image-slider .slide.active-slide {
   display: block;
 }
 .slideshow-container .image-slider .slide img {
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: contain;
 }
 .slideshow-container .dot-container {
   text-align: center;
