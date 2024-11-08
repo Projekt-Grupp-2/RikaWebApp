@@ -44,8 +44,27 @@
             </div>
             <div class="inputgroup">
                 <label>Gender</label>
-                <button class="btn-dark">Male</button>
-                <button class="btn-gray">Female</button>
+
+                <div class="btn-gender gender-switch @(BasicInfoForm.IsMale ? "active" : "")">
+                    <label>
+                        <InputCheckbox type="checkbox" @bind-Value="BasicInfoForm.IsMale" @onchange="() => OnGenderChanged(true)" />
+                        <div class="checkbox-content">
+                            <div class="custom-checkbox @(BasicInfoForm.IsMale ? "checked" : "")"></div>
+                            <span>Male</span>
+                        </div>
+                    </label>
+                </div>
+
+                <div class="btn-gender gender-switch @(BasicInfoForm.IsFemale ? "active" : "")">
+                    <label>
+                        <InputCheckbox type="checkbox" @bind-Value="BasicInfoForm.IsFemale" @onchange="() => OnGenderChanged(false)" />
+                        <div class="checkbox-content">
+                            <div class="custom-checkbox @(BasicInfoForm.IsFemale ? "checked" : "")"></div>
+                            <span>Female</span>
+                        </div>
+                    </label>
+                </div>
+
             </div>
             <div class="inputgroup">
                 <label>Age</label>
@@ -61,8 +80,22 @@
             </div>
             <div class="inputgroup">
                 <label>Email</label>
-                <InputText id="Email" @bind-Value="@BasicInfoForm.Email" />
+
+                @if (isExternalLogin)
+                {
+                    <span class="external">@user.Email</span>
+
+                }
+                else
+                {
+                    <InputText id="Email" @bind-Value="@BasicInfoForm.Email" />
+                }
+                
             </div>
+            @if (isExternalLogin)
+            {
+              <p class="external-warning">(Email change is not allowed for external login accounts.)</p>
+            }
             <button type="submit" class="btn-green save-changes">Save Changes</button>
         </EditForm>
 
@@ -117,6 +150,7 @@
     private string? notificationMessage;
     private string? notificationClass;
     private bool isPageUpdated = false;
+    private bool isExternalLogin;
 
     [SupplyParameterFromForm(FormName = "basicinfo")]
     private AccountBasicInfo BasicInfoForm { get; set; } = new();
@@ -132,10 +166,12 @@
     protected override async Task OnInitializedAsync()
     {
         user = await UserService.GetUserAsync();
+        isExternalLogin = await UserService.IsExternalLoginAsync(user);
 
         BasicInfoForm.Name = user.Name;
         BasicInfoForm.Email = user.Email!;
         BasicInfoForm.Age = user.Age == 0 ? (int?)null : user.Age;
+        BasicInfoForm.Gender = user.Gender;
 
     }
 
@@ -146,9 +182,12 @@
     {
         if (user != null)
         {
+
             user.Name = BasicInfoForm.Name;
             user.Age = BasicInfoForm.Age ?? 0;
             user.Email = BasicInfoForm.Email;
+            
+            user.Gender = BasicInfoForm.IsMale ? "Male" : "Female";
 
             var result = await UserService.UpdateUserAsync(user);
 
@@ -213,8 +252,31 @@
         [Display(Order = 3)]
         public int? Age { get; set; }
 
+        public string? Gender { get; set; }
+
+        // Bool för att representera kön som hanterar null-värde
+        public bool IsMale
+        {
+            get => Gender == "Male";
+            set => Gender = value ? "Male" : Gender; // Om true, sätt "Male", annars behåll null eller "Female"
+        }
+
+        public bool IsFemale
+        {
+            get => Gender == "Female";
+            set => Gender = value ? "Female" : Gender; // Om true, sätt "Female", annars behåll null eller "Male"
+        }
 
     }
+
+
+    // Hantera checkboxvalet så att endast ett kön kan väljas
+    private void OnGenderChanged(bool isMale)
+    {
+        BasicInfoForm.IsMale = isMale;
+        BasicInfoForm.IsFemale = !isMale;
+    }
+
 
 
 }

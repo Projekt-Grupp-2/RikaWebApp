@@ -72,3 +72,62 @@
     }
 }
 
+.btn-gender {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    width: 150px;
+    padding: 10px;
+    transition: background-color 0.3s, color 0.3s;
+    border: 2px solid var(--color-dark);
+    background-color: var(--color-gray);
+    color: var(--color-light);
+
+    input[type="checkbox"] {
+        display: none;
+    }
+
+    &.active {
+        background-color: var(--color-dark);
+        color: var(--color-light);
+        border-color: var(--color-light);
+
+    }
+
+    &:hover {
+        background-color: var(--color-dark);
+        color: var(--color-light);
+    }
+
+    .checkbox-content {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        .custom-checkbox {
+            position: relative;
+            width: 18px;
+            height: 18px;
+            border: 2px solid var(--color-light);
+            border-radius: 50%;
+            background-color: transparent;
+            transition: background-color 0.3s;
+        }
+
+        .checked {
+            background-color: var(--color-light);
+            border-color: var(--color-dark);
+        }
+    }
+}
+
+
+
+
+
+
+

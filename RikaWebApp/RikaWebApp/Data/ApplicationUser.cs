@@ -7,7 +7,7 @@ public class ApplicationUser : IdentityUser
 {
     public string Name { get; set; } = null!;
 
-    public string Gender { get; set; } = null!;
+    public string? Gender { get; set; }
 
     public int? Age { get; set; }
 

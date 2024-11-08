@@ -35,6 +35,12 @@ public class UserService
         return currentUser ?? null!;
     }
 
+    public async Task<bool> IsExternalLoginAsync(ApplicationUser user)
+    {
+        var logins = await _userManager.GetLoginsAsync(user);
+        return logins.Any();
+    }
+
 
 
     public async Task<IdentityResult> UpdateUserAsync(ApplicationUser udpatedUser)
@@ -53,7 +59,7 @@ public class UserService
 
         if (udpatedUser.Email != existingUser.UserName)
         {
-            existingUser.UserName = udpatedUser.Email;  // Sätt UserName till samma värde som Email
+            existingUser.UserName = udpatedUser.Email;
         }
 
 
@@ -66,4 +72,7 @@ public class UserService
 
         return result;
     }
+
+
+
 }
