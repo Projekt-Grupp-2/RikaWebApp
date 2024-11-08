@@ -7,6 +7,7 @@
 @using Microsoft.AspNetCore.Identity
 @using Microsoft.AspNetCore.Authorization;
 @using System.ComponentModel.DataAnnotations
+@using RikaWebApp.Client.Pages
 
 @rendermode InteractiveServer
 
@@ -85,7 +86,7 @@
                         <label>On</label>
                     </div>
                 </div> 
-                <div class="drak-moode">
+                @* <div class="drak-moode">
                     <i class="fa-solid fa-moon"></i>
                     <p>Drak Mood</p>
                     <div class="btn-switch">
@@ -96,7 +97,8 @@
                         </label>
                         <label>On</label>
                     </div>
-                </div>
+                </div> *@
+                <SwitchMode />
                 <div class="help-center">
                     <i class="fa-solid fa-question"></i>
                     <p>Help Center</p>

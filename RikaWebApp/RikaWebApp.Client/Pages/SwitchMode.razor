@@ -1,0 +1,53 @@
+﻿@rendermode InteractiveServer
+@inject IJSRuntime JSRuntime
+
+<div class="drak-moode">
+    <i class="fa-solid fa-moon"></i>
+    <p>Drak Mood</p>
+    <div class="btn-switch">
+        <label>Off</label>
+        <label class="switch" for="drak-mode">
+            <input type="checkbox" id="drak-mode" checked="@IsChecked" @onchange="CheckboxChanged" />
+            <div class="slider round"></div>
+        </label>
+        <label>On</label>
+    </div>
+</div>
+
+@code {
+
+    private const string ThemePreferenceKey = "themePreference";
+    private bool _isFirstRender = true;
+
+    [Parameter]
+    public bool IsChecked { get; set; } = false;
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            _isFirstRender = false;
+            var preference = await JSRuntime.InvokeAsync<string>("localStorage.getItem", ThemePreferenceKey);
+            IsChecked = preference != null && preference.ToLower() == "true";
+            await JSRuntime.InvokeVoidAsync("toggleTheme", IsChecked ? "dark" : "light");
+            StateHasChanged();
+        }
+    }
+
+    private async void CheckboxChanged(ChangeEventArgs e)
+    {
+        try
+        {
+            IsChecked = (bool)e.Value!;
+            await JSRuntime.InvokeVoidAsync("localStorage.setItem", ThemePreferenceKey, IsChecked.ToString().ToLower());
+            await JSRuntime.InvokeVoidAsync("toggleTheme", IsChecked ? "dark" : "light");
+            StateHasChanged();
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex);
+        }
+
+    }
+
+}
