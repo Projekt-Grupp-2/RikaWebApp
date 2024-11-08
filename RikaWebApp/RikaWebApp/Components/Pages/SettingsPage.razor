@@ -188,14 +188,14 @@
 
             foreach (var file in eventArgs.GetMultipleFiles())
             {
-                // Specificera sökvägen där du vill spara filen
+
                 var filePath = Path.Combine(@"wwwroot\images\ProfileImages",file.Name);
 
-                // Öppna en stream från filen
+
                 using (var fileStream = file.OpenReadStream())
                 using (var outputStream = File.Create(filePath))
                 {
-                    // Kopiera innehållet från filens stream till den specifika sökvägen
+
                     await fileStream.CopyToAsync(outputStream);
                 }
 
