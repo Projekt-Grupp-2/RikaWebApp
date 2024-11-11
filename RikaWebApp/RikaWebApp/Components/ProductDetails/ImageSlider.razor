@@ -1,0 +1,96 @@
+﻿@using System.Net.Http.Json
+@using RikaWebApp.Models
+@using static System.Net.WebRequestMethods
+
+@inject HttpClient Http
+@rendermode InteractiveServer
+@attribute [StreamRendering]
+
+@page "/imageslider"
+
+@code {
+    [Parameter] public Guid productId { get; set; }
+    private ProductCardModel[]? productImages;
+    private string? errorMessage;
+
+    private int currentIndex = 0;
+
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            var apiUrl = $"https://grupp2-productprovider.azurewebsites.net/api/getproduct/{productId}?code=3_nITDKVPyNFqN0Dq7DQ5r78iguc5uGPMKHrvX5Db6O1AzFuQmKYaA%3D%3D";
+            var product = await Http.GetFromJsonAsync<ProductModel>(apiUrl);
+
+            if (product != null && product.Images != null)
+            {
+                productImages = product.Images.Select(image => new ProductCardModel
+                    {
+                        Images = new List<Image> { new Image { ImageUrl = image.ImageUrl } }
+                    }).ToArray();
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Failed to load products, try again later";
+            Console.WriteLine(ex);
+        }
+    }
+
+    private void ChangeImage(int index)
+    {
+            currentIndex = index;
+            StateHasChanged();
+    }
+
+    private void NextImage()
+    {
+        if (productImages != null && productImages.Length > 0)
+        {
+            currentIndex = (currentIndex + 1) % productImages.Length;
+            StateHasChanged();
+        }
+    }
+
+    private void PrevImage()
+    {
+        if (productImages != null && productImages.Length > 0)
+        {
+            currentIndex = (currentIndex - 1 + productImages.Length) % productImages.Length;
+            StateHasChanged();
+        }
+    }
+}
+
+<div class="slideshow-container">
+    @if (productImages == null)
+    {
+        <p>Loading images...</p>
+    }
+    else if (productImages.Length == 0)
+    {
+        <p>No images available</p>
+    }
+    else
+    {
+        <div class="image-slider">
+            @for (int i = 0; i < productImages?.Length; i++)
+            {
+                <div class="slide @(i == currentIndex ? "active-slide" : "")">
+                    <img src="/images/Products/@productImages[i].Images[0].ImageUrl" class="slide-image" alt="Slide Image" />
+                </div>
+            }
+        </div>
+    }
+
+    <div class="prev-arrow" @onclick="PrevImage">&#10094;</div>
+    <div class="next-arrow" @onclick="NextImage">&#10095;</div>
+
+    <div class="dot-container">
+        @for (int i = 0; i < productImages?.Length; i++)
+        {
+            <span class="dot @(i == currentIndex ? "active" : "")" @onclick="() => ChangeImage(i)"></span>
+        }
+    </div>
+</div>
+

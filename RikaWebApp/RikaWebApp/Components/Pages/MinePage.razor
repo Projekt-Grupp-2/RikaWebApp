@@ -1,8 +1,10 @@
 ﻿@page "/mine"
 @using Microsoft.AspNetCore.Authorization
 @using RikaWebApp.Models
+@using RikaWebApp.Services
 
-@inject IdentityUserAccessor UserAccessor
+@inject UserService UserService
+@inject FileService FileService
 
 @attribute [Authorize]
 
@@ -12,20 +14,17 @@
     [SupplyParameterFromQuery]
     private string? ReturnUrl { get; set; }
 
-    [SupplyParameterFromForm]
-    public string UserProfileImg { get; set; } = null!;
+    private UserProfileImage UserProfileImage { get; set; }
 
     [CascadingParameter]
     private HttpContext HttpContext { get; set; } = default!;
 
     protected override async Task OnInitializedAsync()
     {
-        user = await UserAccessor.GetRequiredUserAsync(HttpContext);
+        user = await UserService.GetUserAsync();
 
-        if (user != null && user.UserProfileImage != null)
-        {
-            UserProfileImg = user.UserProfileImage!.ProfileImage;
-        }
+
+        UserProfileImage = await FileService.FindProfileImageAsync(user.ProfileImageId);
 
     }
 }
@@ -37,20 +36,35 @@
             <button class="btn-menu">
                 <i class="fa-regular fa-bars-staggered"></i>
             </button>
-            
-            <a class="avatar">
-                @if (string.IsNullOrEmpty(UserProfileImg))
-                {
+
+            <div class="search-bar">
+                <div class="search-field">
+                    <i class="fa-light fa-magnifying-glass"></i>
+                    <input type="text" placeholder="Search...">
+                </div>
+                <button class="btn-menu">
+                    <i class="fa-duotone fa-solid fa-sliders-simple"></i>
+                </button>
+            </div>
+
+            @if (UserProfileImage == null)
+            {
+                <a href="/profile" class="avatar">
                     <i class="fa-solid fa-user"></i>
-                }
-                else
-                {
-                    <img src="@UserProfileImg" alt="@user.Name" />
-                }
-            </a>
+                </a>
+                
+            }
+            else
+            {
+                <a href="/profile">
+                    <img src="@UserProfileImage.ProfileImage" alt="@user.Name" />
+                </a>
+            }
+
+
         </div>
-        
-        <h1>Welcome,</h1>
+
+        <h2>Welcome</h2>
         <h5>Our Rika Fashion App</h5>
         <div class="search-bar">
             <div class="search-field">
@@ -105,6 +119,28 @@
                         <div class="product-price">$245.00</div>
                     </div>
                 </a>
+                <a href="/products" class="product">
+                    <div class="img-box">
+                        <img src="/images/products/produxtExampleImg.svg" alt="">
+                        <button><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="info">
+                        <div class="product-title">Axel Arigato</div>
+                        <div class="product-category">Clean 90 Triple Sneakers</div>
+                        <div class="product-price">$245.00</div>
+                    </div>
+                </a>
+                <a href="/products" class="product">
+                    <div class="img-box">
+                        <img src="/images/products/produxtExampleImg.svg" alt="">
+                        <button><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="info">
+                        <div class="product-title">Axel Arigato</div>
+                        <div class="product-category">Clean 90 Triple Sneakers</div>
+                        <div class="product-price">$245.00</div>
+                    </div>
+                </a>
             </div>
         </div>
 
@@ -115,6 +151,10 @@
                 <button>Jackets</button>
                 <button>Jeans</button>
                 <button>Shoes</button>
+                <button>T-shirts</button>
+                <button>Headware</button>
+                <button>Hoodies</button>
+                <button>Accessories</button>
             </div>
             <div class="section-title">
                 <h3>Top Dresses</h3>
@@ -130,6 +170,28 @@
                         <div class="product-title">The Marc Jacobs</div>
                         <div class="product-category">Traveler Tote</div>
                         <div class="product-price">$195.00</div>
+                    </div>
+                </a>
+                <a href="/products" class="product">
+                    <div class="img-box">
+                        <img src="/images/products/produxtExampleImg.svg" alt="">
+                        <button><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="info">
+                        <div class="product-title">Axel Arigato</div>
+                        <div class="product-category">Clean 90 Triple Sneakers</div>
+                        <div class="product-price">$245.00</div>
+                    </div>
+                </a>
+                <a href="/products" class="product">
+                    <div class="img-box">
+                        <img src="/images/products/produxtExampleImg.svg" alt="">
+                        <button><i class="fa-regular fa-heart"></i></button>
+                    </div>
+                    <div class="info">
+                        <div class="product-title">Axel Arigato</div>
+                        <div class="product-category">Clean 90 Triple Sneakers</div>
+                        <div class="product-price">$245.00</div>
                     </div>
                 </a>
                 <a href="/products" class="product">

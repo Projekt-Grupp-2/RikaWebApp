@@ -5,8 +5,15 @@
 
 
     .container {
-        max-width: 560px;
         width: 100%;
+
+        @media (min-width: 768px) {
+            width: 70%;
+        }
+
+        @media (min-width: 992px) {
+            width: 70%;
+        }
 
 
         .section-header {
@@ -18,29 +25,60 @@
                 display: flex;
                 align-items: center;
                 padding: 12px 14px;
-                background-color: #f0f0f0;
+                background-color: var(--color-dark);
                 border-radius: 25px;
                 transition: background-color 0.3s, color 0.3s;
-                color: black;
+                color: var(--color-light);
+
 
                 i {
                     font-size: 26px;
                 }
 
                 &:hover {
-                    background-color: #e0e0e0;
+                    background-color: var(--color-gray);
                     color: #333;
+                }
+            }
+
+            img {
+                width: 70px;
+                height: 70px;
+                border-radius: 30px;
+            }
+
+            .search-bar {
+                display: none; // Hide by default
+
+                @media (min-width: 992px) {
+                    display: flex; // Show in the header at larger screens
+                    justify-content: center;
+                    width: 50%; // Adjust width as desired
+                }
+
+                .search-field {
+                    width: 100%; // Full width inside the header
                 }
             }
         }
 
-        h1 {
-            padding-top: 40px;
-            font-weight: 600;
+
+
+        h2 {
+            padding-top: 20px;
+            color: var(--color-dark);
+
+            @media (min-width: 992px) {
+                text-align: center;
+            }
         }
 
         h5 {
             padding-bottom: 10px;
+
+            @media (min-width: 992px) {
+                text-align: center;
+            }
         }
 
 
@@ -49,14 +87,24 @@
             align-items: center;
             justify-content: space-between;
 
+            @media (min-width: 992px) {
+                display: none; // Hide main search bar on desktop
+            }
+
+
+
             .search-field {
                 display: flex;
                 align-items: center;
                 padding: 10px 14px;
                 border-radius: 20px;
-                width: 100%;
-                max-width: 300px;
+                width: 70%;
                 background-color: #F3F4F5;
+
+                @media (min-width: 992px) {
+                    width: 50%;
+                }
+
 
                 i {
                     font-size: 16px;
@@ -85,18 +133,22 @@
             flex-direction: row;
             justify-content: space-around;
 
+            @media (min-width: 992px) {
+                display: none;
+            }
+
             .discount {
                 background-color: rgba(128, 128, 128, 0.24);
                 border-radius: 30px;
                 padding: 20px 20px;
 
                 h3 {
-                    color: black;
+                    color: var(--color-dark);
                     margin: 0;
                 }
 
                 p {
-                    color: black;
+                    color: var(--color-dark);
                     font-size: 18px;
                 }
 
@@ -117,8 +169,17 @@
         .product-list {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            align-items: center;
             gap: 20px;
+
+            @media (max-width: 768px) { // Adjust breakpoint as needed for mobile
+                a.product:nth-of-type(n+3) { // Selects the 3rd product onward
+                    display: none; // Hides all products after the first two
+                }
+            }
+
+            @media (min-width: 992px) {
+                grid-template-columns: repeat(4, 1fr); // 4 products per row on larger desktops
+            }
 
 
 
@@ -180,7 +241,7 @@
 
 
                     .product-title {
-                        color: black;
+                        color: var(--color-dark);
                         font-weight: 600;
                     }
 
@@ -189,7 +250,7 @@
                     }
 
                     .product-price {
-                        color: black;
+                        color: var(--color-dark);
                         font-weight: 600;
                     }
                 }
@@ -202,7 +263,7 @@
             margin-top: 40px;
 
             h3 {
-                color: black;
+                color: var(--color-dark);
                 font-weight: 600;
             }
 
@@ -227,14 +288,16 @@
             margin-top: 50px;
 
             h3 {
-                color: black;
+                color: var(--color-dark);
                 font-weight: 600;
             }
 
             .category-list {
                 display: flex;
-                justify-content: space-between;
-
+                justify-content: center;
+                align-items: center;
+                gap: 15px;
+                flex-wrap: wrap;
 
                 button {
                     background-color: transparent;
@@ -243,21 +306,17 @@
                     font-size: 20px;
                     padding: 5px 30px;
                     transition: ease-in-out 0.2s background-color;
-
-                    @media (max-width: 576px) {
-                        padding: 5px;
-                    }
-
                     cursor: pointer;
+                    color: var(--color-dark);
 
                     &:hover {
-                        background-color: black;
+                        background-color: var(--color-dark);
                         color: white;
                     }
                 }
 
                 .active {
-                    background-color: black;
+                    background-color: var(--color-dark);
                     color: white;
                 }
             }
@@ -312,7 +371,7 @@
 
                             .rating {
                                 font-weight: 600;
-                                color: black;
+                                color: var(--color-dark);
 
                                 i {
                                     color: rgba(255, 251, 0, 0.438);
@@ -323,7 +382,7 @@
 
                     .price {
                         font-weight: 600;
-                        color: black;
+                        color: var(--color-dark);
                         font-size: 20px;
                         margin-right: 20px;
 

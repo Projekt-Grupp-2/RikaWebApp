@@ -5,6 +5,7 @@
 @using RikaWebApp.Data
 @using RikaWebApp.Models
 
+@inject SignInManager<ApplicationUser> SignInManager
 @inject IConfiguration _configuration
 
 @rendermode InteractiveServer
@@ -18,7 +19,26 @@
     [SupplyParameterFromQuery]
     public string? ReturnUrl { get; set; }
 
-    private ApplicationUser userAccount = new ApplicationUser();
+
+
+    [CascadingParameter]
+    private Task<AuthenticationState> AuthenticationState { get; set; } = default!;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var userClaims = (await AuthenticationState).User;
+
+        if (userClaims.Claims != null)
+        {
+            var result = SignInManager.IsSignedIn(userClaims);
+
+            if (result)
+            {
+                RedirectManager.RedirectTo("/mine");
+            }
+        }
+
+    }
 
 
     private async Task OnValidSubmit(EditContext editContext)
