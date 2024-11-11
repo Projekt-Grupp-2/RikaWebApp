@@ -1,0 +1,90 @@
+﻿@using System.Net.Http.Json
+@using RikaWebApp.Models
+@using static System.Net.WebRequestMethods
+
+@inject HttpClient Http
+
+
+@if (reviews != null && reviews.Any())
+{
+    var averageStars = GenerateStar();  
+    var fullStars = (int)averageStars; 
+    var emptyStars = 5 - fullStars;    
+
+    <div class="reviews">
+        @for (int i = 0; i < fullStars; i++)
+        {
+          <i class="fa-solid fa-star" style="color: #FFD43B;"></i> 
+        }
+
+        @for (int i = 0; i < emptyStars; i++)
+        {
+            <i class="fa-regular fa-star" style="color: #FFD43B;"></i>
+        }
+            @if (reviews.Count() == 1)
+            {
+                <p class="reviewCount">(1 Review)</p>
+            }
+            else
+            {
+            <p class="reviewCount">(@reviews.Count() Reviews)</p>
+            }
+    </div>
+}
+else
+{
+    <p>No reviews available.</p>
+}
+
+
+
+
+@code {
+    [Parameter]
+    public Guid productId { get; set; }
+    private List<ReviewModel>? reviews;
+    private string? errorMessage;
+
+
+    private int GenerateStar()
+    {
+        if (reviews.Count > 0)
+        {
+            var averageStars = reviews.Average(r => r.Stars);
+            return (int)averageStars;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            var result = await Http.GetFromJsonAsync<ReviewApiResponse>($"http://localhost:7111/api/getreviews/{productId}");
+            if (result != null && result.Reviews != null)
+            {
+                reviews = result.Reviews;
+                StateHasChanged();
+                GenerateStar();
+            }
+            else
+            {
+                errorMessage = "No reviews found.";
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Failed to load reviews, try again later";
+            Console.WriteLine(ex);
+        }
+    }
+
+}
+
+
+
+
