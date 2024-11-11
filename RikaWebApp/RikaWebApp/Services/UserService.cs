@@ -4,12 +4,20 @@ using RikaWebApp.Data;
 
 namespace RikaWebApp.Services;
 
-public class UserService(UserManager<ApplicationUser> userManager, AuthenticationStateProvider authenticationStateProvider, ApplicationDbContext applicationDbContext)
+public class UserService
 {
-    private readonly UserManager<ApplicationUser> _userManager = userManager;
-    private readonly AuthenticationStateProvider _authenticationStateProvider = authenticationStateProvider;
-    private readonly ApplicationDbContext _context = applicationDbContext;
+    private readonly UserManager<ApplicationUser> _userManager;
+    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly AuthenticationStateProvider _authenticationStateProvider;
+    private readonly ApplicationDbContext _context;
 
+
+    public UserService(UserManager<ApplicationUser> userManager, AuthenticationStateProvider authenticationStateProvider, ApplicationDbContext applicationDbContext)
+    {
+        _userManager = userManager;
+        _authenticationStateProvider = authenticationStateProvider;
+        _context = applicationDbContext;
+    }
 
 
     public async Task<ApplicationUser> GetUserAsync()
@@ -25,6 +33,12 @@ public class UserService(UserManager<ApplicationUser> userManager, Authenticatio
         var currentUser = await _userManager.GetUserAsync(user);
 
         return currentUser ?? null!;
+    }
+
+    public async Task<bool> IsExternalLoginAsync(ApplicationUser user)
+    {
+        var logins = await _userManager.GetLoginsAsync(user);
+        return logins.Any();
     }
 
 
@@ -43,8 +57,14 @@ public class UserService(UserManager<ApplicationUser> userManager, Authenticatio
         existingUser.Age = udpatedUser.Age;
         existingUser.UserProfileImage = udpatedUser.UserProfileImage;
 
+        if (udpatedUser.Email != existingUser.UserName)
+        {
+            existingUser.UserName = udpatedUser.Email;
+        }
+
 
         var result = await _userManager.UpdateAsync(existingUser);
+
         if (result.Succeeded)
         {
             await _context.SaveChangesAsync();
@@ -52,4 +72,7 @@ public class UserService(UserManager<ApplicationUser> userManager, Authenticatio
 
         return result;
     }
+
+
+
 }
