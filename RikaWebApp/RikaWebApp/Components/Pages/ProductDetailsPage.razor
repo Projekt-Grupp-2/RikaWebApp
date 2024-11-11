@@ -1,21 +1,132 @@
 ﻿@using RikaWebApp.Components.ProductDetails
-@page "/product-details/{productId:guid}"
+@using RikaWebApp.Models
+@using System.Security.Claims
+@using RikaWebApp.Services
+@rendermode InteractiveServer
+@inject ProductService _productService
+@inject CartService _cartService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@page "/product-details/{ProductId:guid}"
 
 @* 
-Här ska komponenter laddas in?  *@
+Här ska komponenter laddas in?  
 
-<ImageSlider productId="@productId"/>
+
+Fungerande backend - saknas frontend bara. Grupp 3 was here! 
+
+*@
+
+<ImageSlider productId="@ProductId"/>
+
+<div class="test">
+@* 
+    <div class="col-12 col-md-6">
+        <h1 class="text-primary">@Product.Id</h1>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <h1 class="text-primary">@Product.Name</h1>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <h1 class="text-primary">@Product.LongDescription</h1>
+    </div>
+
+    <div class="col-12 col-md-6">
+        <h1 class="text-primary">@ProductPrice</h1>
+    </div> *@
+
+    <button @onclick="HandleBuyProduct">Köp Produkt</button>
+
+    <button class="plus-knapp" @onclick="HandleBuyProduct">+</button>
+
+    <button class="minus-knapp" @onclick="DecrementProduct">-</button>
+
+</div>
+
 
 @code {
 
     [Parameter]
-    public Guid productId { get; set;  }
-
+    public Guid ProductId { get; set; }
+    public decimal? ProductPrice { get; set; } = 0;
+    private IEnumerable<PriceModelDto> Prices { get; set; }
+    public ProductModel Product { get; set; } = new();
+    private int ProductQuantity;
 
     protected override async Task OnInitializedAsync()
     {
-      
-
+        Product = await _productService.Get(ProductId);
+        await Price();
+        Console.WriteLine(Product != null ? "Produkt laddad" : "Produkt ej laddad"); // Kontroll om produkten finns
     }
 
+    private async Task HandleBuyProduct()
+    {
+
+        Console.WriteLine("Köpsfunktionen aktiverad"); // Kontroll för att se om metoden körs
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userIdString = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+        Console.WriteLine(!string.IsNullOrEmpty(userIdString) ? $"User ID: {userIdString}" : "Ingen användare inloggad");
+
+
+        if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out var userId))
+        {
+            Console.WriteLine("Kunde inte hitta eller omvandla UserId.");
+            return;
+        }
+
+
+        var result = await _productService.BuyProduct(ProductId, userId);
+        if (result != null)
+        {
+            Console.WriteLine("Produkten lades till i kundvagnen.");
+            // await _js.ToastrSuccess("Produkten lades till i kundvagnen");
+        }
+        else
+        {
+            Console.WriteLine("Köpet misslyckades.");
+        }
+    }
+
+    private async Task DecrementProduct()
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userIdString = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out var userId))
+        {
+            Console.WriteLine("Kunde inte hitta eller omvandla UserId.");
+            return;
+        }
+
+        var result = await _cartService.DecrementCart(ProductId, userId);
+        if (result != null)
+        {
+            //Console.WriteLine("Produkten lades till i kundvagnen.");
+            //await _js.ToastrSuccess("Produkten Har tagits borts");
+        }
+        else
+        {
+            Console.WriteLine("Borttagning misslyckades.");
+        }
+    }
+
+    public async Task Price()
+    {
+        Product = await _productService.Get(ProductId);
+
+        if (Product != null && Product.Prices != null)
+        {
+            // Hämta det första matchande priset från `Prices` som finns i `Product.Prices`
+            var price = Product.Prices.Select(p => p.Price1).FirstOrDefault();
+            ProductPrice = price;
+        }
+        else
+        {
+            // Om produkt eller priser saknas, sätt till null eller valfritt meddelande
+            ProductPrice = 0;
+        }
+    }
 }
