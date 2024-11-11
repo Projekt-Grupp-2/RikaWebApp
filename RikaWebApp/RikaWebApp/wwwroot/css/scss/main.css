@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+﻿@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
 @media (prefers-reduced-motion: no-preference) {
   :root {
     scroll-behavior: smooth;
@@ -764,7 +764,7 @@ form textarea::placeholder {
   }
 }
 .settings-page {
-  max-width: 390px;
+  max-width: 380px;
   margin: 0 auto;
   padding-bottom: 50px;
 }
@@ -841,9 +841,7 @@ form textarea::placeholder {
   justify-content: space-between;
 }
 .settings-page .container .form .inputgroup Label {
-
   color: var(--color-default);
-
   font-weight: 700;
   font-size: 14px;
   width: 50%;
