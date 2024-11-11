@@ -184,11 +184,13 @@ a[target=_blank]::after {
   font-size: 14px;
   font-weight: bold;
   cursor: pointer;
-  width: 150px;
   padding: 10px;
   transition: background-color 0.3s, color 0.3s;
   border: 2px solid var(--color-dark);
-  background-color: var(--color-gray);
+  background-color: var(--color-light);
+  color: var(--color-dark);
+}
+.btn-gender span {
   color: var(--color-light);
 }
 .btn-gender input[type=checkbox] {
@@ -197,7 +199,7 @@ a[target=_blank]::after {
 .btn-gender.active {
   background-color: var(--color-dark);
   color: var(--color-light);
-  border-color: var(--color-light);
+  border-color: var(--color-dark);
 }
 .btn-gender:hover {
   background-color: var(--color-dark);
@@ -836,8 +838,8 @@ form textarea::placeholder {
   font-size: 14px;
   width: 50%;
 }
-.settings-page .container .form .inputgroup .btn-gender span {
-  color: var(--color-light);
+.settings-page .container .form .inputgroup .btn-gender {
+  width: 100%;
 }
 .settings-page .container .form .inputgroup input {
   padding: 0;
