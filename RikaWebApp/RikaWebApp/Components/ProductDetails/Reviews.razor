@@ -64,7 +64,7 @@ else
     {
         try
         {
-            var result = await Http.GetFromJsonAsync<ReviewApiResponse>($"http://localhost:7111/api/getreviews/{productId}");
+            var result = await Http.GetFromJsonAsync<ReviewApiResponse>($"https://grupp2-productprovider.azurewebsites.net/api/getreviews/{productId}?code=KXeucDCa-mCziBiG1EY-jYHsKsT5_3pTJQpbkKw3NXd2AzFuWSTNKw%3D%3D");
             if (result != null && result.Reviews != null)
             {
                 reviews = result.Reviews;
