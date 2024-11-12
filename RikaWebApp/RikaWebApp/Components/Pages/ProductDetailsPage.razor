@@ -15,7 +15,18 @@ Här ska komponenter laddas in?
 
 <ImageSlider productId="@productId"/>
 
+<div class="test">
+    @*
+    Metoderna nedan behövs för varukorgen i frontend delen /grupp 3
+    *@
 
+    <button @onclick="HandleBuyProduct">Köp Produkt</button>
+
+    <button class="plus-knapp" @onclick="HandleBuyProduct">+</button>
+
+    <button class="minus-knapp" @onclick="DecrementProduct">-</button>
+
+</div>
 
 
 @code {
