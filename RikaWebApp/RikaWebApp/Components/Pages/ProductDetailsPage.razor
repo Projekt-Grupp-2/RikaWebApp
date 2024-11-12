@@ -6,14 +6,14 @@
 @inject ProductService _productService
 @inject CartService _cartService
 @inject AuthenticationStateProvider AuthenticationStateProvider
-@page "/product-details/{ProductId:guid}"
+@page "/product-details/{productId:guid}"
 
 @* 
 Här ska komponenter laddas in?  
 
 *@
 
-<ImageSlider productId="@ProductId"/>
+<ImageSlider productId="@productId"/>
 
 <div class="test">
 @* 
@@ -32,7 +32,7 @@ Här ska komponenter laddas in?
 @code {
 
     [Parameter]
-    public Guid ProductId { get; set; }
+    public Guid productId { get; set; }
     public decimal? ProductPrice { get; set; }
     private IEnumerable<PriceModelDto> Prices { get; set; }
     public ProductModel Product { get; set; } = new();
@@ -40,7 +40,7 @@ Här ska komponenter laddas in?
 
     protected override async Task OnInitializedAsync()
     {
-        Product = await _productService.Get(ProductId);
+        Product = await _productService.Get(productId);
         // await Price();
         Console.WriteLine(Product != null ? "Produkt laddad" : "Produkt ej laddad"); // Kontroll om produkten finns
     }
@@ -62,7 +62,7 @@ Här ska komponenter laddas in?
         }
 
 
-        var result = await _productService.BuyProduct(ProductId, userId);
+        var result = await _productService.BuyProduct(productId, userId);
         if (result != null)
         {
             Console.WriteLine("Produkten lades till i kundvagnen.");
@@ -85,7 +85,7 @@ Här ska komponenter laddas in?
             return;
         }
 
-        var result = await _cartService.DecrementCart(ProductId, userId);
+        var result = await _cartService.DecrementCart(productId, userId);
         if (result != null)
         {
             //Console.WriteLine("Produkten lades till i kundvagnen.");
