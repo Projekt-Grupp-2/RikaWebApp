@@ -14,7 +14,7 @@
 <section class="shoppingcart-section">
     <div class="container">
 
-        <TopbarCart/>
+        <TopbarCart CartItemCounter="CartItemCounter" />
         <h1>My Cart</h1>
 
         @if (shoppingCart == null)
@@ -59,7 +59,7 @@
 </section>
 
 @code {
-
+    public int CartItemCounter { get; set; }
     private ShoppingDto shoppingCart = new ShoppingDto { Items = new List<CartItemDto>()};
     public IEnumerable<ProductModel>? Products { get; set; }
     public Dictionary<Guid, string> ProductTitles { get; set; } = new Dictionary<Guid, string>();
@@ -85,13 +85,12 @@
         foreach (var item in shoppingCart.Items)
         {
             var product = Products.FirstOrDefault(p => p.Id == item.ProductId);
-            // ProductTitles[item.ProductId] = product?.Name ?? "Titel saknas";
             if(product != null)
             {
                 item.Product = product;
                 ProductTitles[item.ProductId] = product.Name;
+                CartItemCounter = shoppingCart.Items.Sum(item => item.Quantity);
             }
-            
         }
     }
 
@@ -110,7 +109,7 @@
         if (result != null)
         {
             shoppingCart = result;
-            shoppingCart.Items = shoppingCart.Items.ToList();
+            CartItemCounter = shoppingCart.Items.Sum(item => item.Quantity);
 
             foreach(var item in shoppingCart.Items)
             {
@@ -119,9 +118,8 @@
                 {
                     item.Product = product;
                 }
-               
-            }
 
+            }
             await UpdateShoppingCart(userId);
         }
         else
@@ -147,6 +145,7 @@
         if (result != null)
         {
             shoppingCart = result;
+            CartItemCounter = shoppingCart.Items.Sum(item => item.Quantity);
             foreach (var item in shoppingCart.Items)
             {
                 var product = Products?.FirstOrDefault(p => p.Id == item.ProductId);
@@ -154,7 +153,7 @@
                 {
                     item.Product = product;
                 }
-                
+
             }
             StateHasChanged();
         }
@@ -184,6 +183,7 @@
             if (itemToRemove != null)
             {
                 shoppingCart.Items.Remove(itemToRemove);
+                CartItemCounter = shoppingCart.Items.Sum(item => item.Quantity);
             }
         }
         else
@@ -199,6 +199,7 @@
         if(updatedCart != null)
         {
             shoppingCart = updatedCart;
+            CartItemCounter = shoppingCart.Items.Sum(item => item.Quantity);
             shoppingCart.Items = shoppingCart.Items.ToList();
 
             foreach (var item in shoppingCart.Items)
@@ -208,7 +209,7 @@
                 {
                     item.Product = product;
                 }
-                
+
             }
 
             StateHasChanged();
