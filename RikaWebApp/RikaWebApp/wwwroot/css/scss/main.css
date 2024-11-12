@@ -1859,3 +1859,11 @@ form textarea::placeholder {
     border-radius: 30px;
   }
 }
+.reviews {
+  display: flex;
+}
+.reviews .reviewCount {
+  width: fit-content;
+  margin-left: 0.5rem;
+  font-weight: 600;
+}
