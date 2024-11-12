@@ -1,73 +1,57 @@
 ﻿@using RikaWebApp.Components.Sections
+@using RikaWebApp.Models
+@using RikaWebApp.Services
+@using System.Security.Claims
 @layout RikaWebApp.Components.Layout.MainLayout
-@page "/shoppingcart" 
+@rendermode InteractiveServer
+@inject CartService _cartService
+@inject AuthenticationStateProvider AuthenticationStateProvider
+@inject ProductService _productService
+
+@page "/cart" 
 
 
 <section class="shoppingcart-section">
     <div class="container">
 
         <TopbarCart/>
-
         <h1>My Cart</h1>
-        <div class="cart-item">
-            <img src="#" alt="">
-            <div class="item-details">
-                <h2>Roller Rabbit</h2>
-                <p>Vado Odelle Dress</p>
-                <span class="item-price">$189.00</span>
-            </div>
-            <button class="delete-item">
-                <i class="fa-solid fa-trash-can"></i>
-            </button>
-            <div class="quantity-controls">
-                <button class="quantity-btn">-</button>
-                <span class="quantity-btn">1</span>
-                <button class="quantity-btn">+</button>
-            </div>
-        </div>
 
-        <div class="cart-item">
-            <img src="#" alt="">
-            <div class="item-details">
-                <h2>Axel Arigato</h2>
-                <p>Clean 90 Triple Sneakers</p>
-                <span class="item-price">$240.00</span>
-            </div>
-            <button class="delete-item">
-                <i class="fa-solid fa-trash-can"></i>
-            </button>
-            <div class="quantity-controls">
-                <button class="quantity-btn">-</button>
-                <span class="quantity-btn">1</span>
-                <button class="quantity-btn">+</button>
-            </div>
-        </div>
-
-        <div class="cart-item">
-            <img src="#" alt="">
-            <div class="item-details">
-                <h2>Herschel Supply Co.</h2>
-                <p>Daypack Backpack</p>
-                <span class="item-price">$40.00</span>
-            </div>
-            <button class="delete-item">
-                <i class="fa-solid fa-trash-can"></i>
-            </button>
-            <div class="quantity-controls">
-                <button class="quantity-btn">-</button>
-                <span class="quantity-btn">1</span>
-                <button class="quantity-btn">+</button>
-            </div>
-        </div>
-
+        @if (shoppingCart == null)
+        {
+            <p>Loading...</p>
+        }
+        else if (shoppingCart.Items.Count == 0)
+        {
+            <p>Shopping cart is empty</p>
+        }
+        else
+        {
+            @foreach (var item in shoppingCart.Items)
+            {
+                <div class="cart-item">
+                    <img src="#" alt="">
+                    <div class="item-details">
+                        <h2>@(item.Product?.Name ?? "Failed to load titel")</h2>
+                        <p>@(item.Product?.ShortDescription ?? "Failed to load description")</p>
+                        <span class="item-price">$189.00@* $@(item.Quantity * item.Price) *@</span>
+                    </div>
+                    <button class="delete-item" @onclick="() => RemoveProduct(item.ProductId)">
+                        <i class="fa-solid fa-trash-can"></i>
+                    </button>
+                    <div class="quantity-controls">
+                        <button class="quantity-btn" @onclick="() => DecrementProduct(item.ProductId)">-</button>
+                        <span class="quantity-btn">@item.Quantity</span>
+                        <button class="quantity-btn" @onclick="() => IncrementProduct(item.ProductId)">+</button>
+                    </div>
+                </div>
+            }
+        }
         <PromoCode/>
-
         <div class="cart-summary">
-            <p>Total (3 items):</p>
-            <p>$500</p>
+             <p>Total items: @shoppingCart?.Items.Sum(item => item.Quantity)</p>
+             <p>$500@* $@shoppingCart?.Items.Sum(item => item.Quantity * item.Price) *@</p>
         </div>
-
-
         <a href="/payment" class="btn-dark"> Proceed to Checkout
             <div class="arrow-right"><i class="fa-solid fa-right-long"></i></div>
         </a>
@@ -76,4 +60,162 @@
 
 @code {
 
+    private ShoppingDto shoppingCart = new ShoppingDto { Items = new List<CartItemDto>()};
+    public IEnumerable<ProductModel>? Products { get; set; }
+    public Dictionary<Guid, string> ProductTitles { get; set; } = new Dictionary<Guid, string>();
+    private IEnumerable<PriceModelDto>? Prices { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userIdString = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        Products = await _productService.GetAll();
+
+        if (Guid.TryParse(userIdString, out var userId))
+        {
+            shoppingCart = await _cartService.GetCart(userId); // Skicka UserId som parameter
+        }
+        else
+        {
+            shoppingCart = new ShoppingDto(); // Returnera en tom DTO om UserId inte är giltigt
+        }
+
+        foreach (var item in shoppingCart.Items)
+        {
+            var product = Products.FirstOrDefault(p => p.Id == item.ProductId);
+            // ProductTitles[item.ProductId] = product?.Name ?? "Titel saknas";
+            if(product != null)
+            {
+                item.Product = product;
+                ProductTitles[item.ProductId] = product.Name;
+            }
+            
+        }
+    }
+
+    private async Task IncrementProduct(Guid productId)
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userIdString = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out var userId))
+        {
+            Console.WriteLine("Kunde inte hitta eller omvandla UserId.");
+            return;
+        }
+
+        var result = await _productService.BuyProduct(productId, userId);
+        if (result != null)
+        {
+            shoppingCart = result;
+            shoppingCart.Items = shoppingCart.Items.ToList();
+
+            foreach(var item in shoppingCart.Items)
+            {
+                var product = Products?.FirstOrDefault(p => p.Id == item.ProductId);
+                if(product != null)
+                {
+                    item.Product = product;
+                }
+               
+            }
+
+            await UpdateShoppingCart(userId);
+        }
+        else
+        {
+            Console.WriteLine("Köpet misslyckades.");
+        }
+
+    }
+
+    private async Task DecrementProduct(Guid ProductId)
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userIdString = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out var userId))
+        {
+            Console.WriteLine("Kunde inte hitta eller omvandla UserId.");
+            return;
+        }
+
+        var result = await _cartService.DecrementCart(ProductId, userId);
+
+        if (result != null)
+        {
+            shoppingCart = result;
+            foreach (var item in shoppingCart.Items)
+            {
+                var product = Products?.FirstOrDefault(p => p.Id == item.ProductId);
+                if (product != null)
+                {
+                    item.Product = product;
+                }
+                
+            }
+            StateHasChanged();
+        }
+        else
+        {
+            Console.WriteLine("Borttagning misslyckades.");
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task RemoveProduct(Guid ProductId)
+    {
+        var authState = await AuthenticationStateProvider.GetAuthenticationStateAsync();
+        var userIdString = authState.User.FindFirst(ClaimTypes.NameIdentifier)?.Value;
+
+        if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out var userId))
+        {
+            Console.WriteLine("Kunde inte hitta eller omvandla UserId.");
+
+            return;     
+        }
+        var result = await _cartService.RemoveItem(ProductId, userId);
+
+        if (result != null)
+        {
+            var itemToRemove = shoppingCart.Items.FirstOrDefault(i => i.ProductId == ProductId);
+            if (itemToRemove != null)
+            {
+                shoppingCart.Items.Remove(itemToRemove);
+            }
+        }
+        else
+        {
+            Console.WriteLine("Borttagning misslyckades.");
+        }
+        await InvokeAsync(StateHasChanged);
+    }
+
+    private async Task UpdateShoppingCart(Guid userId)
+    {
+        var updatedCart = await _cartService.GetCart(userId);
+        if(updatedCart != null)
+        {
+            shoppingCart = updatedCart;
+            shoppingCart.Items = shoppingCart.Items.ToList();
+
+            foreach (var item in shoppingCart.Items)
+            {
+                var product = Products?.FirstOrDefault(p => p.Id == item.ProductId);
+                if(product != null)
+                {
+                    item.Product = product;
+                }
+                
+            }
+
+            StateHasChanged();
+        }
+        else
+        {
+            Console.WriteLine("fel vid hämtning av varukorgen");
+        }
+    }
 }
