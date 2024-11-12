@@ -176,6 +176,54 @@ a[target=_blank]::after {
   border-radius: 50%;
 }
 
+.btn-gender {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  padding: 10px;
+  transition: background-color 0.3s, color 0.3s;
+  border: 2px solid var(--color-dark);
+  background-color: var(--color-light);
+  color: var(--color-dark);
+}
+.btn-gender span {
+  color: var(--color-light);
+}
+.btn-gender input[type=checkbox] {
+  display: none;
+}
+.btn-gender.active {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+  border-color: var(--color-dark);
+}
+.btn-gender:hover {
+  background-color: var(--color-dark);
+  color: var(--color-light);
+}
+.btn-gender .checkbox-content {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.btn-gender .checkbox-content .custom-checkbox {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-light);
+  border-radius: 50%;
+  background-color: transparent;
+  transition: background-color 0.3s;
+}
+.btn-gender .checkbox-content .checked {
+  background-color: var(--color-light);
+  border-color: var(--color-dark);
+}
+
 p {
   margin: 0;
   padding-top: 0rem;
@@ -627,8 +675,8 @@ form textarea::placeholder {
   outline: 1px solid #ff0000;
 }
 
-.validation-message {
-  color: #ff0000;
+.valid.modified:not([type=checkbox]) {
+  outline: 1px solid #26b050;
 }
 
 @media (min-width: 1281px) {
@@ -693,9 +741,30 @@ form textarea::placeholder {
   transition: 0.25s;
   text-decoration: none;
 }
+.btn-green:hover {
+  color: var(--color-light);
+  background-color: var(--color-dark);
+}
 
+@keyframes tilt-shaking {
+  0% {
+    transform: rotate(0deg);
+  }
+  25% {
+    transform: rotate(15deg);
+  }
+  50% {
+    transform: rotate(0deg);
+  }
+  75% {
+    transform: rotate(-15deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
 .settings-page {
-  max-width: 390px;
+  max-width: 380px;
   margin: 0 auto;
   padding-bottom: 50px;
 }
@@ -715,6 +784,12 @@ form textarea::placeholder {
 .settings-page .container input::placeholder {
   color: var(--color-dark);
   font-weight: 700;
+  font-size: 14px;
+  padding-left: 15px;
+}
+.settings-page .container #Name, .settings-page .container #Age, .settings-page .container #Email {
+  color: var(--color-dark);
+  font-weight: 600;
   font-size: 14px;
   padding-left: 15px;
 }
@@ -762,7 +837,7 @@ form textarea::placeholder {
 .settings-page .container .form .inputgroup {
   display: flex;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 5px;
   justify-content: space-between;
 }
 .settings-page .container .form .inputgroup Label {
@@ -771,18 +846,85 @@ form textarea::placeholder {
   font-size: 14px;
   width: 50%;
 }
-.settings-page .container .form .inputgroup button {
-  padding: 10px 20px;
+.settings-page .container .form .inputgroup .checkbox-container {
+  display: inline-flex;
+  align-items: center;
+  background-color: transparent;
+  border: 2px solid var(--color-gray);
+  padding: 8px 16px;
   border-radius: 10px;
-  font-size: 14px;
-  margin-right: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+  color: var(--color-gray);
+}
+.settings-page .container .form .inputgroup .checkbox-container input[type=checkbox] {
+  color: var(--color-gray);
+}
+.settings-page .container .form .inputgroup .checkbox-container:hover, .settings-page .container .form .inputgroup .checkbox-container.active {
+  background-color: var(--color-dark);
+  border-color: var(--color-light);
+}
+.settings-page .container .form .inputgroup .checkbox-container input[type=checkbox] {
+  display: none;
+}
+.settings-page .container .form .inputgroup .checkbox-container .custom-checkbox {
+  width: 18px;
+  height: 18px;
+  border: 2px solid var(--color-gray);
+  border-radius: 50%;
+  margin-right: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  transition: border-color 0.3s;
+}
+.settings-page .container .form .inputgroup .checkbox-container input[type=checkbox]:checked + .custom-checkbox::after {
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: #fff;
+  border-radius: 50%;
+  position: absolute;
+}
+.settings-page .container .form .inputgroup .checkbox-container label {
+  color: var(--color-gray);
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
 }
 .settings-page .container .form .inputgroup input {
   padding: 0;
 }
+.settings-page .container .form .inputgroup .external {
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  border: none;
+  border-bottom: 1px solid #DDDDDD;
+  width: 100%;
+  padding-left: 15px;
+  color: var(--color-dark);
+  font-weight: 500;
+  font-size: 14px;
+}
+.settings-page .container .form .external-warning {
+  display: flex;
+  justify-content: flex-end;
+  font-family: "Montserrat", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-weight: 500;
+  color: #FFAB07;
+  font-size: 10px;
+  margin-top: -20px;
+  margin-bottom: 0;
+}
 .settings-page .container .settings {
   width: 100%;
-  margin-top: 10px;
+  margin-top: 30px;
   margin-bottom: 20px;
 }
 .settings-page .container .settings .heading {
@@ -805,6 +947,11 @@ form textarea::placeholder {
   justify-content: space-between;
   margin-bottom: 15px;
   gap: 10px;
+  text-decoration: none;
+  color: var(--color-dark);
+}
+.settings-page .container .settings .settings-group .language:hover .fa-angle-right, .settings-page .container .settings .settings-group .notification:hover .fa-angle-right, .settings-page .container .settings .settings-group .drak-moode:hover .fa-angle-right, .settings-page .container .settings .settings-group .help-center:hover .fa-angle-right {
+  animation: tilt-shaking 0.38s infinite;
 }
 .settings-page .container .settings .settings-group .language .fa-globe, .settings-page .container .settings .settings-group .language .fa-bell, .settings-page .container .settings .settings-group .language .fa-moon, .settings-page .container .settings .settings-group .language .fa-question, .settings-page .container .settings .settings-group .notification .fa-globe, .settings-page .container .settings .settings-group .notification .fa-bell, .settings-page .container .settings .settings-group .notification .fa-moon, .settings-page .container .settings .settings-group .notification .fa-question, .settings-page .container .settings .settings-group .drak-moode .fa-globe, .settings-page .container .settings .settings-group .drak-moode .fa-bell, .settings-page .container .settings .settings-group .drak-moode .fa-moon, .settings-page .container .settings .settings-group .drak-moode .fa-question, .settings-page .container .settings .settings-group .help-center .fa-globe, .settings-page .container .settings .settings-group .help-center .fa-bell, .settings-page .container .settings .settings-group .help-center .fa-moon, .settings-page .container .settings .settings-group .help-center .fa-question {
   font-size: 20px;
@@ -826,9 +973,10 @@ form textarea::placeholder {
   margin-top: 10px;
 }
 .settings-page .container .settings .settings-group .language span, .settings-page .container .settings .settings-group .notification span, .settings-page .container .settings .settings-group .drak-moode span, .settings-page .container .settings .settings-group .help-center span {
-  color: var(--color-gray-dark);
+  color: var(--color-primary);
   font-size: 14px;
   margin-right: 1rem;
+  font-weight: 600;
 }
 .settings-page .container .settings .settings-group .language label, .settings-page .container .settings .settings-group .notification label, .settings-page .container .settings .settings-group .drak-moode label, .settings-page .container .settings .settings-group .help-center label {
   font-size: 12px;
@@ -1710,4 +1858,12 @@ form textarea::placeholder {
     padding: 0.5em 0.75em;
     border-radius: 30px;
   }
+}
+.reviews {
+  display: flex;
+}
+.reviews .reviewCount {
+  width: fit-content;
+  margin-left: 0.5rem;
+  font-weight: 600;
 }

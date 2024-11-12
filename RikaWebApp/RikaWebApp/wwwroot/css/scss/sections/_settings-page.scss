@@ -2,13 +2,41 @@
     @include btn;
     color: var(--color-light);
     background-color: #64BA67;
+
+    &:hover {
+        color: var(--color-light);
+        background-color: var(--color-dark);
+    }
+}
+
+@keyframes tilt-shaking {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    25% {
+        transform: rotate(15deg);
+    }
+
+    50% {
+        transform: rotate(0deg);
+    }
+
+    75% {
+        transform: rotate(-15deg);
+    }
+
+    100% {
+        transform: rotate(0deg);
+    }
 }
 
 
 .settings-page {
-    max-width: 390px;
+    max-width: 380px;
     margin: 0 auto;
     padding-bottom: 50px;
+
 
     .container {
         display: flex;
@@ -29,6 +57,13 @@
                 font-size: 14px;
                 padding-left: 15px;
             }
+        }
+
+        #Name, #Age, #Email {
+            color: var(--color-dark);
+            font-weight: 600;
+            font-size: 14px;
+            padding-left: 15px;
         }
 
 
@@ -83,32 +118,106 @@
             .inputgroup {
                 display: flex;
                 align-items: center;
-                margin-bottom: 20px;
+                margin-bottom: 5px;
                 justify-content: space-between;
 
                 Label {
+
                     color: var(--color-default);
+
                     font-weight: 700;
                     font-size: 14px;
                     width: 50%;
                 }
-
-                button {
-                    padding: 10px 20px;
+              
+                .checkbox-container {
+                    display: inline-flex;
+                    align-items: center;
+                    background-color: transparent;
+                    border: 2px solid var(--color-gray); 
+                    padding: 8px 16px;
                     border-radius: 10px;
-                    font-size: 14px;
-                    margin-right: 30px;
+                    margin-right: 10px;
+                    cursor: pointer;
+                    color: var(--color-gray);
+
+
+                    input[type="checkbox"] {
+                        color: var(--color-gray);
+                    }
+
+                  
+                    &:hover, &.active {
+                        background-color: var(--color-dark); 
+                        border-color: var(--color-light); 
+                    }
                 }
+
+                .checkbox-container input[type="checkbox"] {
+                    display: none;
+                }
+              
+                .checkbox-container .custom-checkbox {
+                    width: 18px;
+                    height: 18px;
+                    border: 2px solid var(--color-gray);
+                    border-radius: 50%;
+                    margin-right: 8px;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    position: relative;
+                    transition: border-color 0.3s;
+                }
+               
+                .checkbox-container input[type="checkbox"]:checked + .custom-checkbox::after {
+                    content: '';
+                    width: 10px;
+                    height: 10px;
+                    background-color: #fff; 
+                    border-radius: 50%;
+                    position: absolute;
+                }
+                
+                .checkbox-container label {
+                    color: var(--color-gray);
+                    font-size: 16px;
+                    font-weight: 600;
+                    cursor: pointer;
+                }
+
 
                 input {
                     padding: 0;
                 }
+
+                .external {
+                    @include text;
+                    border: none;
+                    border-bottom: 1px solid #DDDDDD;
+                    width: 100%;
+                    padding-left: 15px;
+                    color: var(--color-dark);
+                    font-weight: 500;
+                    font-size: 14px;
+                }
+            }
+
+            .external-warning {
+                display: flex;
+                justify-content: flex-end;
+                @include text;
+                font-weight: 500;
+                color: #FFAB07;
+                font-size: 10px;
+                margin-top: -20px;
+                margin-bottom: 0;
             }
         }
 
         .settings {
             width: 100%;
-            margin-top: 10px;
+            margin-top: 30px;
             margin-bottom: 20px;
 
             .heading {
@@ -132,6 +241,16 @@
                     justify-content: space-between;
                     margin-bottom: 15px;
                     gap: 10px;
+                    text-decoration: none;
+                    color: var(--color-dark);
+
+                    &:hover {
+
+                        .fa-angle-right {
+                            animation: tilt-shaking 0.38s infinite;
+                        }
+                    }
+
 
                     .fa-globe, .fa-bell, .fa-moon, .fa-question {
                         font-size: 20px;
@@ -153,9 +272,10 @@
                     }
 
                     span {
-                        color: var(--color-gray-dark);
+                        color: var(--color-primary);
                         font-size: 14px;
                         margin-right: 1rem;
+                        font-weight: 600;
                     }
 
                     label {
@@ -178,6 +298,3 @@
         }
     }
 }
-
-
-
