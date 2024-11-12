@@ -1,16 +1,18 @@
-﻿
+﻿@rendermode InteractiveServer
+
 <section class="topbar-cart">
     <div class="topbar-container">
         <a href="/productlist" class="nav-btn"><img src="/images/arrow (1).svg" alt=""></a>
-        <a href="/shoppingcart" class="cart-btn">
+        <a href="/cart" class="cart-btn">
             <img src="/images/cart.svg" alt="">
             <div class="itemsin-cart">
-                <p>3</p>
+                <p>@CartItemCounter</p>
             </div>
         </a>
     </div>
 </section>
 
 @code {
-
+    [Parameter]
+    public int CartItemCounter { get; set; }
 }
