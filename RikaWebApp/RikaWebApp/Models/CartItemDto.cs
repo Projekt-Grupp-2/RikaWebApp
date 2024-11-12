@@ -7,4 +7,5 @@ public class CartItemDto
     public Guid ProductId { get; set; }
     public int Quantity { get; set; }
     public double Price { get; set; }
+    public ProductModel? Product { get; set; }
 }

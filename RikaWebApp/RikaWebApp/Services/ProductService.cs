@@ -24,7 +24,6 @@ public class ProductService(HttpClient httpClient, IConfiguration configuration,
 
             return products;
         }
-
         return new List<ProductModel>();
 
     }
@@ -36,7 +35,6 @@ public class ProductService(HttpClient httpClient, IConfiguration configuration,
         var content = await response.Content.ReadAsStringAsync();
         if (response.IsSuccessStatusCode)
         {
-
             var product = JsonConvert.DeserializeObject<ProductModel>(content);
 
             return product;
@@ -76,8 +74,6 @@ public class ProductService(HttpClient httpClient, IConfiguration configuration,
                     // Lägg till den nya produkten i Items-listan
                     shoppingDto.Items.Add(new CartItemDto
                     {
-
-
                         ProductId = productId,
                         Quantity = 1
                     });

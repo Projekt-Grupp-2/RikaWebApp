@@ -7,7 +7,7 @@
 @inject CartService _cartService
 @inject AuthenticationStateProvider AuthenticationStateProvider
 @inject ProductService _productService
-@inject NavigationManager NavigationManager
+
 @page "/cart" 
 
 
@@ -19,23 +19,22 @@
 
         @if (shoppingCart == null)
         {
-           @*  <p>Laddar kundvagn...</p> *@
+            <p>Loading...</p>
         }
         else if (shoppingCart.Items.Count == 0)
         {
-            <p>Din kundvagn är tom.</p>
+            <p>Shopping cart is empty</p>
         }
         else
         {
             @foreach (var item in shoppingCart.Items)
             {
-
                 <div class="cart-item">
                     <img src="#" alt="">
                     <div class="item-details">
-                        <h2>@ProductTitles[item.ProductId]</h2>
-                        <p>Vado Odelle Dress</p>
-                        <span class="item-price">$189.00</span>
+                        <h2>@(item.Product?.Name ?? "Failed to load titel")</h2>
+                        <p>@(item.Product?.ShortDescription ?? "Failed to load description")</p>
+                        <span class="item-price">$189.00@* $@(item.Quantity * item.Price) *@</span>
                     </div>
                     <button class="delete-item" @onclick="() => RemoveProduct(item.ProductId)">
                         <i class="fa-solid fa-trash-can"></i>
@@ -50,8 +49,8 @@
         }
         <PromoCode/>
         <div class="cart-summary">
-            <p>Total (3 items):</p>
-            <p>$500</p>
+             <p>Total items: @shoppingCart?.Items.Sum(item => item.Quantity)</p>
+             <p>$500@* $@shoppingCart?.Items.Sum(item => item.Quantity * item.Price) *@</p>
         </div>
         <a href="/payment" class="btn-dark"> Proceed to Checkout
             <div class="arrow-right"><i class="fa-solid fa-right-long"></i></div>
@@ -60,10 +59,11 @@
 </section>
 
 @code {
-    private ShoppingDto shoppingCart;
-    private IEnumerable<ProductModel> Products { get; set; }
-    private Dictionary<Guid, string> ProductTitles { get; set; } = new Dictionary<Guid, string>();
-    private IEnumerable<PriceModelDto> Prices { get; set; }
+
+    private ShoppingDto shoppingCart = new ShoppingDto { Items = new List<CartItemDto>()};
+    public IEnumerable<ProductModel>? Products { get; set; }
+    public Dictionary<Guid, string> ProductTitles { get; set; } = new Dictionary<Guid, string>();
+    private IEnumerable<PriceModelDto>? Prices { get; set; }
 
     protected override async Task OnInitializedAsync()
     {
@@ -85,7 +85,13 @@
         foreach (var item in shoppingCart.Items)
         {
             var product = Products.FirstOrDefault(p => p.Id == item.ProductId);
-            ProductTitles[item.ProductId] = product?.Name ?? "Titel saknas";
+            // ProductTitles[item.ProductId] = product?.Name ?? "Titel saknas";
+            if(product != null)
+            {
+                item.Product = product;
+                ProductTitles[item.ProductId] = product.Name;
+            }
+            
         }
     }
 
@@ -103,14 +109,26 @@
         var result = await _productService.BuyProduct(productId, userId);
         if (result != null)
         {
-            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
-            // await InvokeAsync(StateHasChanged);
+            shoppingCart = result;
+            shoppingCart.Items = shoppingCart.Items.ToList();
+
+            foreach(var item in shoppingCart.Items)
+            {
+                var product = Products?.FirstOrDefault(p => p.Id == item.ProductId);
+                if(product != null)
+                {
+                    item.Product = product;
+                }
+               
+            }
+
+            await UpdateShoppingCart(userId);
         }
         else
         {
             Console.WriteLine("Köpet misslyckades.");
         }
-        await InvokeAsync(StateHasChanged);
+
     }
 
     private async Task DecrementProduct(Guid ProductId)
@@ -128,7 +146,17 @@
 
         if (result != null)
         {
-            NavigationManager.NavigateTo(NavigationManager.Uri, forceLoad: true);
+            shoppingCart = result;
+            foreach (var item in shoppingCart.Items)
+            {
+                var product = Products?.FirstOrDefault(p => p.Id == item.ProductId);
+                if (product != null)
+                {
+                    item.Product = product;
+                }
+                
+            }
+            StateHasChanged();
         }
         else
         {
@@ -145,7 +173,7 @@
         if (string.IsNullOrEmpty(userIdString) || !Guid.TryParse(userIdString, out var userId))
         {
             Console.WriteLine("Kunde inte hitta eller omvandla UserId.");
-            
+
             return;     
         }
         var result = await _cartService.RemoveItem(ProductId, userId);
@@ -165,20 +193,29 @@
         await InvokeAsync(StateHasChanged);
     }
 
-    // public async Task Price()
-    // {
-    //     Product = await _productService.Get(ProductId);
+    private async Task UpdateShoppingCart(Guid userId)
+    {
+        var updatedCart = await _cartService.GetCart(userId);
+        if(updatedCart != null)
+        {
+            shoppingCart = updatedCart;
+            shoppingCart.Items = shoppingCart.Items.ToList();
 
-    //     if (Product != null && Product.Prices != null)
-    //     {
-    //         // Hämta det första matchande priset från `Prices` som finns i `Product.Prices`
-    //         var price = Product.Prices.Select(p => p.Price1).FirstOrDefault();
-    //         ProductPrice = price;
-    //     }
-    //     else
-    //     {
-    //         // Om produkt eller priser saknas, sätt till null eller valfritt meddelande
-    //         ProductPrice = 0;
-    //     }
-    // }
+            foreach (var item in shoppingCart.Items)
+            {
+                var product = Products?.FirstOrDefault(p => p.Id == item.ProductId);
+                if(product != null)
+                {
+                    item.Product = product;
+                }
+                
+            }
+
+            StateHasChanged();
+        }
+        else
+        {
+            Console.WriteLine("fel vid hämtning av varukorgen");
+        }
+    }
 }

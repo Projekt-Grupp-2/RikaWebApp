@@ -11,30 +11,14 @@
 @* 
 Här ska komponenter laddas in?  
 
-
-Fungerande backend - saknas frontend bara. Grupp 3 was here! 
-
 *@
 
 <ImageSlider productId="@ProductId"/>
 
 <div class="test">
 @* 
-    <div class="col-12 col-md-6">
-        <h1 class="text-primary">@Product.Id</h1>
-    </div>
-
-    <div class="col-12 col-md-6">
-        <h1 class="text-primary">@Product.Name</h1>
-    </div>
-
-    <div class="col-12 col-md-6">
-        <h1 class="text-primary">@Product.LongDescription</h1>
-    </div>
-
-    <div class="col-12 col-md-6">
-        <h1 class="text-primary">@ProductPrice</h1>
-    </div> *@
+    Metoderna nedan behövs för varukorgen i frontend delen /grupp 3
+*@
 
     <button @onclick="HandleBuyProduct">Köp Produkt</button>
 
@@ -49,7 +33,7 @@ Fungerande backend - saknas frontend bara. Grupp 3 was here!
 
     [Parameter]
     public Guid ProductId { get; set; }
-    public decimal? ProductPrice { get; set; } = 0;
+    public decimal? ProductPrice { get; set; }
     private IEnumerable<PriceModelDto> Prices { get; set; }
     public ProductModel Product { get; set; } = new();
     private int ProductQuantity;
@@ -57,7 +41,7 @@ Fungerande backend - saknas frontend bara. Grupp 3 was here!
     protected override async Task OnInitializedAsync()
     {
         Product = await _productService.Get(ProductId);
-        await Price();
+        // await Price();
         Console.WriteLine(Product != null ? "Produkt laddad" : "Produkt ej laddad"); // Kontroll om produkten finns
     }
 
@@ -113,20 +97,20 @@ Fungerande backend - saknas frontend bara. Grupp 3 was here!
         }
     }
 
-    public async Task Price()
-    {
-        Product = await _productService.Get(ProductId);
+    // public async Task Price()
+    // {
+    //     Product = await _productService.Get(ProductId);
 
-        if (Product != null && Product.Prices != null)
-        {
-            // Hämta det första matchande priset från `Prices` som finns i `Product.Prices`
-            var price = Product.Prices.Select(p => p.Price1).FirstOrDefault();
-            ProductPrice = price;
-        }
-        else
-        {
-            // Om produkt eller priser saknas, sätt till null eller valfritt meddelande
-            ProductPrice = 0;
-        }
-    }
+    //     if (Product != null && Product.Prices != null)
+    //     {
+    //         // Hämta det första matchande priset från `Prices` som finns i `Product.Prices`
+    //         var price = Product.Prices.Select(p => p.Price).FirstOrDefault();
+    //         ProductPrice = price;
+    //     }
+    //     else
+    //     {
+    //         // Om produkt eller priser saknas, sätt till null eller valfritt meddelande
+    //         ProductPrice = 0;
+    //     }
+    // }
 }
