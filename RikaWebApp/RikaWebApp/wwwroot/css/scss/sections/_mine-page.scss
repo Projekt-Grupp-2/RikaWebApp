@@ -30,6 +30,7 @@
                 transition: background-color 0.3s, color 0.3s;
                 color: var(--color-light);
 
+
                 i {
                     font-size: 26px;
                 }
@@ -38,6 +39,12 @@
                     background-color: var(--color-gray);
                     color: #333;
                 }
+            }
+
+            img {
+                width: 70px;
+                height: 70px;
+                border-radius: 30px;
             }
 
             .search-bar {
@@ -60,6 +67,7 @@
         h2 {
             padding-top: 20px;
             color: var(--color-dark);
+
             @media (min-width: 992px) {
                 text-align: center;
             }
@@ -300,6 +308,7 @@
                     transition: ease-in-out 0.2s background-color;
                     cursor: pointer;
                     color: var(--color-dark);
+
                     &:hover {
                         background-color: var(--color-dark);
                         color: white;
