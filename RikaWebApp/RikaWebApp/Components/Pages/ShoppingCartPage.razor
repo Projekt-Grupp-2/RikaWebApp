@@ -34,7 +34,22 @@
                     <div class="item-details">
                         <h2>@(item.Product?.Name ?? "Failed to load titel")</h2>
                         <p>@(item.Product?.ShortDescription ?? "Failed to load description")</p>
-                        <span class="item-price">$189.00@* $@(item.Quantity * item.Price) *@</span>
+                        @{
+                            var product = Products?.FirstOrDefault(p => p.Id == item.ProductId);
+                        }
+
+                        @if (product?.Prices != null)
+                        {
+                            @foreach (var price in product.Prices)
+
+                            {
+                                <span class="item-price">$@(price.Price1 * item.Quantity)</span>
+                            }
+                        }
+                        else
+                        {
+                             <h1 class="text-danger">0</h1>
+                        }
                     </div>
                     <button class="delete-item" @onclick="() => RemoveProduct(item.ProductId)">
                         <i class="fa-solid fa-trash-can"></i>
@@ -50,7 +65,7 @@
         <PromoCode/>
         <div class="cart-summary">
              <p>Total items: @shoppingCart?.Items.Sum(item => item.Quantity)</p>
-             <p>$500@* $@shoppingCart?.Items.Sum(item => item.Quantity * item.Price) *@</p>
+             <p>$@OrderTotal</p>
         </div>
         <a href="/payment" class="btn-dark"> Proceed to Checkout
             <div class="arrow-right"><i class="fa-solid fa-right-long"></i></div>
@@ -63,7 +78,8 @@
     private ShoppingDto shoppingCart = new ShoppingDto { Items = new List<CartItemDto>()};
     public IEnumerable<ProductModel>? Products { get; set; }
     public Dictionary<Guid, string> ProductTitles { get; set; } = new Dictionary<Guid, string>();
-    private IEnumerable<PriceModelDto>? Prices { get; set; }
+    private IEnumerable<PriceModelDto>? Prices { get; set; } = new List<PriceModelDto>();
+    private decimal? OrderTotal { get; set; } = 0;
 
     protected override async Task OnInitializedAsync()
     {
@@ -85,8 +101,14 @@
         foreach (var item in shoppingCart.Items)
         {
             var product = Products.FirstOrDefault(p => p.Id == item.ProductId);
+
+
             if(product != null)
             {
+                foreach (var price in product.Prices)
+                {
+                    OrderTotal += price.Price1 * item.Quantity;
+                }
                 item.Product = product;
                 ProductTitles[item.ProductId] = product.Name;
                 CartItemCounter = shoppingCart.Items.Sum(item => item.Quantity);
@@ -119,6 +141,10 @@
                     item.Product = product;
                 }
 
+                foreach (var price in product.Prices)
+                {
+                    OrderTotal += price.Price1 * item.Quantity;
+                }
             }
             await UpdateShoppingCart(userId);
         }
@@ -153,7 +179,10 @@
                 {
                     item.Product = product;
                 }
-
+                foreach (var price in product.Prices)
+                {
+                    OrderTotal += price.Price1 * item.Quantity;
+                }
             }
             StateHasChanged();
         }
@@ -209,7 +238,10 @@
                 {
                     item.Product = product;
                 }
-
+                foreach (var price in product.Prices)
+                {
+                    OrderTotal += price.Price1 * item.Quantity;
+                }
             }
 
             StateHasChanged();
