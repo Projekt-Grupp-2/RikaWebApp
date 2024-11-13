@@ -43,7 +43,7 @@
                             @foreach (var price in product.Prices)
 
                             {
-                                <span class="item-price">$@(price.Price1 * item.Quantity)</span>
+                                <span class="item-price">$@(Convert.ToDecimal(price.Price1 * item.Quantity).ToString("F2"))</span>
                             }
                         }
                         else
@@ -65,7 +65,7 @@
         <PromoCode/>
         <div class="cart-summary">
              <p>Total items: @shoppingCart?.Items.Sum(item => item.Quantity)</p>
-             <p>$@OrderTotal</p>
+             <p>$@(Convert.ToDecimal(OrderTotal).ToString("F2"))</p>
         </div>
         <a href="/payment" class="btn-dark"> Proceed to Checkout
             <div class="arrow-right"><i class="fa-solid fa-right-long"></i></div>
