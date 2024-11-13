@@ -67,7 +67,7 @@
     {
         try
         {
-            var result = await Http.GetFromJsonAsync<ProductModel[]>($"http://localhost:7111/api/GetProducts?categoryName={categoryName}");
+            var result = await Http.GetFromJsonAsync<ProductModel[]>($"https://grupp2-productprovider.azurewebsites.net/api/GetProducts?code=B2bIEhuW_ss-Vc8-WCAupTiyvW9YHbBmhKY-Q5Sld-GFAzFu2E6O5Q%3D%3D&categoryName={categoryName}");
 
             if (result != null && result.Any())
             {
