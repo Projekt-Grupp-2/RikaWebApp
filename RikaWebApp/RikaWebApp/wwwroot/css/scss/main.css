@@ -1364,7 +1364,7 @@ form textarea::placeholder {
   gap: 15px;
   flex-wrap: wrap;
 }
-.mine-section .container .categories .category-list button {
+.mine-section .container .categories .category-list a {
   background-color: transparent;
   border: 2px solid rgba(128, 128, 128, 0.363);
   border-radius: 20px;
@@ -1373,8 +1373,9 @@ form textarea::placeholder {
   transition: ease-in-out 0.2s background-color;
   cursor: pointer;
   color: var(--color-dark);
+  text-decoration: none;
 }
-.mine-section .container .categories .category-list button:hover {
+.mine-section .container .categories .category-list a:hover {
   background-color: var(--color-dark);
   color: white;
 }
