@@ -18,7 +18,7 @@ public class CartService(HttpClient httpClient, IConfiguration configuration)
         try
         {
             // Anropa API:t för att hämta kundvagnen baserat på id (UserId)
-            var response = await _httpClient.GetFromJsonAsync<ShoppingDto>($"https://localhost:7197/api/Shopping/GetUserId/{id}");
+            var response = await _httpClient.GetFromJsonAsync<ShoppingDto>($"https://shoppingcartproviderapp-fzh6d9fjgfhfgqb9.westeurope-01.azurewebsites.net/api/Shopping/GetUserId/{id}");
 
             // Returnera svaret eller en ny DTO om inget hittas
 
@@ -45,7 +45,7 @@ public class CartService(HttpClient httpClient, IConfiguration configuration)
     public async Task<ShoppingDto> DecrementCart(Guid productId, Guid userId)
     {
         // Hämta befintlig kundvagn för användaren
-        var existingCartResponse = await _httpClient.GetAsync($"https://localhost:7197/api/Shopping/GetUserId/{userId}");
+        var existingCartResponse = await _httpClient.GetAsync($"https://shoppingcartproviderapp-fzh6d9fjgfhfgqb9.westeurope-01.azurewebsites.net/api/Shopping/GetUserId/{userId}");
         if (!existingCartResponse.IsSuccessStatusCode)
         {
             Console.WriteLine($"Kundvagn hittades inte för användar-ID: {userId}");
@@ -77,7 +77,7 @@ public class CartService(HttpClient httpClient, IConfiguration configuration)
         // Uppdatera kundvagnen på servern om det har skett en ändring
         var content = JsonConvert.SerializeObject(shoppingDto);
         var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync($"https://localhost:7197/api/Shopping/Update/{userId}", bodyContent);
+        var response = await _httpClient.PostAsync($"https://shoppingcartproviderapp-fzh6d9fjgfhfgqb9.westeurope-01.azurewebsites.net/api/Shopping/Update/{userId}", bodyContent);
        // OnChange?.Invoke();
 
         if (response.IsSuccessStatusCode)
@@ -95,7 +95,7 @@ public class CartService(HttpClient httpClient, IConfiguration configuration)
     public async Task<ShoppingDto> RemoveItem(Guid productId, Guid userId)
     {
         // Hämta befintlig kundvagn för användaren
-        var existingCartResponse = await _httpClient.GetAsync($"https://localhost:7197/api/Shopping/GetUserId/{userId}");
+        var existingCartResponse = await _httpClient.GetAsync($"https://shoppingcartproviderapp-fzh6d9fjgfhfgqb9.westeurope-01.azurewebsites.net/api/Shopping/GetUserId/{userId}");
         if (!existingCartResponse.IsSuccessStatusCode)
         {
             Console.WriteLine($"Kundvagn hittades inte för användar-ID: {userId}");
@@ -120,7 +120,7 @@ public class CartService(HttpClient httpClient, IConfiguration configuration)
         // Uppdatera kundvagnen på servern om det har skett en ändring
         var content = JsonConvert.SerializeObject(shoppingDto);
         var bodyContent = new StringContent(content, Encoding.UTF8, "application/json");
-        var response = await _httpClient.PostAsync($"https://localhost:7197/api/Shopping/Update/{userId}", bodyContent);
+        var response = await _httpClient.PostAsync($"https://shoppingcartproviderapp-fzh6d9fjgfhfgqb9.westeurope-01.azurewebsites.net/Shopping/Update/{userId}", bodyContent);
         //OnChange?.Invoke();
 
         if (response.IsSuccessStatusCode)
