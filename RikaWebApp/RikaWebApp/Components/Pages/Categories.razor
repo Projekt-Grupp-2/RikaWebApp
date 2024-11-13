@@ -56,7 +56,7 @@
     }
     }
 </div>
-
+<FooterSection />
 @code {
     public class CategoryDto
     {
@@ -73,11 +73,11 @@
     {
         try
         {
-            var url = "http://localhost:7111/api/categories/productcount";
+            var url = "https://grupp2-productprovider.azurewebsites.net/api/categories/productcount?code=gqWSXepmo9bbbGWbwpCP54X94QpDwuO0bHN1fSYtWPcdAzFu8TG76A%3D%3D";
             categories = await Http.GetFromJsonAsync<List<CategoryDto>>(url);
             totalProductCount = categories?.Sum(c => c.ProductCount) ?? 0;
 
-            var newArrivalsUrl = "http://localhost:7111/api/products/newarrivals";
+            var newArrivalsUrl = "https://grupp2-productprovider.azurewebsites.net/api/products/newarrivals?code=QTlhNzBtEGtcHklFNNsRmJyv9uDyOrqwwxgro8nwFzRVAzFuCHzkJg%3D%3D";
             var newArrivals = await Http.GetFromJsonAsync<List<ProductDto>>(newArrivalsUrl);
             newArrivalsCount = newArrivals?.Count ?? 0;
         }
