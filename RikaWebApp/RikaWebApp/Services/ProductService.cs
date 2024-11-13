@@ -51,7 +51,7 @@ public class ProductService(HttpClient httpClient, IConfiguration configuration,
         try
         {
             // Hämta befintlig kundvagn för användaren
-            var existingCartResponse = await _httpClient.GetAsync($"https://localhost:7197/api/Shopping/GetUserId/{userId}");
+            var existingCartResponse = await _httpClient.GetAsync($"https://shoppingcartproviderapp-fzh6d9fjgfhfgqb9.westeurope-01.azurewebsites.net/api/Shopping/GetUserId/{userId}");
 
             ShoppingDto shoppingDto;
 
@@ -105,7 +105,7 @@ public class ProductService(HttpClient httpClient, IConfiguration configuration,
                 Console.WriteLine("Body content JSON: " + content);
 
                 // Skicka POST-förfrågan för att skapa eller uppdatera kundvagnen //Felet är här!
-                var response = await _httpClient.PostAsync("https://localhost:7197/api/Shopping/Create", bodyContent);
+                var response = await _httpClient.PostAsync("https://shoppingcartproviderapp-fzh6d9fjgfhfgqb9.westeurope-01.azurewebsites.net/api/Shopping/Create", bodyContent);
 
             }
 
@@ -115,7 +115,7 @@ public class ProductService(HttpClient httpClient, IConfiguration configuration,
             Console.WriteLine("Body content JSON: " + updatecontent);
 
             // Skicka POST-förfrågan för att skapa eller uppdatera kundvagnen //Felet är här!
-            var updateresponse = await _httpClient.PostAsync($"https://localhost:7197/api/Shopping/Update/{userId}", updatebodyContent); ///Shopping/Update/{userId} //Id hittas ej för den letar efter Shopping ID. 
+            var updateresponse = await _httpClient.PostAsync($"https://shoppingcartproviderapp-fzh6d9fjgfhfgqb9.westeurope-01.azurewebsites.net/api/Shopping/Update/{userId}", updatebodyContent); ///Shopping/Update/{userId} //Id hittas ej för den letar efter Shopping ID. 
             //Onchange.Invoke();
             // Kontrollera om förfrågan var framgångsrik
             if (updateresponse.IsSuccessStatusCode)
