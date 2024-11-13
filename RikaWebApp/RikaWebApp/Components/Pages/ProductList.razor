@@ -1,4 +1,4 @@
-﻿@page "/productlist" 
+﻿@page "/productlist/{categoryName}"
 @using RikaWebApp.Models
 @using static System.Net.WebRequestMethods
 @using System.Net.Http.Json
@@ -8,20 +8,19 @@
 @rendermode InteractiveServer
 @attribute [StreamRendering]
 
-<PageTitle>Category Name</PageTitle> @* Titel hämtas från vald kategori *@
+<PageTitle>@categoryName</PageTitle> 
 
 <section class="product-list-section">
     <div class="container">
-        <h5 class="category-title">Clothes</h5> @* Titel hämtas från vald kategori *@
-        <h6 class="error-message">@errorMessage</h6>
+        <h5 class="category-title">@categoryName</h5>
         <div class="product-list">
             @if (!string.IsNullOrEmpty(errorMessage))
             {
-                <h6>@errorMessage</h6>
+                <h4>@errorMessage</h4>
             }
             else if (products == null)
             {
-            <div><i class="fa-sharp fa-solid fa-spinner-third fa-spin"></i></div>
+                <h4>Loading...</h4>
             }
             else
             {
@@ -60,6 +59,7 @@
 </section>
 
 @code {
+    [Parameter] public string? categoryName { get; set; }
     private ProductCardModel[]? products;
     private string? errorMessage;
 
@@ -67,7 +67,7 @@
     {
         try
         {
-            var result = await Http.GetFromJsonAsync<ProductModel[]>("https://grupp2-productprovider.azurewebsites.net/api/GetProducts?code=B2bIEhuW_ss-Vc8-WCAupTiyvW9YHbBmhKY-Q5Sld-GFAzFu2E6O5Q%3D%3D");
+            var result = await Http.GetFromJsonAsync<ProductModel[]>($"https://grupp2-productprovider.azurewebsites.net/api/GetProducts?code=B2bIEhuW_ss-Vc8-WCAupTiyvW9YHbBmhKY-Q5Sld-GFAzFu2E6O5Q%3D%3D&categoryName={categoryName}");
 
             if (result != null && result.Any())
             {
