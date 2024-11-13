@@ -1,0 +1,46 @@
+﻿@using RikaWebApp.Models
+@using static System.Net.WebRequestMethods
+
+@inject HttpClient Http
+<div class="size-container">
+    <h4>Size</h4>
+    @foreach (var value in inputValues)
+    {
+        <input class="size-circular" value="@value" />
+    }
+</div>
+
+
+
+@code {
+    [Parameter] public Guid productId { get; set; }
+    private ProductModel[]? productSizes;
+    private string? errorMessage;
+
+
+    List<string> inputValues = new List<string> { "S", "M", "L" };
+  
+    protected override async Task OnParametersSetAsync()
+    {
+        try
+        {
+            var apiUrl = $"http://localhost:7111/api/warehouse/variants/{productId}";
+            var productSize = await Http.GetFromJsonAsync<ProductModel>(apiUrl);
+
+            if (productSizes != null && productSize.Warehouses != null)
+            {
+                productSizes = productSize.Warehouses.Select(warehouse => new ProductModel
+                    {
+                        Warehouses = new List<SizeModel> { new SizeModel { Name = warehouse.Name } }
+                    }).ToArray();
+            }
+        }
+        catch (Exception ex)
+        {
+            errorMessage = "Failed to load products, try again later";
+            Console.WriteLine(ex);
+        }
+    }
+
+
+}

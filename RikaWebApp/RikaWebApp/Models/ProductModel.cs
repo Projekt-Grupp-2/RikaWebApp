@@ -93,6 +93,7 @@ public class ReviewUpdateRequest
 
     public string? Text { get; set; }
 }
+
 public class SizeModel
 {
     public string? Name { get; set; }
