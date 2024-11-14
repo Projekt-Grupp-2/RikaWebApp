@@ -5,8 +5,7 @@ using Microsoft.AspNetCore.Identity;
 using RikaWebApp.Data;
 using RikaWebApp.Services;
 using System.Security.Claims;
-using System.Threading.Tasks;
-using Xunit;
+
 
 namespace RikaWebApp.Tests.UnitTests
 {
@@ -26,7 +25,7 @@ namespace RikaWebApp.Tests.UnitTests
             _mockAuthenticationStateProvider = new Mock<AuthenticationStateProvider>();
 
             var options = new DbContextOptionsBuilder<ApplicationDbContext>()
-                            .UseInMemoryDatabase("TestDb")
+                            .UseInMemoryDatabase("TestDatabase")
                             .Options;
             _dbContext = new ApplicationDbContext(options);
 
@@ -116,8 +115,8 @@ namespace RikaWebApp.Tests.UnitTests
         public async Task UpdateUserAsync_ShouldUpdateUser_WhenValidUser()
         {
             // Arrange
-            var existingUser = new ApplicationUser { Id = "1", UserName = "testUser", Email = "test@example.com" };
-            var updatedUser = new ApplicationUser { Id = "1", UserName = "newUser", Email = "new@example.com", Name = "New Name" };
+            var existingUser = new ApplicationUser { Id = "1", UserName = "testUser", Email = "test@domain.com" };
+            var updatedUser = new ApplicationUser { Id = "1", UserName = "newUser", Email = "new@domain.com", Name = "New Name" };
 
             var claimsIdentity = new ClaimsIdentity(new[] {
                 new Claim(ClaimTypes.NameIdentifier, "1"),
